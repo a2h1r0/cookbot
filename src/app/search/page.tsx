@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import SwipeStack, { SwipeStackRef } from '@/components/search/SwipeStack';
 import SwipeActions from '@/components/search/SwipeActions';
@@ -17,9 +18,11 @@ interface SearchFilter {
 }
 
 export default function SearchPage() {
+  const router = useRouter();
   const swipeStackRef = useRef<SwipeStackRef>(null);
   const [likedRecipes, setLikedRecipes] = useState<Recipe[]>([]);
-  const [passedRecipes, setPassedRecipes] = useState<Recipe[]>([]);  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
+  const [passedRecipes, setPassedRecipes] = useState<Recipe[]>([]);
+  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
     categories: [],
     cookTimes: [],
     difficulties: [],
@@ -109,7 +112,7 @@ export default function SearchPage() {
           return recipe.servings === servingFilter;
         });
         if (!matchesServing) return false;
-      }      // 手持ちの食材フィルター
+      } // 手持ちの食材フィルター
       if (searchFilters.hasIngredientsFilter) {
         // 手持ちの基本的な材料で作れそうなレシピかチェック
         // 卵料理、簡単なパスタ、基本的な和食などを対象
@@ -137,10 +140,11 @@ export default function SearchPage() {
   useEffect(() => {
     swipeStackRef.current?.restart();
   }, [searchFilters]);
-
   const handleLike = (recipe: Recipe) => {
     setLikedRecipes((prev) => [...prev, recipe]);
     console.log('Liked:', recipe.title);
+    // レシピ詳細ページに遷移（レシピデータをクエリパラメータで渡す）
+    router.push(`/recipe?id=${recipe.id}`);
   };
 
   const handlePass = (recipe: Recipe) => {

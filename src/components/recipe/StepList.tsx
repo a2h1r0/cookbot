@@ -1,14 +1,14 @@
-const steps = [
-  '材料Aを下準備します。適当な大きさに切っておきます。',
-  'フライパンに調味料Cを入れて、材料Bと一緒に炒めます。',
-  '調味料Dで味を整えて、お皿に盛り付けたら完成です！',
-];
+import { Recipe } from '@/types';
 
-export default function StepList() {
+interface StepListProps {
+  recipe: Recipe;
+}
+
+export default function StepList({ recipe }: StepListProps) {
   return (
     <div className="mb-6">
       <h3 className="text-lg font-bold text-gray-800 mb-3">作り方</h3>
-      {steps.map((step, index) => (
+      {recipe.steps.map((step, index) => (
         <div key={index} className="mb-6">
           <div className="flex items-start mb-3">
             <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1">
