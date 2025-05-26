@@ -10,20 +10,8 @@ export async function searchRecipes(query: string) {
       };
     }
 
-    // タイトル、説明、材料名で検索
-    const searchResults = mockRecipes.filter((recipe) => {
-      const titleMatch = recipe.title
-        .toLowerCase()
-        .includes(query.toLowerCase());
-      const descriptionMatch = recipe.description
-        .toLowerCase()
-        .includes(query.toLowerCase());
-      const ingredientMatch = recipe.ingredients.some((ingredient) =>
-        ingredient.name.toLowerCase().includes(query.toLowerCase())
-      );
-
-      return titleMatch || descriptionMatch || ingredientMatch;
-    });
+    // TODO: ここで実際のデータベースやAPIを呼び出して検索を行う
+    const searchResults = mockRecipes;
 
     return {
       success: true,

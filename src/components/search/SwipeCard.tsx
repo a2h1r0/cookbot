@@ -101,13 +101,7 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
             src={recipe.image}
             alt={recipe.title}
             className="w-full h-full object-cover"
-            draggable={false}
-          />
-          <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-md">
-            <span className="text-sm font-medium text-gray-700">
-              {recipe.difficulty}
-            </span>
-          </div>
+            draggable={false}          />
         </div>
 
         {/* レシピ情報 */}

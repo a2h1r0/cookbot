@@ -6,7 +6,6 @@ import { ChevronDown, ChevronUp, Clock, Users } from 'lucide-react';
 interface SearchFilter {
   categories: string[];
   cookTimes: string[];
-  difficulties: string[];
   servings: number[];
   hasIngredientsFilter: boolean;
 }

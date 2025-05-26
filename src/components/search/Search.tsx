@@ -6,7 +6,6 @@ import BasicFilter from './BasicFilter';
 interface SearchFilter {
   categories: string[];
   cookTimes: string[];
-  difficulties: string[];
   servings: number[];
   hasIngredientsFilter: boolean;
 }

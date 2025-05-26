@@ -6,7 +6,6 @@ import { ChevronDown, ChevronUp, Carrot } from 'lucide-react';
 interface SearchFilter {
   categories: string[];
   cookTimes: string[];
-  difficulties: string[];
   servings: number[];
   hasIngredientsFilter: boolean; // TODO: たぶんここがingredientsでstring[]を返す．選択された食材一覧．
 }

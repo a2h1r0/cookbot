@@ -9,7 +9,6 @@ export const mockRecipes: Recipe[] = [
     image: 'https://picsum.photos/400/300?random=1',
     cookTime: '15',
     servings: 2,
-    difficulty: '簡単',
     ingredients: [
       { name: '薄力粉', amount: '100g' },
       { name: '卵', amount: '1個' },
@@ -31,11 +30,10 @@ export const mockRecipes: Recipe[] = [
     id: '2',
     title: '本格カルボナーラ',
     description:
-      '生クリームを使わない、本場イタリアの味を再現したカルボナーラ。卵とチーズだけで作る濃厚なソースが絶品です。',
+      '生クリームを使わない本場イタリアの味を再現したカルボナーラ。卵とチーズだけで作る濃厚なソースが絶品です。',
     image: 'https://picsum.photos/400/300?random=2',
     cookTime: '20',
     servings: 2,
-    difficulty: '普通',
     ingredients: [
       { name: 'スパゲッティ', amount: '200g' },
       { name: 'ベーコン', amount: '100g' },
@@ -47,7 +45,7 @@ export const mockRecipes: Recipe[] = [
     steps: [
       'パスタを茹で始める',
       'ベーコンを細切りにして炒める',
-      'ボウルで卵黄とチーズ、黒胡椒を混ぜる',
+      'ボウルで卵黄、チーズ、黒胡椒を混ぜる',
       '茹で上がったパスタをベーコンのフライパンに入れる',
       '火を止めて卵液を加え、手早く混ぜる',
       '皿に盛って完成',
@@ -61,7 +59,6 @@ export const mockRecipes: Recipe[] = [
     image: 'https://picsum.photos/400/300?random=3',
     cookTime: '30',
     servings: 4,
-    difficulty: '普通',
     ingredients: [
       { name: '合いびき肉', amount: '400g' },
       { name: '玉ねぎ', amount: '1個' },
@@ -83,11 +80,10 @@ export const mockRecipes: Recipe[] = [
     id: '4',
     title: 'チョコレートケーキ',
     description:
-      'しっとり濃厚なチョコレートケーキ。特別な日のデザートにぴったり。生クリームとベリーを添えて贅沢な仕上がりに。',
+      'しっとり濃厚なチョコレートケーキ。特別な日のデザートにぴったり。生クリームとベリーを添えて華やかな仕上がりに。',
     image: 'https://picsum.photos/400/300?random=4',
     cookTime: '60',
     servings: 8,
-    difficulty: '難しい',
     ingredients: [
       { name: 'チョコレート', amount: '200g' },
       { name: 'バター', amount: '100g' },
@@ -113,7 +109,6 @@ export const mockRecipes: Recipe[] = [
     image: 'https://picsum.photos/400/300?random=5',
     cookTime: '25',
     servings: 3,
-    difficulty: '普通',
     ingredients: [
       { name: 'エビ', amount: '200g' },
       { name: '長ねぎ', amount: '1本' },
@@ -139,7 +134,6 @@ export const mockRecipes: Recipe[] = [
     image: 'https://picsum.photos/400/300?random=6',
     cookTime: '10',
     servings: 2,
-    difficulty: '簡単',
     ingredients: [
       { name: 'トマト', amount: '2個' },
       { name: 'モッツァレラチーズ', amount: '150g' },
@@ -161,11 +155,10 @@ export const mockRecipes: Recipe[] = [
     id: '7',
     title: '親子丼',
     description:
-      'ふわふわ卵と鶏肉の優しい味わいの親子丼。だしの効いたつゆでご飯が進みます。忙しい日のランチにもおすすめです。',
+      'ふわふわ卵と鶏肉の優しい味わいの親子丼。だしが効いたつゆでご飯が進みます。忙しい日のランチにもおすすめです。',
     image: 'https://picsum.photos/400/300?random=7',
     cookTime: '15',
     servings: 2,
-    difficulty: '簡単',
     ingredients: [
       { name: '鶏もも肉', amount: '200g' },
       { name: '卵', amount: '3個' },
@@ -191,7 +184,6 @@ export const mockRecipes: Recipe[] = [
     image: 'https://picsum.photos/400/300?random=8',
     cookTime: '20',
     servings: 2,
-    difficulty: '普通',
     ingredients: [
       { name: '豚ひき肉', amount: '200g' },
       { name: 'バジル', amount: '20枚' },
@@ -213,11 +205,10 @@ export const mockRecipes: Recipe[] = [
     id: '9',
     title: 'フルーツタルト',
     description:
-      'サクサクのタルト生地に季節のフルーツをたっぷりのせた贅沢なデザート。見た目も華やかでパーティーにぴったりです。',
+      'サクサクのタルト生地に季節のフルーツをたっぷりのせた華やかなデザート。見た目も美しくパーティーにぴったりです。',
     image: 'https://picsum.photos/400/300?random=9',
     cookTime: '90',
     servings: 6,
-    difficulty: '難しい',
     ingredients: [
       { name: '薄力粉', amount: '150g' },
       { name: 'バター', amount: '80g' },
@@ -239,11 +230,10 @@ export const mockRecipes: Recipe[] = [
     id: '10',
     title: 'ミネストローネ',
     description:
-      '野菜たっぷりのヘルシーなミネストローネ。トマトベースのスープで体も温まります。パンと一緒に食べるのがおすすめです。',
+      '野菜たっぷりでヘルシーなミネストローネ。トマトベースのスープで体も温まります。パンと一緒に食べるのがおすすめです。',
     image: 'https://picsum.photos/400/300?random=10',
     cookTime: '45',
     servings: 4,
-    difficulty: '普通',
     ingredients: [
       { name: '玉ねぎ', amount: '1個' },
       { name: 'にんじん', amount: '1本' },
@@ -269,7 +259,6 @@ export const mockRecipes: Recipe[] = [
     image: 'https://picsum.photos/400/300?random=11',
     cookTime: '25',
     servings: 3,
-    difficulty: '普通',
     ingredients: [
       { name: '鶏もも肉', amount: '400g' },
       { name: '醤油', amount: '大さじ2' },

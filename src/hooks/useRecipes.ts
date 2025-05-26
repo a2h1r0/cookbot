@@ -4,7 +4,6 @@ import { Recipe } from '@/types';
 interface SearchFilter {
   categories: string[];
   cookTimes: string[];
-  difficulties: string[];
   servings: number[];
   hasIngredientsFilter: boolean;
 }
@@ -42,13 +41,7 @@ export function useRecipes(searchFilters: SearchFilter) {
             return category;
         }
       });
-      queryParts.push(...categoryTerms);
-    }
-
-    // 難易度フィルターをクエリに追加
-    if (searchFilters.difficulties.length > 0) {
-      queryParts.push(...searchFilters.difficulties);
-    }
+      queryParts.push(...categoryTerms);    }
 
     // 手持ち食材フィルター
     if (searchFilters.hasIngredientsFilter) {

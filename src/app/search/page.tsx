@@ -12,7 +12,6 @@ import { Recipe } from '@/types';
 interface SearchFilter {
   categories: string[];
   cookTimes: string[];
-  difficulties: string[];
   servings: number[];
   hasIngredientsFilter: boolean;
 }
@@ -21,11 +20,9 @@ export default function SearchPage() {
   const router = useRouter();
   const swipeStackRef = useRef<SwipeStackRef>(null);
   const [likedRecipes, setLikedRecipes] = useState<Recipe[]>([]);
-  const [passedRecipes, setPassedRecipes] = useState<Recipe[]>([]);
-  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
+  const [passedRecipes, setPassedRecipes] = useState<Recipe[]>([]);  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
     categories: [],
     cookTimes: [],
-    difficulties: [],
     servings: [],
     hasIngredientsFilter: false,
   });
