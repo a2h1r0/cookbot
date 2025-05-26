@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/layout/Header';
+import AppLayout from '@/components/layout/AppLayout';
 import SwipeStack, { SwipeStackRef } from '@/components/search/SwipeStack';
 import SwipeActions from '@/components/search/SwipeActions';
 import Search from '@/components/search/Search';
@@ -54,55 +54,47 @@ export default function SearchPage() {
     swipeStackRef.current?.undo();
   };
 
-  const canUndo = swipeStackRef.current?.canUndo() ?? false;
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
-      <div>
-        <Header />{' '}
-        <main className="max-w-md mx-auto mt-8">
-          {' '}
-          {/* 検索フィルター */}
-          <Search
-            onFilterChange={setSearchFilters}
-            activeFilters={searchFilters}
-          />
-          {/* フィルター結果表示 */}
-          {loading && (
-            <div className="text-center mb-4">
-              <span className="text-sm text-gray-600">
-                レシピを読み込み中...
-              </span>
-            </div>
-          )}
-          {error && (
-            <div className="text-center mb-4">
-              <span className="text-sm text-red-600">エラー: {error}</span>
-            </div>
-          )}
-          {!loading && !error && recipes.length === 0 && (
-            <div className="text-center mb-4">
-              <span className="text-sm text-gray-600">
-                条件に合うレシピが見つかりませんでした
-              </span>
-            </div>
-          )}
-          {/* スワイプカードスタック */}
-          <SwipeStack
-            ref={swipeStackRef}
-            recipes={recipes}
-            onLike={handleLike}
-            onPass={handlePass}
-          />{' '}
-          {/* スワイプアクション */}
-          <SwipeActions
-            onPass={handlePassAction}
-            onLike={handleLikeAction}
-            onUndo={handleUndo}
-            canUndo={canUndo}
-          />
-        </main>
+  const canUndo = swipeStackRef.current?.canUndo() ?? false;  return (
+    <AppLayout>
+      <div className="mt-8">
+        {/* 検索フィルター */}
+        <Search
+          onFilterChange={setSearchFilters}
+          activeFilters={searchFilters}
+        />
+        {/* フィルター結果表示 */}
+        {loading && (
+          <div className="text-center mb-4">
+            <span className="text-sm text-gray-600">レシピを読み込み中...</span>
+          </div>
+        )}
+        {error && (
+          <div className="text-center mb-4">
+            <span className="text-sm text-red-600">エラー: {error}</span>
+          </div>
+        )}
+        {!loading && !error && recipes.length === 0 && (
+          <div className="text-center mb-4">
+            <span className="text-sm text-gray-600">
+              条件に合うレシピが見つかりませんでした
+            </span>
+          </div>
+        )}
+        {/* スワイプカードスタック */}
+        <SwipeStack
+          ref={swipeStackRef}
+          recipes={recipes}
+          onLike={handleLike}
+          onPass={handlePass}
+        />
+        {/* スワイプアクション */}
+        <SwipeActions
+          onPass={handlePassAction}
+          onLike={handleLikeAction}
+          onUndo={handleUndo}
+          canUndo={canUndo}
+        />
       </div>
-    </div>
+    </AppLayout>
   );
 }

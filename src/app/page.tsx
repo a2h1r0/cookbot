@@ -1,10 +1,11 @@
+import AppLayout from '@/components/layout/AppLayout';
+
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Main Content */}
-      <main className="px-4 py-4 pb-20">
+    <AppLayout>
+      <div className="px-4 py-4">
         ホームページのコンテンツがここに入ります。
-      </main>
-    </div>
+      </div>
+    </AppLayout>
   );
 }
