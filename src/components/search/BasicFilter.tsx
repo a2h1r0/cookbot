@@ -7,29 +7,18 @@ import { useFilters } from '@/hooks/useFilters';
 export default function BasicFilter() {
   const [isExpanded, setIsExpanded] = useState(false);
   const { filters, updateCookTime, updateServing } = useFilters();
-
   const cookTimes = [
-    { id: '10', label: '10分以内' },
-    { id: '20', label: '20分以内' },
-    { id: '30', label: '30分以内' },
-    { id: '60', label: '1時間以内' },
-    { id: '60+', label: '1時間以上' },
+    '10分以内',
+    '20分以内',
+    '30分以内',
+    '1時間以内',
+    '1時間以上',
   ];
-
-  const servings = [
-    { id: 1, label: '1人分' },
-    { id: 2, label: '2人分' },
-    { id: 3, label: '3人分' },
-    { id: 4, label: '4人分以上' },
-  ];
+  const servings = ['1人分', '2人分', '3人分', '4人分以上'];
 
   // 選択中の項目を取得
-  const selectedCookTime = cookTimes.find(
-    (time) => filters.cookTime === time.id
-  );
-  const selectedServing = servings.find(
-    (serving) => filters.serving === serving.id
-  );
+  const selectedCookTime = filters.cookTime;
+  const selectedServing = filters.serving;
 
   const hasActiveFilters = selectedCookTime || selectedServing;
 
@@ -44,17 +33,17 @@ export default function BasicFilter() {
           <Clock className="w-4 h-4 text-orange-500" />
           <span className="font-medium text-gray-800 text-sm">
             調理時間・人数
-          </span>
+          </span>{' '}
           {hasActiveFilters && (
             <div className="flex items-center space-x-1">
               {selectedCookTime && (
                 <div className="bg-orange-100 text-orange-700 text-xs px-2 py-0.5 rounded-full font-medium">
-                  {selectedCookTime.label}
+                  {selectedCookTime}
                 </div>
               )}
               {selectedServing && (
                 <div className="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full font-medium">
-                  {selectedServing.label}
+                  {selectedServing}
                 </div>
               )}
             </div>
@@ -78,19 +67,19 @@ export default function BasicFilter() {
                 <h3 className="text-xs font-medium text-gray-700 uppercase tracking-wide">
                   調理時間
                 </h3>
-              </div>
+              </div>{' '}
               <div className="flex flex-wrap gap-1">
                 {cookTimes.map((time) => (
                   <button
-                    key={time.id}
-                    onClick={() => updateCookTime(time.id)}
+                    key={time}
+                    onClick={() => updateCookTime(time)}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                      filters.cookTime === time.id
+                      filters.cookTime === time
                         ? 'bg-orange-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-orange-100 hover:text-orange-700'
                     }`}
                   >
-                    {time.label}
+                    {time}
                   </button>
                 ))}
               </div>
@@ -106,19 +95,19 @@ export default function BasicFilter() {
                 <h3 className="text-xs font-medium text-gray-700 uppercase tracking-wide">
                   人数
                 </h3>
-              </div>
+              </div>{' '}
               <div className="flex flex-wrap gap-1">
                 {servings.map((serving) => (
                   <button
-                    key={serving.id}
-                    onClick={() => updateServing(serving.id)}
+                    key={serving}
+                    onClick={() => updateServing(serving)}
                     className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                      filters.serving === serving.id
+                      filters.serving === serving
                         ? 'bg-purple-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-purple-100 hover:text-purple-700'
                     }`}
                   >
-                    {serving.label}
+                    {serving}
                   </button>
                 ))}
               </div>

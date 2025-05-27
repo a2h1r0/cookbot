@@ -4,7 +4,7 @@ import { SearchFilter } from '@/types';
 export function useFilters() {
   const [filters, setFilters] = useState<SearchFilter>({
     cookTime: '',
-    serving: 0,
+    serving: '',
     hasIngredientsFilter: false,
     ingredients: [],
   });
@@ -14,8 +14,8 @@ export function useFilters() {
     if (!filters.cookTime && !filters.serving) {
       setFilters((prev) => ({
         ...prev,
-        cookTime: '30', // デフォルト: 30分以内
-        serving: 2, // デフォルト: 2人分
+        cookTime: '30分以内', // デフォルト: 30分以内
+        serving: '2人分', // デフォルト: 2人分
       }));
     }
   }, []);
@@ -26,7 +26,7 @@ export function useFilters() {
   };
 
   // 人数を更新
-  const updateServing = (serving: number) => {
+  const updateServing = (serving: string) => {
     setFilters((prev) => ({ ...prev, serving }));
   };
 
@@ -52,12 +52,11 @@ export function useFilters() {
       hasIngredientsFilter: newIngredients.length > 0,
     }));
   };
-
   // 全てのフィルターをリセット
   const resetFilters = () => {
     setFilters({
-      cookTime: '30',
-      serving: 2,
+      cookTime: '30分以内',
+      serving: '2人分',
       hasIngredientsFilter: false,
       ingredients: [],
     });

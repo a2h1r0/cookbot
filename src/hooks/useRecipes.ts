@@ -43,19 +43,19 @@ export function useRecipes(searchFilters: SearchFilter) {
           let matchesTime = false;
 
           switch (timeFilter) {
-            case '10':
+            case '10分以内':
               matchesTime = cookTimeMinutes <= 10;
               break;
-            case '20':
+            case '20分以内':
               matchesTime = cookTimeMinutes <= 20;
               break;
-            case '30':
+            case '30分以内':
               matchesTime = cookTimeMinutes <= 30;
               break;
-            case '60':
+            case '1時間以内':
               matchesTime = cookTimeMinutes <= 60;
               break;
-            case '60+':
+            case '1時間以上':
               matchesTime = cookTimeMinutes > 60;
               break;
             default:
@@ -68,10 +68,12 @@ export function useRecipes(searchFilters: SearchFilter) {
           const servingFilter = searchFilters.serving;
           let matchesServing = false;
 
-          if (servingFilter === 4) {
+          if (servingFilter === '4人分以上') {
             matchesServing = recipe.servings >= 4;
           } else {
-            matchesServing = recipe.servings === servingFilter;
+            // '1人分' -> 1, '2人分' -> 2, '3人分' -> 3 に変換
+            const servingNumber = parseInt(servingFilter.replace('人分', ''));
+            matchesServing = recipe.servings === servingNumber;
           }
 
           if (!matchesServing) return false;

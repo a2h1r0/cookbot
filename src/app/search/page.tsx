@@ -47,7 +47,9 @@ export default function SearchPage() {
   const canUndo = swipeStackRef.current?.canUndo() ?? false;
   return (
     <AppLayout>
-      <div className="mt-2 mx-4">        {/* 検索フィルター */}
+      <div className="mt-2 mx-4">
+        {' '}
+        {/* 検索フィルター */}
         <div className="mb-4">
           <Search />
         </div>
