@@ -9,7 +9,7 @@ interface SwipeStackProps {
   recipes: Recipe[];
   onLike: (recipe: Recipe) => void;
   onPass: (recipe: Recipe) => void;
-  onComplete?: (likedCount: number, passedCount: number) => void;
+  onComplete?: () => void;
 }
 
 export interface SwipeStackRef {
@@ -26,18 +26,15 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
     const [swipeHistory, setSwipeHistory] = useState<
       Array<{ recipe: Recipe; direction: 'left' | 'right' }>
     >([]);
-    const [likedCount, setLikedCount] = useState(0);
-    const [passedCount, setPassedCount] = useState(0);
+
     const handleSwipe = (direction: 'left' | 'right', recipe: Recipe) => {
       // スワイプ履歴に追加
       setSwipeHistory((prev) => [...prev, { recipe, direction }]);
 
-      // カウントを更新
+      // コールバックを実行
       if (direction === 'right') {
-        setLikedCount((prev) => prev + 1);
         onLike(recipe);
       } else {
-        setPassedCount((prev) => prev + 1);
         onPass(recipe);
       }
 
@@ -47,24 +44,11 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
 
       // 完了チェック
       if (nextIndex >= recipes.length && onComplete) {
-        const finalLikedCount =
-          direction === 'right' ? likedCount + 1 : likedCount;
-        const finalPassedCount =
-          direction === 'left' ? passedCount + 1 : passedCount;
-        onComplete(finalLikedCount, finalPassedCount);
+        onComplete();
       }
     };
     const handleUndo = () => {
       if (swipeHistory.length === 0 || currentIndex === 0) return;
-
-      const lastSwipe = swipeHistory[swipeHistory.length - 1];
-
-      // カウントを戻す
-      if (lastSwipe.direction === 'right') {
-        setLikedCount((prev) => prev - 1);
-      } else {
-        setPassedCount((prev) => prev - 1);
-      }
 
       setSwipeHistory((prev) => prev.slice(0, -1));
       setCurrentIndex((prev) => prev - 1);
@@ -86,8 +70,6 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
       restart: () => {
         setCurrentIndex(0);
         setSwipeHistory([]);
-        setLikedCount(0);
-        setPassedCount(0);
       },
     }));
 
@@ -97,23 +79,11 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
       const handleRestart = () => {
         setCurrentIndex(0);
         setSwipeHistory([]);
-        setLikedCount(0);
-        setPassedCount(0);
-      };
-
-      const handleViewLiked = () => {
-        // お気に入りレシピ表示のロジック（後で実装）
-        console.log('View liked recipes');
       };
 
       return (
         <div className="h-96 flex items-center justify-center">
-          <SwipeCompletion
-            likedCount={likedCount}
-            passedCount={passedCount}
-            onRestart={handleRestart}
-            onViewLiked={handleViewLiked}
-          />
+          <SwipeCompletion onRestart={handleRestart} />
         </div>
       );
     }
