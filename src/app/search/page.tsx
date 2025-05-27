@@ -11,11 +11,11 @@ import { Recipe, SearchFilter } from '@/types';
 
 export default function SearchPage() {
   const router = useRouter();
-  const swipeStackRef = useRef<SwipeStackRef>(null);
-  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
+  const swipeStackRef = useRef<SwipeStackRef>(null);  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
     cookTime: '',
     serving: 0,
     hasIngredientsFilter: false,
+    ingredients: [],
   });
 
   // カスタムフックを使用してレシピを取得

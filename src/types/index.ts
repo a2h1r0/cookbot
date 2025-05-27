@@ -33,6 +33,7 @@ export interface SearchFilter {
   cookTime: string; // 単一選択に変更
   serving: number; // 単一選択に変更
   hasIngredientsFilter: boolean;
+  ingredients: string[]; // 入力された食材のリスト
 }
 
 export interface FilterOptions {

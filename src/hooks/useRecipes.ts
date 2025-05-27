@@ -4,19 +4,18 @@ import { Recipe, SearchFilter } from '@/types';
 export function useRecipes(searchFilters: SearchFilter) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  // フィルター条件を検索クエリに変換
+  const [error, setError] = useState<string | null>(null); // フィルター条件を検索クエリに変換
   const searchQuery = useMemo(() => {
     const queryParts: string[] = [];
 
     // 手持ち食材フィルター
-    if (searchFilters.hasIngredientsFilter) {
-      queryParts.push('親子丼 カルボナーラ 唐揚げ ハンバーグ パンケーキ');
+    if (searchFilters.ingredients.length > 0) {
+      queryParts.push(...searchFilters.ingredients);
     }
 
     // 何もフィルターがない場合は空文字列を返す（全件取得）
     return queryParts.length > 0 ? queryParts.join(' ') : '';
-  }, [searchFilters]);
+  }, [searchFilters.ingredients]);
 
   // レシピを取得する関数
   const fetchRecipes = async () => {
@@ -64,9 +63,7 @@ export function useRecipes(searchFilters: SearchFilter) {
           }
 
           if (!matchesTime) return false;
-        }
-
-        // 人数フィルター
+        } // 人数フィルター
         if (searchFilters.serving) {
           const servingFilter = searchFilters.serving;
           let matchesServing = false;
@@ -80,6 +77,20 @@ export function useRecipes(searchFilters: SearchFilter) {
           if (!matchesServing) return false;
         }
 
+        // 食材フィルター
+        if (searchFilters.ingredients.length > 0) {
+          const hasMatchingIngredient = searchFilters.ingredients.some(
+            (ingredient) =>
+              recipe.ingredients.some((recipeIngredient) =>
+                recipeIngredient.name
+                  .toLowerCase()
+                  .includes(ingredient.toLowerCase())
+              ) || recipe.title.toLowerCase().includes(ingredient.toLowerCase())
+          );
+
+          if (!hasMatchingIngredient) return false;
+        }
+
         return true;
       });
 
@@ -89,11 +100,15 @@ export function useRecipes(searchFilters: SearchFilter) {
     } finally {
       setLoading(false);
     }
-  };
-  // フィルターが変更されたらレシピを再取得
+  }; // フィルターが変更されたらレシピを再取得
   useEffect(() => {
     fetchRecipes();
-  }, [searchQuery, searchFilters.cookTime, searchFilters.serving]);
+  }, [
+    searchQuery,
+    searchFilters.cookTime,
+    searchFilters.serving,
+    searchFilters.ingredients,
+  ]);
 
   return {
     recipes,
