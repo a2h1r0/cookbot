@@ -32,71 +32,9 @@ export function useRecipes(searchFilters: SearchFilter) {
         throw new Error(data.error || 'レシピの取得に失敗しました');
       }
 
-      let fetchedRecipes = data.data || [];
+      let recipes = data.data || [];
 
-      // クライアントサイドで追加フィルタリング
-      fetchedRecipes = fetchedRecipes.filter((recipe: Recipe) => {
-        // 調理時間フィルター
-        if (searchFilters.cookTime) {
-          const cookTimeMinutes = parseInt(recipe.cookTime);
-          const timeFilter = searchFilters.cookTime;
-          let matchesTime = false;
-
-          switch (timeFilter) {
-            case '10分以内':
-              matchesTime = cookTimeMinutes <= 10;
-              break;
-            case '20分以内':
-              matchesTime = cookTimeMinutes <= 20;
-              break;
-            case '30分以内':
-              matchesTime = cookTimeMinutes <= 30;
-              break;
-            case '1時間以内':
-              matchesTime = cookTimeMinutes <= 60;
-              break;
-            case '1時間以上':
-              matchesTime = cookTimeMinutes > 60;
-              break;
-            default:
-              matchesTime = true;
-          }
-
-          if (!matchesTime) return false;
-        } // 人数フィルター
-        if (searchFilters.serving) {
-          const servingFilter = searchFilters.serving;
-          let matchesServing = false;
-
-          if (servingFilter === '4人分以上') {
-            matchesServing = recipe.servings >= 4;
-          } else {
-            // '1人分' -> 1, '2人分' -> 2, '3人分' -> 3 に変換
-            const servingNumber = parseInt(servingFilter.replace('人分', ''));
-            matchesServing = recipe.servings === servingNumber;
-          }
-
-          if (!matchesServing) return false;
-        }
-
-        // 食材フィルター
-        if (searchFilters.ingredients.length > 0) {
-          const hasMatchingIngredient = searchFilters.ingredients.some(
-            (ingredient) =>
-              recipe.ingredients.some((recipeIngredient) =>
-                recipeIngredient.name
-                  .toLowerCase()
-                  .includes(ingredient.toLowerCase())
-              ) || recipe.title.toLowerCase().includes(ingredient.toLowerCase())
-          );
-
-          if (!hasMatchingIngredient) return false;
-        }
-
-        return true;
-      });
-
-      setRecipes(fetchedRecipes);
+      setRecipes(recipes);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'エラーが発生しました');
     } finally {
