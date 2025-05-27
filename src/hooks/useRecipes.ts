@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo } from 'react';
 import { Recipe } from '@/types';
 
 interface SearchFilter {
-  categories: string[];
   cookTimes: string[];
   servings: number[];
   hasIngredientsFilter: boolean;
@@ -12,36 +11,9 @@ export function useRecipes(searchFilters: SearchFilter) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   // フィルター条件を検索クエリに変換
   const searchQuery = useMemo(() => {
     const queryParts: string[] = [];
-
-    // カテゴリフィルターをクエリに追加
-    if (searchFilters.categories.length > 0) {
-      const categoryTerms = searchFilters.categories.map((category) => {
-        switch (category) {
-          case 'japanese':
-            return '和食 親子丼 唐揚げ';
-          case 'western':
-            return '洋食 パンケーキ ハンバーグ';
-          case 'italian':
-            return 'イタリアン カルボナーラ カプレーゼ';
-          case 'thai':
-            return 'タイ料理 ガパオ';
-          case 'chinese':
-            return '中華 エビチリ';
-          case 'dessert':
-            return 'デザート ケーキ タルト';
-          case 'salad':
-            return 'サラダ';
-          case 'soup':
-            return 'スープ ミネストローネ';
-          default:
-            return category;
-        }
-      });
-      queryParts.push(...categoryTerms);    }
 
     // 手持ち食材フィルター
     if (searchFilters.hasIngredientsFilter) {

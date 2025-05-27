@@ -30,7 +30,6 @@ export interface Category {
 }
 
 export interface FilterOptions {
-  categories: Category[];
   difficulties: Category[];
   cookTimes: Category[];
 }

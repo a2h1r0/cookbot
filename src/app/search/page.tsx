@@ -10,7 +10,6 @@ import { useRecipes } from '@/hooks/useRecipes';
 import { Recipe } from '@/types';
 
 interface SearchFilter {
-  categories: string[];
   cookTimes: string[];
   servings: number[];
   hasIngredientsFilter: boolean;
@@ -18,9 +17,7 @@ interface SearchFilter {
 
 export default function SearchPage() {
   const router = useRouter();
-  const swipeStackRef = useRef<SwipeStackRef>(null);
-  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
-    categories: [],
+  const swipeStackRef = useRef<SwipeStackRef>(null);  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
     cookTimes: [],
     servings: [],
     hasIngredientsFilter: false,

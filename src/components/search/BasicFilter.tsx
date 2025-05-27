@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp, Clock, Users } from 'lucide-react';
 
 interface SearchFilter {
-  categories: string[];
   cookTimes: string[];
   servings: number[];
   hasIngredientsFilter: boolean;

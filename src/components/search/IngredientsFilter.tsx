@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, Carrot } from 'lucide-react';
 
 interface SearchFilter {
-  categories: string[];
   cookTimes: string[];
   servings: number[];
   hasIngredientsFilter: boolean; // TODO: たぶんここがingredientsでstring[]を返す．選択された食材一覧．
@@ -50,7 +49,8 @@ export default function IngredientsFilter({
         ) : (
           <ChevronDown className="w-4 h-4 text-gray-500" />
         )}
-      </button>      {/* フラットなフィルター内容 */}
+      </button>{' '}
+      {/* フラットなフィルター内容 */}
       {isExpanded && (
         <div className="mt-2 pt-2 border-t border-gray-200/30">
           <div className="py-2">
