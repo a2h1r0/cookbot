@@ -1,29 +1,27 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AppLayout from '@/components/layout/AppLayout';
 import SwipeStack, { SwipeStackRef } from '@/components/search/SwipeStack';
 import SwipeActions from '@/components/search/SwipeActions';
 import Search from '@/components/search/Search';
 import { useRecipes } from '@/hooks/useRecipes';
-import { Recipe, SearchFilter } from '@/types';
+import { useFilters } from '@/hooks/useFilters';
+import { Recipe } from '@/types';
 
 export default function SearchPage() {
   const router = useRouter();
-  const swipeStackRef = useRef<SwipeStackRef>(null);  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
-    cookTime: '',
-    serving: 0,
-    hasIngredientsFilter: false,
-    ingredients: [],
-  });
+  const swipeStackRef = useRef<SwipeStackRef>(null);
+  // フィルターフックを使用
+  const { filters } = useFilters();
 
   // カスタムフックを使用してレシピを取得
-  const { recipes, loading, error } = useRecipes(searchFilters);
+  const { recipes, loading, error } = useRecipes(filters);
   // フィルターが変更されたらSwipeStackをリセット
   useEffect(() => {
     swipeStackRef.current?.restart();
-  }, [searchFilters]);
+  }, [filters]);
   const handleLike = (recipe: Recipe) => {
     console.log('Liked:', recipe.title);
     // レシピ詳細ページに遷移（レシピデータをクエリパラメータで渡す）
@@ -49,15 +47,10 @@ export default function SearchPage() {
   const canUndo = swipeStackRef.current?.canUndo() ?? false;
   return (
     <AppLayout>
-      <div className="mt-2 mx-4">
-        {/* 検索フィルター */}
+      <div className="mt-2 mx-4">        {/* 検索フィルター */}
         <div className="mb-4">
-          <Search
-            onFilterChange={setSearchFilters}
-            activeFilters={searchFilters}
-          />
+          <Search />
         </div>
-
         {/* フィルター結果表示 */}
         {loading && (
           <div className="text-center mb-3">
@@ -83,7 +76,6 @@ export default function SearchPage() {
             </div>
           </div>
         )}
-
         {/* スワイプカードスタック */}
         <SwipeStack
           ref={swipeStackRef}
@@ -91,7 +83,6 @@ export default function SearchPage() {
           onLike={handleLike}
           onPass={handlePass}
         />
-
         {/* スワイプアクション */}
         <SwipeActions
           onPass={handlePassAction}

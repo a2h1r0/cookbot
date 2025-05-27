@@ -1,19 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ChevronDown, ChevronUp, Clock, Users } from 'lucide-react';
-import { SearchFilter } from '@/types';
+import { useFilters } from '@/hooks/useFilters';
 
-interface BasicFilterProps {
-  onFilterChange: (filters: SearchFilter) => void;
-  activeFilters: SearchFilter;
-}
-
-export default function BasicFilter({
-  onFilterChange,
-  activeFilters,
-}: BasicFilterProps) {
+export default function BasicFilter() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { filters, updateCookTime, updateServing } = useFilters();
+
   const cookTimes = [
     { id: '10', label: '10分以内' },
     { id: '20', label: '20分以内' },
@@ -27,40 +21,18 @@ export default function BasicFilter({
     { id: 2, label: '2人分' },
     { id: 3, label: '3人分' },
     { id: 4, label: '4人分以上' },
-  ];  // デフォルト値を設定
-  useEffect(() => {
-    if (!activeFilters.cookTime && !activeFilters.serving) {
-      onFilterChange({
-        ...activeFilters,
-        cookTime: '30', // デフォルト: 30分以内
-        serving: 2, // デフォルト: 2人分
-      });
-    }
-  }, []);
-
-  const handleCookTimeSelect = (timeId: string) => {
-    onFilterChange({
-      ...activeFilters,
-      cookTime: timeId, // 単一選択
-    });
-  };
-
-  const handleServingSelect = (servingId: number) => {
-    onFilterChange({
-      ...activeFilters,
-      serving: servingId, // 単一選択
-    });
-  };
+  ];
 
   // 選択中の項目を取得
   const selectedCookTime = cookTimes.find(
-    (time) => activeFilters.cookTime === time.id
+    (time) => filters.cookTime === time.id
   );
   const selectedServing = servings.find(
-    (serving) => activeFilters.serving === serving.id
+    (serving) => filters.serving === serving.id
   );
 
   const hasActiveFilters = selectedCookTime || selectedServing;
+
   return (
     <div>
       {/* フラットヘッダー */}
@@ -68,7 +40,6 @@ export default function BasicFilter({
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2"
       >
-        {' '}
         <div className="flex items-center space-x-2">
           <Clock className="w-4 h-4 text-orange-500" />
           <span className="font-medium text-gray-800 text-sm">
@@ -94,12 +65,13 @@ export default function BasicFilter({
         ) : (
           <ChevronDown className="w-4 h-4 text-gray-500" />
         )}
-      </button>{' '}
+      </button>
+
       {/* フラットなフィルター内容 */}
       {isExpanded && (
         <div className="mt-2 pt-2 border-t border-gray-200/30">
           <div className="py-2 space-y-3">
-            {/* 調理時間 */}{' '}
+            {/* 調理時間 */}
             <div>
               <div className="flex items-center space-x-1.5 mb-1.5">
                 <Clock className="w-3.5 h-3.5 text-gray-600" />
@@ -111,8 +83,9 @@ export default function BasicFilter({
                 {cookTimes.map((time) => (
                   <button
                     key={time.id}
-                    onClick={() => handleCookTimeSelect(time.id)}                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                      activeFilters.cookTime === time.id
+                    onClick={() => updateCookTime(time.id)}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+                      filters.cookTime === time.id
                         ? 'bg-orange-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-orange-100 hover:text-orange-700'
                     }`}
@@ -122,9 +95,11 @@ export default function BasicFilter({
                 ))}
               </div>
             </div>
+
             {/* セパレーター */}
             <div className="border-t border-gray-200/50"></div>
-            {/* 人数 */}{' '}
+
+            {/* 人数 */}
             <div>
               <div className="flex items-center space-x-1.5 mb-1.5">
                 <Users className="w-3.5 h-3.5 text-gray-600" />
@@ -136,8 +111,9 @@ export default function BasicFilter({
                 {servings.map((serving) => (
                   <button
                     key={serving.id}
-                    onClick={() => handleServingSelect(serving.id)}                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                      activeFilters.serving === serving.id
+                    onClick={() => updateServing(serving.id)}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+                      filters.serving === serving.id
                         ? 'bg-purple-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-purple-100 hover:text-purple-700'
                     }`}

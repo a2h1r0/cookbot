@@ -2,38 +2,18 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Carrot, Plus, X } from 'lucide-react';
-import { SearchFilter } from '@/types';
+import { useFilters } from '@/hooks/useFilters';
 
-interface IngredientsFilterProps {
-  onFilterChange: (filters: SearchFilter) => void;
-  activeFilters: SearchFilter;
-}
-
-export default function IngredientsFilter({
-  onFilterChange,
-  activeFilters,
-}: IngredientsFilterProps) {
+export default function IngredientsFilter() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const { filters, addIngredient, removeIngredient } = useFilters();
 
   const handleAddIngredient = () => {
-    if (inputValue.trim() && !activeFilters.ingredients.includes(inputValue.trim())) {
-      onFilterChange({
-        ...activeFilters,
-        ingredients: [...activeFilters.ingredients, inputValue.trim()],
-        hasIngredientsFilter: true,
-      });
+    if (inputValue.trim() && !filters.ingredients.includes(inputValue.trim())) {
+      addIngredient(inputValue.trim());
       setInputValue('');
     }
-  };
-
-  const handleRemoveIngredient = (ingredient: string) => {
-    const newIngredients = activeFilters.ingredients.filter(item => item !== ingredient);
-    onFilterChange({
-      ...activeFilters,
-      ingredients: newIngredients,
-      hasIngredientsFilter: newIngredients.length > 0,
-    });
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -41,7 +21,9 @@ export default function IngredientsFilter({
       e.preventDefault();
       handleAddIngredient();
     }
-  };  return (
+  };
+
+  return (
     <div>
       {/* フラットヘッダー */}
       <button
@@ -53,9 +35,9 @@ export default function IngredientsFilter({
           <span className="font-medium text-gray-800 text-sm">
             食材フィルター
           </span>
-          {activeFilters.ingredients.length > 0 && (
+          {filters.ingredients.length > 0 && (
             <div className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded-full font-medium">
-              {activeFilters.ingredients.length}個
+              {filters.ingredients.length}個
             </div>
           )}
         </div>
@@ -65,7 +47,7 @@ export default function IngredientsFilter({
           <ChevronDown className="w-4 h-4 text-gray-500" />
         )}
       </button>
-      
+
       {/* フラットなフィルター内容 */}
       {isExpanded && (
         <div className="mt-2 pt-2 border-t border-gray-200/30">
@@ -98,17 +80,17 @@ export default function IngredientsFilter({
             </div>
 
             {/* 追加された食材のリスト */}
-            {activeFilters.ingredients.length > 0 && (
+            {filters.ingredients.length > 0 && (
               <div>
                 <div className="flex flex-wrap gap-2">
-                  {activeFilters.ingredients.map((ingredient, index) => (
+                  {filters.ingredients.map((ingredient, index) => (
                     <div
                       key={index}
                       className="flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium"
                     >
                       <span>{ingredient}</span>
                       <button
-                        onClick={() => handleRemoveIngredient(ingredient)}
+                        onClick={() => removeIngredient(ingredient)}
                         className="text-green-600 hover:text-green-800 transition-colors duration-200"
                       >
                         <X className="w-3 h-3" />
