@@ -27,77 +27,77 @@ export default function IngredientsFilter({
       hasIngredientsFilter: !activeFilters.hasIngredientsFilter,
     });
   };
-
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
-      {/* ヘッダー */}
+    <div>
+      {/* フラットヘッダー */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2"
       >
-        {' '}
         <div className="flex items-center space-x-2">
-          <Carrot className="w-5 h-5 text-gray-600" />
-          <span className="font-medium text-gray-900">食材フィルター</span>
+          <Carrot className="w-4 h-4 text-green-500" />
+          <span className="font-medium text-gray-800 text-sm">
+            食材フィルター
+          </span>
           {activeFilters.hasIngredientsFilter && (
-            <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-medium">
+            <div className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded-full font-medium">
               ON
-            </span>
+            </div>
           )}
         </div>
         {isExpanded ? (
-          <ChevronUp className="w-5 h-5 text-gray-400" />
+          <ChevronUp className="w-4 h-4 text-gray-500" />
         ) : (
-          <ChevronDown className="w-5 h-5 text-gray-400" />
+          <ChevronDown className="w-4 h-4 text-gray-500" />
         )}
-      </button>
-
-      {/* フィルター内容 */}
+      </button>      {/* フラットなフィルター内容 */}
       {isExpanded && (
-        <div className="border-t border-gray-200 p-4">
-          <button
-            onClick={handleIngredientsToggle}
-            className={`w-full flex items-center justify-between p-3 rounded-lg border-2 transition-all ${
-              activeFilters.hasIngredientsFilter
-                ? 'border-blue-500 bg-blue-50'
-                : 'border-gray-200 hover:border-gray-300'
-            }`}
-          >
-            <div className="flex items-center space-x-3">
-              <Carrot
-                className={`w-6 h-6 ${
-                  activeFilters.hasIngredientsFilter
-                    ? 'text-blue-600'
-                    : 'text-gray-600'
-                }`}
-              />
-              <div className="text-left">
-                <div
-                  className={`font-medium ${
-                    activeFilters.hasIngredientsFilter
-                      ? 'text-blue-900'
-                      : 'text-gray-900'
-                  }`}
-                >
-                  手持ちの食材で作る
-                </div>
-                <div className="text-sm text-gray-500">
-                  手持ちの食材を活用したレシピを探す
-                </div>
-              </div>
-            </div>
-            <div
-              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+        <div className="mt-2 pt-2 border-t border-gray-200/30">
+          <div className="py-2">
+            <button
+              onClick={handleIngredientsToggle}
+              className={`w-full flex items-center justify-between p-2 rounded-lg transition-all duration-200 ${
                 activeFilters.hasIngredientsFilter
-                  ? 'border-blue-500 bg-blue-500'
-                  : 'border-gray-300'
+                  ? 'bg-green-50'
+                  : 'hover:bg-gray-50'
               }`}
             >
-              {activeFilters.hasIngredientsFilter && (
-                <div className="w-2 h-2 bg-white rounded-full"></div>
-              )}
-            </div>
-          </button>
+              <div className="flex items-center space-x-2">
+                <Carrot
+                  className={`w-4 h-4 ${
+                    activeFilters.hasIngredientsFilter
+                      ? 'text-green-600'
+                      : 'text-gray-600'
+                  }`}
+                />
+                <div className="text-left">
+                  <div
+                    className={`font-medium text-sm ${
+                      activeFilters.hasIngredientsFilter
+                        ? 'text-green-800'
+                        : 'text-gray-800'
+                    }`}
+                  >
+                    手持ちの食材で作る
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    手持ちの食材を活用したレシピ
+                  </div>
+                </div>
+              </div>
+              <div
+                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+                  activeFilters.hasIngredientsFilter
+                    ? 'border-green-500 bg-green-500'
+                    : 'border-gray-300'
+                }`}
+              >
+                {activeFilters.hasIngredientsFilter && (
+                  <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                )}
+              </div>
+            </button>
+          </div>
         </div>
       )}
     </div>

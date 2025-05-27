@@ -54,32 +54,44 @@ export default function SearchPage() {
     swipeStackRef.current?.undo();
   };
 
-  const canUndo = swipeStackRef.current?.canUndo() ?? false;  return (
+  const canUndo = swipeStackRef.current?.canUndo() ?? false;
+  return (
     <AppLayout>
-      <div className="mt-8">
+      <div className="mt-2 mx-4">
         {/* 検索フィルター */}
-        <Search
-          onFilterChange={setSearchFilters}
-          activeFilters={searchFilters}
-        />
+        <div className="mb-4">
+          <Search
+            onFilterChange={setSearchFilters}
+            activeFilters={searchFilters}
+          />
+        </div>
+
         {/* フィルター結果表示 */}
         {loading && (
-          <div className="text-center mb-4">
-            <span className="text-sm text-gray-600">レシピを読み込み中...</span>
+          <div className="text-center mb-3">
+            <div className="inline-flex items-center space-x-2 text-sm text-gray-600">
+              <div className="w-4 h-4 border-2 border-orange-400 border-t-transparent rounded-full animate-spin"></div>
+              <span>レシピを読み込み中...</span>
+            </div>
           </div>
         )}
         {error && (
-          <div className="text-center mb-4">
-            <span className="text-sm text-red-600">エラー: {error}</span>
+          <div className="text-center mb-3">
+            <div className="inline-flex items-center space-x-2 text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">
+              <span>❌</span>
+              <span>エラー: {error}</span>
+            </div>
           </div>
         )}
         {!loading && !error && recipes.length === 0 && (
-          <div className="text-center mb-4">
-            <span className="text-sm text-gray-600">
-              条件に合うレシピが見つかりませんでした
-            </span>
+          <div className="text-center mb-3">
+            <div className="inline-flex items-center space-x-2 text-sm text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
+              <span>🤔</span>
+              <span>条件に合うレシピが見つかりませんでした</span>
+            </div>
           </div>
         )}
+
         {/* スワイプカードスタック */}
         <SwipeStack
           ref={swipeStackRef}
@@ -87,6 +99,7 @@ export default function SearchPage() {
           onLike={handleLike}
           onPass={handlePass}
         />
+
         {/* スワイプアクション */}
         <SwipeActions
           onPass={handlePassAction}
