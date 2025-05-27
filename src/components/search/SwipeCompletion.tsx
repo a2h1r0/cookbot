@@ -3,11 +3,11 @@
 import { RefreshCw, Utensils } from 'lucide-react';
 
 interface SwipeCompletionProps {
-  onRestart: () => void;
+  onSearch: () => void;
 }
 
 export default function SwipeCompletion({
-  onRestart,
+  onSearch,
 }: SwipeCompletionProps) {
   return (
     <div className="text-center py-12">
@@ -25,9 +25,8 @@ export default function SwipeCompletion({
       <p className="text-gray-600 mb-8">すべてのレシピを確認しました</p>
 
       {/* アクションボタン */}
-      <div className="space-y-3">
-        <button
-          onClick={onRestart}
+      <div className="space-y-3">        <button
+          onClick={onSearch}
           className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
         >
           <RefreshCw className="w-5 h-5" />

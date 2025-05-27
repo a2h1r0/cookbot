@@ -10,6 +10,7 @@ interface SwipeStackProps {
   onLike: (recipe: Recipe) => void;
   onPass: (recipe: Recipe) => void;
   onComplete?: () => void;
+  onSearch?: () => void;
 }
 
 export interface SwipeStackRef {
@@ -19,7 +20,7 @@ export interface SwipeStackRef {
 }
 
 const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
-  ({ recipes, onLike, onPass, onComplete }, ref) => {
+  ({ recipes, onLike, onPass, onComplete, onSearch }, ref) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const handleSwipe = (direction: 'left' | 'right', recipe: Recipe) => {
       // コールバックを実行
@@ -58,13 +59,18 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
     // 表示するカードの数（最大3枚）
     const visibleCards = recipes.slice(currentIndex, currentIndex + 3);
     if (currentIndex >= recipes.length) {
-      const handleRestart = () => {
+      const handleSearch = () => {
+        // 再検索を実行
+        if (onSearch) {
+          onSearch();
+        }
+        // インデックスをリセット
         setCurrentIndex(0);
       };
 
       return (
         <div className="h-96 flex items-center justify-center">
-          <SwipeCompletion onRestart={handleRestart} />
+          <SwipeCompletion onSearch={handleSearch} />
         </div>
       );
     }

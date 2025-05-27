@@ -15,9 +15,8 @@ export default function SearchPage() {
   const swipeStackRef = useRef<SwipeStackRef>(null);
   // フィルターフックを使用
   const { filters } = useFilters();
-
   // カスタムフックを使用してレシピを取得
-  const { recipes, loading, error } = useRecipes(filters);
+  const { recipes, loading, error, refetch } = useRecipes(filters);
   // フィルターが変更されたらSwipeStackをリセット
   useEffect(() => {
     swipeStackRef.current?.restart();
@@ -70,13 +69,14 @@ export default function SearchPage() {
               <span>条件に合うレシピが見つかりませんでした</span>
             </div>
           </div>
-        )}
+        )}{' '}
         {/* スワイプカードスタック */}
         <SwipeStack
           ref={swipeStackRef}
           recipes={recipes}
           onLike={handleLike}
           onPass={handlePass}
+          onSearch={refetch}
         />{' '}
         {/* スワイプアクション */}
         <SwipeActions onPass={handlePassAction} onLike={handleLikeAction} />
