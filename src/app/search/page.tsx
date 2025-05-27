@@ -31,7 +31,6 @@ export default function SearchPage() {
   const handlePass = (recipe: Recipe) => {
     console.log('Passed:', recipe.title);
   };
-
   const handlePassAction = () => {
     swipeStackRef.current?.swipeLeft();
   };
@@ -39,12 +38,6 @@ export default function SearchPage() {
   const handleLikeAction = () => {
     swipeStackRef.current?.swipeRight();
   };
-
-  const handleUndo = () => {
-    swipeStackRef.current?.undo();
-  };
-
-  const canUndo = swipeStackRef.current?.canUndo() ?? false;
   return (
     <AppLayout>
       <div className="mt-2 mx-4">
@@ -84,14 +77,9 @@ export default function SearchPage() {
           recipes={recipes}
           onLike={handleLike}
           onPass={handlePass}
-        />
+        />{' '}
         {/* スワイプアクション */}
-        <SwipeActions
-          onPass={handlePassAction}
-          onLike={handleLikeAction}
-          onUndo={handleUndo}
-          canUndo={canUndo}
-        />
+        <SwipeActions onPass={handlePassAction} onLike={handleLikeAction} />
       </div>
     </AppLayout>
   );

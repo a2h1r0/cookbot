@@ -15,22 +15,13 @@ interface SwipeStackProps {
 export interface SwipeStackRef {
   swipeLeft: () => void;
   swipeRight: () => void;
-  undo: () => void;
-  canUndo: () => boolean;
   restart: () => void;
 }
 
 const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
   ({ recipes, onLike, onPass, onComplete }, ref) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [swipeHistory, setSwipeHistory] = useState<
-      Array<{ recipe: Recipe; direction: 'left' | 'right' }>
-    >([]);
-
     const handleSwipe = (direction: 'left' | 'right', recipe: Recipe) => {
-      // スワイプ履歴に追加
-      setSwipeHistory((prev) => [...prev, { recipe, direction }]);
-
       // コールバックを実行
       if (direction === 'right') {
         onLike(recipe);
@@ -47,12 +38,6 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
         onComplete();
       }
     };
-    const handleUndo = () => {
-      if (swipeHistory.length === 0 || currentIndex === 0) return;
-
-      setSwipeHistory((prev) => prev.slice(0, -1));
-      setCurrentIndex((prev) => prev - 1);
-    };
     // 外部からスワイプ操作を可能にする
     useImperativeHandle(ref, () => ({
       swipeLeft: () => {
@@ -65,11 +50,8 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
           handleSwipe('right', recipes[currentIndex]);
         }
       },
-      undo: handleUndo,
-      canUndo: () => swipeHistory.length > 0 && currentIndex > 0,
       restart: () => {
         setCurrentIndex(0);
-        setSwipeHistory([]);
       },
     }));
 
@@ -78,7 +60,6 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
     if (currentIndex >= recipes.length) {
       const handleRestart = () => {
         setCurrentIndex(0);
-        setSwipeHistory([]);
       };
 
       return (
