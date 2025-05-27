@@ -29,6 +29,12 @@ export interface Category {
   count: number;
 }
 
+export interface SearchFilter {
+  cookTime: string; // 単一選択に変更
+  serving: number; // 単一選択に変更
+  hasIngredientsFilter: boolean;
+}
+
 export interface FilterOptions {
   difficulties: Category[];
   cookTimes: Category[];

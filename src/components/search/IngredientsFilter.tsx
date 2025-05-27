@@ -2,12 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Carrot } from 'lucide-react';
-
-interface SearchFilter {
-  cookTimes: string[];
-  servings: number[];
-  hasIngredientsFilter: boolean; // TODO: たぶんここがingredientsでstring[]を返す．選択された食材一覧．
-}
+import { SearchFilter } from '@/types';
 
 interface IngredientsFilterProps {
   onFilterChange: (filters: SearchFilter) => void;

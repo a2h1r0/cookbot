@@ -2,12 +2,7 @@
 
 import IngredientsFilter from './IngredientsFilter';
 import BasicFilter from './BasicFilter';
-
-interface SearchFilter {
-  cookTimes: string[];
-  servings: number[];
-  hasIngredientsFilter: boolean;
-}
+import { SearchFilter } from '@/types';
 
 interface SearchProps {
   onFilterChange: (filters: SearchFilter) => void;

@@ -2,12 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp, Clock, Users } from 'lucide-react';
-
-interface SearchFilter {
-  cookTimes: string[];
-  servings: number[];
-  hasIngredientsFilter: boolean;
-}
+import { SearchFilter } from '@/types';
 
 interface BasicFilterProps {
   onFilterChange: (filters: SearchFilter) => void;
@@ -32,18 +27,13 @@ export default function BasicFilter({
     { id: 2, label: '2人分' },
     { id: 3, label: '3人分' },
     { id: 4, label: '4人分以上' },
-  ];
-
-  // デフォルト値を設定
+  ];  // デフォルト値を設定
   useEffect(() => {
-    if (
-      activeFilters.cookTimes.length === 0 &&
-      activeFilters.servings.length === 0
-    ) {
+    if (!activeFilters.cookTime && !activeFilters.serving) {
       onFilterChange({
         ...activeFilters,
-        cookTimes: ['30'], // デフォルト: 30分以内
-        servings: [2], // デフォルト: 2人分
+        cookTime: '30', // デフォルト: 30分以内
+        serving: 2, // デフォルト: 2人分
       });
     }
   }, []);
@@ -51,23 +41,23 @@ export default function BasicFilter({
   const handleCookTimeSelect = (timeId: string) => {
     onFilterChange({
       ...activeFilters,
-      cookTimes: [timeId], // 単一選択
+      cookTime: timeId, // 単一選択
     });
   };
 
   const handleServingSelect = (servingId: number) => {
     onFilterChange({
       ...activeFilters,
-      servings: [servingId], // 単一選択
+      serving: servingId, // 単一選択
     });
   };
 
   // 選択中の項目を取得
-  const selectedCookTime = cookTimes.find((time) =>
-    activeFilters.cookTimes.includes(time.id)
+  const selectedCookTime = cookTimes.find(
+    (time) => activeFilters.cookTime === time.id
   );
-  const selectedServing = servings.find((serving) =>
-    activeFilters.servings.includes(serving.id)
+  const selectedServing = servings.find(
+    (serving) => activeFilters.serving === serving.id
   );
 
   const hasActiveFilters = selectedCookTime || selectedServing;
@@ -121,9 +111,8 @@ export default function BasicFilter({
                 {cookTimes.map((time) => (
                   <button
                     key={time.id}
-                    onClick={() => handleCookTimeSelect(time.id)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                      activeFilters.cookTimes.includes(time.id)
+                    onClick={() => handleCookTimeSelect(time.id)}                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+                      activeFilters.cookTime === time.id
                         ? 'bg-orange-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-orange-100 hover:text-orange-700'
                     }`}
@@ -147,9 +136,8 @@ export default function BasicFilter({
                 {servings.map((serving) => (
                   <button
                     key={serving.id}
-                    onClick={() => handleServingSelect(serving.id)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                      activeFilters.servings.includes(serving.id)
+                    onClick={() => handleServingSelect(serving.id)}                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+                      activeFilters.serving === serving.id
                         ? 'bg-purple-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-purple-100 hover:text-purple-700'
                     }`}

@@ -1,11 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Recipe } from '@/types';
-
-interface SearchFilter {
-  cookTimes: string[];
-  servings: number[];
-  hasIngredientsFilter: boolean;
-}
+import { Recipe, SearchFilter } from '@/types';
 
 export function useRecipes(searchFilters: SearchFilter) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -44,37 +38,45 @@ export function useRecipes(searchFilters: SearchFilter) {
       // クライアントサイドで追加フィルタリング
       fetchedRecipes = fetchedRecipes.filter((recipe: Recipe) => {
         // 調理時間フィルター
-        if (searchFilters.cookTimes.length > 0) {
+        if (searchFilters.cookTime) {
           const cookTimeMinutes = parseInt(recipe.cookTime);
-          const matchesTime = searchFilters.cookTimes.some((timeFilter) => {
-            switch (timeFilter) {
-              case '10':
-                return cookTimeMinutes <= 10;
-              case '20':
-                return cookTimeMinutes <= 20;
-              case '30':
-                return cookTimeMinutes <= 30;
-              case '60':
-                return cookTimeMinutes <= 60;
-              case '60+':
-                return cookTimeMinutes > 60;
-              default:
-                return false;
-            }
-          });
+          const timeFilter = searchFilters.cookTime;
+          let matchesTime = false;
+
+          switch (timeFilter) {
+            case '10':
+              matchesTime = cookTimeMinutes <= 10;
+              break;
+            case '20':
+              matchesTime = cookTimeMinutes <= 20;
+              break;
+            case '30':
+              matchesTime = cookTimeMinutes <= 30;
+              break;
+            case '60':
+              matchesTime = cookTimeMinutes <= 60;
+              break;
+            case '60+':
+              matchesTime = cookTimeMinutes > 60;
+              break;
+            default:
+              matchesTime = true;
+          }
+
           if (!matchesTime) return false;
         }
 
         // 人数フィルター
-        if (searchFilters.servings.length > 0) {
-          const matchesServing = searchFilters.servings.some(
-            (servingFilter) => {
-              if (servingFilter === 4) {
-                return recipe.servings >= 4;
-              }
-              return recipe.servings === servingFilter;
-            }
-          );
+        if (searchFilters.serving) {
+          const servingFilter = searchFilters.serving;
+          let matchesServing = false;
+
+          if (servingFilter === 4) {
+            matchesServing = recipe.servings >= 4;
+          } else {
+            matchesServing = recipe.servings === servingFilter;
+          }
+
           if (!matchesServing) return false;
         }
 
@@ -88,11 +90,10 @@ export function useRecipes(searchFilters: SearchFilter) {
       setLoading(false);
     }
   };
-
   // フィルターが変更されたらレシピを再取得
   useEffect(() => {
     fetchRecipes();
-  }, [searchQuery, searchFilters.cookTimes, searchFilters.servings]);
+  }, [searchQuery, searchFilters.cookTime, searchFilters.serving]);
 
   return {
     recipes,

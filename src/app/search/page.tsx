@@ -7,19 +7,14 @@ import SwipeStack, { SwipeStackRef } from '@/components/search/SwipeStack';
 import SwipeActions from '@/components/search/SwipeActions';
 import Search from '@/components/search/Search';
 import { useRecipes } from '@/hooks/useRecipes';
-import { Recipe } from '@/types';
-
-interface SearchFilter {
-  cookTimes: string[];
-  servings: number[];
-  hasIngredientsFilter: boolean;
-}
+import { Recipe, SearchFilter } from '@/types';
 
 export default function SearchPage() {
   const router = useRouter();
-  const swipeStackRef = useRef<SwipeStackRef>(null);  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
-    cookTimes: [],
-    servings: [],
+  const swipeStackRef = useRef<SwipeStackRef>(null);
+  const [searchFilters, setSearchFilters] = useState<SearchFilter>({
+    cookTime: '',
+    serving: 0,
     hasIngredientsFilter: false,
   });
 
