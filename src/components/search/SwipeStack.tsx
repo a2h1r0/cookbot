@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useImperativeHandle, forwardRef } from 'react';
+import { useImperativeHandle, forwardRef } from 'react';
 import SwipeCard from './SwipeCard';
 import SwipeCompletion from './SwipeCompletion';
 import { Recipe } from '@/types';
 
 interface SwipeStackProps {
+  currentIndex: number;
   recipes: Recipe[];
-  onLike: (recipe: Recipe) => void;
-  onPass: (recipe: Recipe) => void;
-  onComplete?: () => void;
-  onSearch?: () => void;
+  isComplete: boolean;
+  visibleCards: Recipe[];
+  onSwipe: (direction: 'left' | 'right', recipe: Recipe) => void;
+  onSearch: () => void;
+  onRestart?: () => void;
 }
 
 export interface SwipeStackRef {
@@ -20,57 +22,41 @@ export interface SwipeStackRef {
 }
 
 const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
-  ({ recipes, onLike, onPass, onComplete, onSearch }, ref) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const handleSwipe = (direction: 'left' | 'right', recipe: Recipe) => {
-      // コールバックを実行
-      if (direction === 'right') {
-        onLike(recipe);
-      } else {
-        onPass(recipe);
-      }
-
-      // 次のカードに移動
-      const nextIndex = currentIndex + 1;
-      setCurrentIndex(nextIndex);
-
-      // 完了チェック
-      if (nextIndex >= recipes.length && onComplete) {
-        onComplete();
-      }
-    };
-    // 外部からスワイプ操作を可能にする
+  (
+    {
+      currentIndex,
+      recipes,
+      isComplete,
+      visibleCards,
+      onSwipe,
+      onSearch,
+      onRestart,
+    },
+    ref
+  ) => {
+    // 外部からスワイプ操作を可能にする（ただし実際の処理は親コンポーネントで行う）
     useImperativeHandle(ref, () => ({
       swipeLeft: () => {
         if (currentIndex < recipes.length) {
-          handleSwipe('left', recipes[currentIndex]);
+          onSwipe('left', recipes[currentIndex]);
         }
       },
       swipeRight: () => {
         if (currentIndex < recipes.length) {
-          handleSwipe('right', recipes[currentIndex]);
+          onSwipe('right', recipes[currentIndex]);
         }
       },
       restart: () => {
-        setCurrentIndex(0);
+        if (onRestart) {
+          onRestart();
+        }
       },
     }));
 
-    // 表示するカードの数（最大3枚）
-    const visibleCards = recipes.slice(currentIndex, currentIndex + 3);
-    if (currentIndex >= recipes.length) {
-      const handleSearch = () => {
-        // 再検索を実行
-        if (onSearch) {
-          onSearch();
-        }
-        // インデックスをリセット
-        setCurrentIndex(0);
-      };
-
+    if (isComplete) {
       return (
         <div className="h-96 flex items-center justify-center">
-          <SwipeCompletion onSearch={handleSearch} />
+          <SwipeCompletion onSearch={onSearch} />
         </div>
       );
     }
@@ -93,8 +79,9 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
                 zIndex: visibleCards.length - index,
               }}
             >
+              {' '}
               {isTop ? (
-                <SwipeCard recipe={recipe} onSwipe={handleSwipe} isTop={true} />
+                <SwipeCard recipe={recipe} onSwipe={onSwipe} isTop={true} />
               ) : (
                 <div className="bg-white rounded-2xl shadow-lg h-full max-w-sm mx-auto">
                   <div className="h-64 bg-gray-100 rounded-t-2xl"></div>

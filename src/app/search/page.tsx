@@ -8,19 +8,20 @@ import SwipeActions from '@/components/search/SwipeActions';
 import Search from '@/components/search/Search';
 import { useRecipes } from '@/hooks/useRecipes';
 import { useFilters } from '@/hooks/useFilters';
+import { useSwipe } from '@/hooks/useSwipe';
 import { Recipe } from '@/types';
 
 export default function SearchPage() {
   const router = useRouter();
   const swipeStackRef = useRef<SwipeStackRef>(null);
+
   // フィルターフックを使用
   const { filters } = useFilters();
+
   // カスタムフックを使用してレシピを取得
   const { recipes, loading, error, refetch } = useRecipes(filters);
-  // フィルターが変更されたらSwipeStackをリセット
-  useEffect(() => {
-    swipeStackRef.current?.restart();
-  }, [filters]);
+
+  // ハンドラー関数
   const handleLike = (recipe: Recipe) => {
     console.log('Liked:', recipe.title);
     // レシピ詳細ページに遷移（レシピデータをクエリパラメータで渡す）
@@ -30,13 +31,27 @@ export default function SearchPage() {
   const handlePass = (recipe: Recipe) => {
     console.log('Passed:', recipe.title);
   };
-  const handlePassAction = () => {
-    swipeStackRef.current?.swipeLeft();
-  };
 
-  const handleLikeAction = () => {
-    swipeStackRef.current?.swipeRight();
-  };
+  // スワイプフックを使用
+  const swipeState = useSwipe({
+    recipes,
+    onLike: handleLike,
+    onPass: handlePass,
+    onSearch: refetch,
+  }); // フィルターが変更されたらスワイプをリセット
+  useEffect(() => {
+    swipeState.restart();
+  }, [filters]);
+
+  // デバッグ用
+  console.log(
+    'Debug - isComplete:',
+    swipeState.isComplete,
+    'currentIndex:',
+    swipeState.currentIndex,
+    'recipes.length:',
+    recipes.length
+  );
   return (
     <AppLayout>
       <div className="mt-2 mx-4">
@@ -73,13 +88,21 @@ export default function SearchPage() {
         {/* スワイプカードスタック */}
         <SwipeStack
           ref={swipeStackRef}
+          currentIndex={swipeState.currentIndex}
           recipes={recipes}
-          onLike={handleLike}
-          onPass={handlePass}
-          onSearch={refetch}
-        />{' '}
-        {/* スワイプアクション */}
-        <SwipeActions onPass={handlePassAction} onLike={handleLikeAction} />
+          isComplete={swipeState.isComplete}
+          visibleCards={swipeState.visibleCards}
+          onSwipe={swipeState.handleSwipe}
+          onSearch={swipeState.search}
+          onRestart={swipeState.restart}
+        />
+        {/* スワイプアクション - 完了時は非表示 */}
+        {!swipeState.isComplete && (
+          <SwipeActions
+            onPass={swipeState.swipeLeft}
+            onLike={swipeState.swipeRight}
+          />
+        )}
       </div>
     </AppLayout>
   );

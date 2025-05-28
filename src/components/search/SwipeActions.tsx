@@ -8,6 +8,8 @@ interface SwipeActionsProps {
 }
 
 export default function SwipeActions({ onPass, onLike }: SwipeActionsProps) {
+  console.log('SwipeActions rendered'); // デバッグ用
+  
   return (
     <div className="flex items-center justify-center space-x-8 mt-8">
       {/* パスボタン */}
