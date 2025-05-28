@@ -38,9 +38,9 @@ export default function SearchPage() {
     onLike: handleLike,
     onPass: handlePass,
     onSearch: refetch,
-  }); // フィルターが変更されたらスワイプをリセット
+  }); // フィルターが変更されたら検索を再実行
   useEffect(() => {
-    swipeState.restart();
+    swipeState.search();
   }, [filters]);
 
   // デバッグ用
@@ -85,7 +85,7 @@ export default function SearchPage() {
             </div>
           </div>
         )}{' '}
-        {/* スワイプカードスタック */}
+        {/* スワイプカードスタック */}{' '}
         <SwipeStack
           ref={swipeStackRef}
           currentIndex={swipeState.currentIndex}
@@ -94,7 +94,6 @@ export default function SearchPage() {
           visibleCards={swipeState.visibleCards}
           onSwipe={swipeState.handleSwipe}
           onSearch={swipeState.search}
-          onRestart={swipeState.restart}
         />
         {/* スワイプアクション - 完了時は非表示 */}
         {!swipeState.isComplete && (

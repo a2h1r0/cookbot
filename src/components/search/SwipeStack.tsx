@@ -12,26 +12,16 @@ interface SwipeStackProps {
   visibleCards: Recipe[];
   onSwipe: (direction: 'left' | 'right', recipe: Recipe) => void;
   onSearch: () => void;
-  onRestart?: () => void;
 }
 
 export interface SwipeStackRef {
   swipeLeft: () => void;
   swipeRight: () => void;
-  restart: () => void;
 }
 
 const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
   (
-    {
-      currentIndex,
-      recipes,
-      isComplete,
-      visibleCards,
-      onSwipe,
-      onSearch,
-      onRestart,
-    },
+    { currentIndex, recipes, isComplete, visibleCards, onSwipe, onSearch },
     ref
   ) => {
     // 外部からスワイプ操作を可能にする（ただし実際の処理は親コンポーネントで行う）
@@ -44,11 +34,6 @@ const SwipeStack = forwardRef<SwipeStackRef, SwipeStackProps>(
       swipeRight: () => {
         if (currentIndex < recipes.length) {
           onSwipe('right', recipes[currentIndex]);
-        }
-      },
-      restart: () => {
-        if (onRestart) {
-          onRestart();
         }
       },
     }));

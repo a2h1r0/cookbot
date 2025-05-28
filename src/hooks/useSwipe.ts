@@ -73,12 +73,6 @@ export function useSwipe({
     // インデックスをリセット
     setCurrentIndex(0);
   }, [onSearch]);
-
-  // リスタート（フィルター変更時など）
-  const restart = useCallback(() => {
-    setCurrentIndex(0);
-  }, []);
-
   return {
     currentIndex,
     currentRecipe,
@@ -88,6 +82,5 @@ export function useSwipe({
     swipeLeft,
     swipeRight,
     search,
-    restart,
   };
 }
