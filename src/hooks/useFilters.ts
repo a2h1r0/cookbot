@@ -5,7 +5,6 @@ export function useFilters() {
   const [filters, setFilters] = useState<SearchFilter>({
     cookTime: '',
     serving: '',
-    hasIngredientsFilter: false,
     ingredients: [],
   });
 
@@ -36,7 +35,6 @@ export function useFilters() {
       setFilters((prev) => ({
         ...prev,
         ingredients: [...prev.ingredients, ingredient.trim()],
-        hasIngredientsFilter: true,
       }));
     }
   };
@@ -49,7 +47,6 @@ export function useFilters() {
     setFilters((prev) => ({
       ...prev,
       ingredients: newIngredients,
-      hasIngredientsFilter: newIngredients.length > 0,
     }));
   };
   // 全てのフィルターをリセット
@@ -57,14 +54,8 @@ export function useFilters() {
     setFilters({
       cookTime: '30分以内',
       serving: '2人分',
-      hasIngredientsFilter: false,
       ingredients: [],
     });
-  };
-
-  // フィルターをまとめて更新（既存のコンポーネントとの互換性のため）
-  const updateFilters = (newFilters: SearchFilter) => {
-    setFilters(newFilters);
   };
 
   return {
@@ -74,6 +65,5 @@ export function useFilters() {
     addIngredient,
     removeIngredient,
     resetFilters,
-    updateFilters, // 既存コンポーネントとの互換性
   };
 }

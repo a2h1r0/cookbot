@@ -32,7 +32,6 @@ export interface Category {
 export interface SearchFilter {
   cookTime: string; // 単一選択に変更
   serving: string; // 単一選択に変更（stringに統一）
-  hasIngredientsFilter: boolean;
   ingredients: string[]; // 入力された食材のリスト
 }
 
