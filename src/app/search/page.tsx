@@ -8,13 +8,12 @@ import SwipeActions from '@/components/search/SwipeActions';
 import Search from '@/components/search/Search';
 import { useRecipes } from '@/hooks/useRecipes';
 import { useSwipe } from '@/hooks/useSwipe';
-import { Recipe, SearchFilter } from '@/types';
+import { Recipe } from '@/types';
 
 export default function SearchPage() {
   const router = useRouter();
   const swipeStackRef = useRef<SwipeStackRef>(null);
-  // カスタムフックを使用してレシピを取得
-  const { recipes, loading, error, refetch } = useRecipes();
+  const { recipes, loading, error, fetchRecipes } = useRecipes();
 
   // ハンドラー関数
   const handleLike = (recipe: Recipe) => {
@@ -30,19 +29,13 @@ export default function SearchPage() {
     recipes,
     onLike: handleLike,
     onPass: handlePass,
-    onSearch: refetch,
+    onSearch: fetchRecipes,
   });
 
-  // フィルター変更ハンドラ
-  const handleFiltersChange = (filters: SearchFilter) => {
-    console.log(
-      '📝 SearchPage: filters changed, triggering refetch and reset:',
-      filters
-    );
+  const handleFiltersChange = () => {
+    fetchRecipes();
     // // スワイプ状態をリセット
     // swipeState.resetSwipe();
-    // // レシピを再取得
-    // refetch();
   };
 
   return (

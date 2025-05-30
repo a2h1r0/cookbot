@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Recipe } from '@/types';
 
 export function useRecipes() {
@@ -30,10 +30,14 @@ export function useRecipes() {
     }
   };
 
+  useEffect(() => {
+    fetchRecipes();
+  }, []);
+
   return {
     recipes,
     loading,
     error,
-    refetch: fetchRecipes,
+    fetchRecipes,
   };
 }
