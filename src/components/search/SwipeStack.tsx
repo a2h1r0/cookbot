@@ -8,21 +8,22 @@ import { UseSwipeReturn } from '@/types';
 
 interface SwipeStackProps extends UseSwipeReturn {
   recipes: Recipe[];
+  onSearch: () => void;
 }
 
 export default function SwipeStack({
   recipes,
   currentIndex,
   swipe,
-  reset,
+  onSearch,
 }: SwipeStackProps) {
-  // if (isComplete) {
-  //   return (
-  //     <div className="h-96 flex items-center justify-center">
-  //       <SwipeCompletion onSearch={onSearch} />
-  //     </div>
-  //   );
-  // }
+  if (currentIndex >= recipes.length) {
+    return (
+      <div className="h-96 flex items-center justify-center">
+        <SwipeCompletion onSearch={onSearch} />
+      </div>
+    );
+  }
   return (
     <div className="relative h-96 w-full max-w-sm mx-auto">
       {/* カードスタック */}

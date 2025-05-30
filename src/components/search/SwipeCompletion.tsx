@@ -6,9 +6,7 @@ interface SwipeCompletionProps {
   onSearch: () => void;
 }
 
-export default function SwipeCompletion({
-  onSearch,
-}: SwipeCompletionProps) {
+export default function SwipeCompletion({ onSearch }: SwipeCompletionProps) {
   return (
     <div className="text-center py-12">
       {/* アイコン */}
@@ -25,7 +23,9 @@ export default function SwipeCompletion({
       <p className="text-gray-600 mb-8">すべてのレシピを確認しました</p>
 
       {/* アクションボタン */}
-      <div className="space-y-3">        <button
+      <div className="space-y-3">
+        {' '}
+        <button
           onClick={onSearch}
           className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
         >

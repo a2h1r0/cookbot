@@ -11,7 +11,7 @@ export default function SearchPage() {
   const { recipes, loading, error, fetchRecipes } = useRecipes();
   const swipeHook = useSwipe();
 
-  const handleFiltersChange = () => {
+  const search = () => {
     fetchRecipes();
     swipeHook.reset();
   };
@@ -22,7 +22,7 @@ export default function SearchPage() {
         {' '}
         {/* 検索フィルター */}
         <div className="mb-4">
-          <Search onChangeFilters={handleFiltersChange} />
+          <Search onChangeFilters={search} />
         </div>
         {/* フィルター結果表示 */}
         {loading && (
@@ -49,8 +49,10 @@ export default function SearchPage() {
             </div>
           </div>
         )}{' '}
-        <SwipeStack recipes={recipes} {...swipeHook} />
-        <SwipeActions {...swipeHook} />
+        <SwipeStack recipes={recipes} onSearch={search} {...swipeHook} />
+        {swipeHook.currentIndex < recipes.length && (
+          <SwipeActions {...swipeHook} />
+        )}
       </div>
     </AppLayout>
   );
