@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { ChefHat, Clock, Users } from 'lucide-react';
 import { Recipe } from '@/types';
 
@@ -14,7 +14,6 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -75,7 +74,6 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
 
   return (
     <div
-      ref={cardRef}
       className={`absolute inset-0 select-none cursor-grab ${
         isDragging ? 'cursor-grabbing' : ''
       } ${isTop ? 'z-20' : 'z-10'}`}
@@ -101,7 +99,8 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
             src={recipe.image}
             alt={recipe.title}
             className="w-full h-full object-cover"
-            draggable={false}          />
+            draggable={false}
+          />
         </div>
 
         {/* レシピ情報 */}

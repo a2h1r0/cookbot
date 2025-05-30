@@ -43,6 +43,12 @@ export interface UseFiltersReturn {
   removeIngredient: (ingredient: string) => void;
 }
 
+export interface UseSwipeReturn {
+  currentIndex: number;
+  swipe: (direction: 'left' | 'right') => void;
+  reset: () => void;
+}
+
 export interface FilterOptions {
   difficulties: Category[];
   cookTimes: Category[];

@@ -1,41 +1,19 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import AppLayout from '@/components/layout/AppLayout';
-import SwipeStack, { SwipeStackRef } from '@/components/search/SwipeStack';
+import SwipeStack from '@/components/search/SwipeStack';
 import SwipeActions from '@/components/search/SwipeActions';
 import Search from '@/components/search/Search';
 import { useRecipes } from '@/hooks/useRecipes';
 import { useSwipe } from '@/hooks/useSwipe';
-import { Recipe } from '@/types';
 
 export default function SearchPage() {
-  const router = useRouter();
-  const swipeStackRef = useRef<SwipeStackRef>(null);
   const { recipes, loading, error, fetchRecipes } = useRecipes();
-
-  // ハンドラー関数
-  const handleLike = (recipe: Recipe) => {
-    router.push(`/recipe?id=${recipe.id}`);
-  };
-
-  const handlePass = (recipe: Recipe) => {
-    console.log('Passed:', recipe.title);
-  };
-
-  // スワイプフックを使用
-  const swipeState = useSwipe({
-    recipes,
-    onLike: handleLike,
-    onPass: handlePass,
-    onSearch: fetchRecipes,
-  });
+  const swipeHook = useSwipe();
 
   const handleFiltersChange = () => {
     fetchRecipes();
-    // // スワイプ状態をリセット
-    // swipeState.resetSwipe();
+    swipeHook.reset();
   };
 
   return (
@@ -71,23 +49,8 @@ export default function SearchPage() {
             </div>
           </div>
         )}{' '}
-        {/* スワイプカードスタック */}{' '}
-        <SwipeStack
-          ref={swipeStackRef}
-          currentIndex={swipeState.currentIndex}
-          recipes={recipes}
-          isComplete={swipeState.isComplete}
-          visibleCards={swipeState.visibleCards}
-          onSwipe={swipeState.handleSwipe}
-          onSearch={swipeState.search}
-        />
-        {/* スワイプアクション - 完了時は非表示 */}
-        {!swipeState.isComplete && (
-          <SwipeActions
-            onPass={swipeState.swipeLeft}
-            onLike={swipeState.swipeRight}
-          />
-        )}
+        <SwipeStack recipes={recipes} {...swipeHook} />
+        <SwipeActions {...swipeHook} />
       </div>
     </AppLayout>
   );
