@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo } from 'react';
-import { Recipe, SearchFilter } from '@/types';
+import { useState } from 'react';
+import { Recipe } from '@/types';
 
-export function useRecipes(searchFilters: SearchFilter) {
+export function useRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -29,13 +29,6 @@ export function useRecipes(searchFilters: SearchFilter) {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    fetchRecipes();
-  }, [
-    searchFilters.cookTime,
-    searchFilters.serving,
-    searchFilters.ingredients,
-  ]);
 
   return {
     recipes,

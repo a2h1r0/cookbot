@@ -2,11 +2,16 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Clock, Users } from 'lucide-react';
-import { useFilters } from '@/hooks/useFilters';
+import { UseFiltersReturn } from '@/types';
 
-export default function BasicFilter() {
+interface BasicFilterProps extends UseFiltersReturn {}
+
+export default function BasicFilter({
+  filters,
+  updateCookTime,
+  updateServing,
+}: BasicFilterProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { filters, updateCookTime, updateServing } = useFilters();
   const cookTimes = [
     '10分以内',
     '20分以内',

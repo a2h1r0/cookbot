@@ -2,12 +2,17 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Carrot, Plus, X } from 'lucide-react';
-import { useFilters } from '@/hooks/useFilters';
+import { UseFiltersReturn } from '@/types';
 
-export default function IngredientsFilter() {
+interface IngredientsFilterProps extends UseFiltersReturn {}
+
+export default function IngredientsFilter({
+  filters,
+  addIngredient,
+  removeIngredient,
+}: IngredientsFilterProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const { filters, addIngredient, removeIngredient } = useFilters();
 
   const handleAddIngredient = () => {
     if (inputValue.trim() && !filters.ingredients.includes(inputValue.trim())) {

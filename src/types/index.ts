@@ -35,6 +35,14 @@ export interface SearchFilter {
   ingredients: string[]; // 入力された食材のリスト
 }
 
+export interface UseFiltersReturn {
+  filters: SearchFilter;
+  updateCookTime: (cookTime: string) => void;
+  updateServing: (serving: string) => void;
+  addIngredient: (ingredient: string) => void;
+  removeIngredient: (ingredient: string) => void;
+}
+
 export interface FilterOptions {
   difficulties: Category[];
   cookTimes: Category[];

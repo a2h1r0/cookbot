@@ -7,24 +7,17 @@ import SwipeStack, { SwipeStackRef } from '@/components/search/SwipeStack';
 import SwipeActions from '@/components/search/SwipeActions';
 import Search from '@/components/search/Search';
 import { useRecipes } from '@/hooks/useRecipes';
-import { useFilters } from '@/hooks/useFilters';
 import { useSwipe } from '@/hooks/useSwipe';
-import { Recipe } from '@/types';
+import { Recipe, SearchFilter } from '@/types';
 
 export default function SearchPage() {
   const router = useRouter();
   const swipeStackRef = useRef<SwipeStackRef>(null);
-
-  // フィルターフックを使用
-  const { filters } = useFilters();
-
   // カスタムフックを使用してレシピを取得
-  const { recipes, loading, error, refetch } = useRecipes(filters);
+  const { recipes, loading, error, refetch } = useRecipes();
 
   // ハンドラー関数
   const handleLike = (recipe: Recipe) => {
-    console.log('Liked:', recipe.title);
-    // レシピ詳細ページに遷移（レシピデータをクエリパラメータで渡す）
     router.push(`/recipe?id=${recipe.id}`);
   };
 
@@ -38,27 +31,27 @@ export default function SearchPage() {
     onLike: handleLike,
     onPass: handlePass,
     onSearch: refetch,
-  }); // フィルターが変更されたら検索を再実行
-  useEffect(() => {
-    swipeState.search();
-  }, [filters]);
+  });
 
-  // デバッグ用
-  console.log(
-    'Debug - isComplete:',
-    swipeState.isComplete,
-    'currentIndex:',
-    swipeState.currentIndex,
-    'recipes.length:',
-    recipes.length
-  );
+  // フィルター変更ハンドラ
+  const handleFiltersChange = (filters: SearchFilter) => {
+    console.log(
+      '📝 SearchPage: filters changed, triggering refetch and reset:',
+      filters
+    );
+    // // スワイプ状態をリセット
+    // swipeState.resetSwipe();
+    // // レシピを再取得
+    // refetch();
+  };
+
   return (
     <AppLayout>
       <div className="mt-2 mx-4">
         {' '}
         {/* 検索フィルター */}
         <div className="mb-4">
-          <Search />
+          <Search onChangeFilters={handleFiltersChange} />
         </div>
         {/* フィルター結果表示 */}
         {loading && (

@@ -1,23 +1,12 @@
-import { useState, useEffect } from 'react';
-import { SearchFilter } from '@/types';
+import { useState } from 'react';
+import { SearchFilter, UseFiltersReturn } from '@/types';
 
-export function useFilters() {
+export function useFilters(): UseFiltersReturn {
   const [filters, setFilters] = useState<SearchFilter>({
-    cookTime: '',
-    serving: '',
+    cookTime: '30分以内',
+    serving: '2人分',
     ingredients: [],
   });
-
-  // デフォルト値を設定
-  useEffect(() => {
-    if (!filters.cookTime && !filters.serving) {
-      setFilters((prev) => ({
-        ...prev,
-        cookTime: '30分以内', // デフォルト: 30分以内
-        serving: '2人分', // デフォルト: 2人分
-      }));
-    }
-  }, []);
 
   // 調理時間を更新
   const updateCookTime = (cookTime: string) => {
@@ -49,14 +38,6 @@ export function useFilters() {
       ingredients: newIngredients,
     }));
   };
-  // 全てのフィルターをリセット
-  const resetFilters = () => {
-    setFilters({
-      cookTime: '30分以内',
-      serving: '2人分',
-      ingredients: [],
-    });
-  };
 
   return {
     filters,
@@ -64,6 +45,5 @@ export function useFilters() {
     updateServing,
     addIngredient,
     removeIngredient,
-    resetFilters,
   };
 }
