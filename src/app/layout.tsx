@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 
 const geistSans = Geist({
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
     'これはダミーのレシピ説明文です。実際のレシピ内容をここに記載します。美味しく簡単に作れる料理のポイントを説明しています。',
 };
 
+const gaId = process.env.GOOGLE_ANALYTICS_ID;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,6 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );
