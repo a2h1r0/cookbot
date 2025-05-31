@@ -8,10 +8,12 @@ export function selectRandomMockRecipes(): Recipe[] {
   const shuffledRecipes = [...mockRecipes].sort(() => Math.random() - 0.5);
   const selectedRecipes = [];
 
+  // 重複を避けるために、各レシピにユニークなIDを付与
   for (let i = 0; i < 10; i++) {
-    const recipe = shuffledRecipes[i % shuffledRecipes.length];
+    const originalRecipe = shuffledRecipes[i % shuffledRecipes.length];
     selectedRecipes.push({
-      ...recipe,
+      ...originalRecipe,
+      id: `${originalRecipe.id}-instance-${i}`, // ユニークなIDを生成
     });
   }
 
