@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextRequest, NextResponse } from 'next/server';
+import { createMockRecipeResponse } from '@/utils/mockHelpers';
 
 // Gemini APIクライアントを初期化
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
@@ -19,6 +20,12 @@ export async function POST(request: NextRequest) {
         { success: false, error: 'プロンプトが指定されていません' },
         { status: 400 }
       );
+    }
+
+    // 開発環境の場合はモックデータを返す
+    if (process.env.NODE_ENV === 'development') {
+      const mockResponse = createMockRecipeResponse(prompt, model, temperature);
+      return NextResponse.json(mockResponse);
     }
 
     // Gemini APIキーが設定されているかチェック
