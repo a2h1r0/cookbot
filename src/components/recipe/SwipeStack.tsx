@@ -25,13 +25,13 @@ export default function SwipeStack({
   }
   return (
     <div className="relative h-96 w-full max-w-sm mx-auto">
-      {/* カードスタック */}
+      {/* カードスタック */}{' '}
       {recipes.slice(currentIndex).map((recipe, index) => {
         const isTop = index === 0;
 
         return (
           <div
-            key={recipe.title}
+            key={recipe.id}
             className="absolute inset-0"
             style={{
               transform: `scale(${1 - index * 0.05}) translateY(${

@@ -99,8 +99,7 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
           {/* レシピ画像（カテゴリアイコン） */}{' '}
           <div
             className={`h-64 bg-gradient-to-br ${getCategoryGradient(
-              recipe.title,
-              recipe.description || ''
+              recipe.category
             )} relative overflow-hidden flex flex-col items-center justify-center text-white`}
           >
             {/* 背景パターン */}

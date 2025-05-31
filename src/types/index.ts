@@ -1,15 +1,28 @@
+export enum Category {
+  FISH = 'fish',
+  MEAT = 'meat',
+  VEGETABLE = 'vegetable',
+  SOUP = 'soup',
+  DESSERT = 'dessert',
+  PIZZA = 'pizza',
+  BEVERAGE = 'beverage',
+  OTHER = 'other',
+}
+
 export interface Ingredient {
   name: string;
   amount: string;
 }
 
 export interface Recipe {
+  id: string;
   title: string;
   description: string;
   cookTime: string;
   servings: number;
   ingredients: Ingredient[];
   steps: string[];
+  category: Category;
 }
 
 export interface SearchFilters {

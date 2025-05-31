@@ -1,4 +1,4 @@
-import { Recipe, SearchFilters } from '@/types';
+import { Recipe, SearchFilters, Category } from '@/types';
 
 /**
  * レシピ検索用のプロンプトを生成する
@@ -12,12 +12,12 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
   if (filters.ingredients.length > 0) {
     conditions.push(`使用したい食材: ${filters.ingredients.join(', ')}`);
   }
-
   const recipeTemplate: Partial<Recipe> = {
     title: 'レシピ名',
     description: 'レシピの説明',
     cookTime: '30分',
     servings: 2,
+    category: Category.OTHER,
     ingredients: [{ name: '材料名', amount: '分量' }],
     steps: ['手順1', '手順2', '手順3'],
   };
@@ -25,17 +25,20 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
   const jsonFormat = {
     recipes: [recipeTemplate],
   };
-
   return [
     '以下の条件でレシピを検索してください：',
     '',
     ...conditions,
     '',
+    `カテゴリは以下から適切なものを選んでください：${Object.values(
+      Category
+    ).join(', ')}`,
+    '',
     '以下のJSON形式で5つのレシピを提案してください：',
     JSON.stringify(jsonFormat, null, 2),
     '',
     '実際に存在する材料と手順で、実用的なレシピを提案してください。',
-    '画像URLは適当なものを設定してください。',
+    'categoryフィールドには上記のカテゴリから最も適切なものを設定してください。',
   ].join('\n');
 }
 
@@ -49,5 +52,11 @@ export function parseRecipesFromResponse(responseText: string): Recipe[] {
   }
 
   const recipesData = JSON.parse(jsonMatch[0]);
-  return recipesData.recipes || [];
+  const recipes = recipesData.recipes || [];
+
+  // 生成されたレシピにユニークなIDを追加
+  return recipes.map((recipe: any, index: number) => ({
+    ...recipe,
+    id: recipe.id || `generated-${Date.now()}-${index}`,
+  }));
 }
