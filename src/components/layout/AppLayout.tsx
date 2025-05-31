@@ -9,7 +9,10 @@ interface AppLayoutProps {
   showBottomNav?: boolean;
 }
 
-export default function AppLayout({ children, showBottomNav = true }: AppLayoutProps) {
+export default function AppLayout({
+  children,
+  showBottomNav = false,
+}: AppLayoutProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
       <Header />

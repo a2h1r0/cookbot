@@ -4,11 +4,11 @@ import { mockRecipes } from '@/data/mockRecipes';
 /**
  * モックレシピからランダムに指定数選択する
  */
-export function selectRandomMockRecipes(count: number = 5): Recipe[] {
+export function selectRandomMockRecipes(): Recipe[] {
   const shuffledRecipes = [...mockRecipes].sort(() => Math.random() - 0.5);
   const selectedRecipes = [];
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < 10; i++) {
     const recipe = shuffledRecipes[i % shuffledRecipes.length];
     selectedRecipes.push({
       ...recipe,
@@ -24,12 +24,11 @@ export function selectRandomMockRecipes(count: number = 5): Recipe[] {
 export function createMockRecipeResponse(
   prompt: string,
   model: string,
-  temperature: number,
-  recipeCount: number = 5
+  temperature: number
 ) {
   console.log('Development mode: Returning mock recipes');
 
-  const selectedRecipes = selectRandomMockRecipes(recipeCount);
+  const selectedRecipes = selectRandomMockRecipes();
 
   const mockResponse = {
     recipes: selectedRecipes,

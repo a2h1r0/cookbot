@@ -6,15 +6,22 @@ import SwipeActions from '@/components/search/SwipeActions';
 import Search from '@/components/search/Search';
 import { useRecipes } from '@/hooks/useRecipes';
 import { useSwipe } from '@/hooks/useSwipe';
+import { useFilters } from '@/hooks/useFilters';
+import { useEffect } from 'react';
 
 export default function SearchPage() {
   const { recipes, loading, error, fetchRecipes } = useRecipes();
+  const filtersHook = useFilters();
   const swipeHook = useSwipe();
 
   const search = () => {
-    fetchRecipes();
+    fetchRecipes(filtersHook.filters);
     swipeHook.reset();
   };
+
+  useEffect(() => {
+    search();
+  }, [filtersHook.filters]);
 
   return (
     <AppLayout>
@@ -22,7 +29,7 @@ export default function SearchPage() {
         {' '}
         {/* 検索フィルター */}
         <div className="mb-4">
-          <Search onChangeFilters={search} />
+          <Search {...filtersHook} />
         </div>
         {/* フィルター結果表示 */}
         {loading && (
