@@ -115,35 +115,23 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
               <h3 className="mt-3 text-lg font-bold text-center px-4 leading-tight">
                 {recipe.title}
               </h3>
-              {recipe.cookTime && (
-                <p className="mt-1 text-sm opacity-90">⏱ {recipe.cookTime}</p>
-              )}
+              <div className="flex items-center space-x-4 text-sm mt-2">
+                <div className="flex items-center space-x-1">
+                  <Clock size={16} />
+                  <span>{recipe.cookTime}</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Users size={16} />
+                  <span>{recipe.servings}人分</span>
+                </div>
+              </div>
             </div>
           </div>
           {/* レシピ情報 */}
           <div className="p-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              {recipe.title}
-            </h3>
             <p className="text-gray-600 text-sm mb-4 line-clamp-3">
               {recipe.description}
             </p>
-
-            {/* メタ情報 */}
-            <div className="flex items-center space-x-4 text-gray-500 text-sm">
-              <div className="flex items-center space-x-1">
-                <Clock size={16} />
-                <span>{recipe.cookTime}</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <Users size={16} />
-                <span>{recipe.servings}人分</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <ChefHat size={16} />
-                <span>レシピ</span>
-              </div>
-            </div>
           </div>{' '}
         </div>
         {/* スワイプヒント */}
