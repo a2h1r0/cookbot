@@ -1,6 +1,5 @@
 'use client';
 
-import { useImperativeHandle, forwardRef } from 'react';
 import SwipeCard from './SwipeCard';
 import SwipeCompletion from './SwipeCompletion';
 import { Recipe } from '@/types';
@@ -32,7 +31,7 @@ export default function SwipeStack({
 
         return (
           <div
-            key={recipe.id}
+            key={recipe.title}
             className="absolute inset-0"
             style={{
               transform: `scale(${1 - index * 0.05}) translateY(${

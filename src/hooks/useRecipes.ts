@@ -6,7 +6,6 @@ import {
   parseRecipesFromResponse,
 } from '@/utils/recipePrompts';
 import { SearchFilters } from '@/types';
-import { useFilters } from './useFilters';
 
 export function useRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -43,9 +42,14 @@ export function useRecipes() {
   const fetchRecipes = async (filters: SearchFilters) => {
     await searchRecipes(filters);
   };
+
   useEffect(() => {
-    const { filters } = useFilters();
-    fetchRecipes(filters);
+    const defaultFilters: SearchFilters = {
+      cookTime: '30分以内',
+      serving: '2',
+      ingredients: [],
+    };
+    fetchRecipes(defaultFilters);
   }, []);
 
   return {
