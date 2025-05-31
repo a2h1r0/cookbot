@@ -23,7 +23,7 @@ export default function RecipeDialog({
     <div className="fixed inset-0 bg-white z-50 flex flex-col">
       {' '}
       {/* ヘッダー */}{' '}
-      <div className="bg-[#8fdeb1] p-4 flex items-center justify-between shadow-sm">
+      <div className="bg-[#316d27] p-4 flex items-center justify-between shadow-sm">
         <h2 className="text-lg font-semibold text-white">レシピ詳細</h2>
         <button
           onClick={onClose}
