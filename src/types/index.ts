@@ -53,3 +53,24 @@ export interface FilterOptions {
   difficulties: Category[];
   cookTimes: Category[];
 }
+
+// Gemini API関連の型定義
+export interface GeminiRequest {
+  prompt: string;
+  model?: string;
+  temperature?: number;
+}
+
+export interface GeminiResponse {
+  text: string;
+  model: string;
+  temperature: number;
+  prompt: string;
+}
+
+export interface UseGeminiReturn {
+  loading: boolean;
+  error: string | null;
+  generate: (request: GeminiRequest) => Promise<GeminiResponse | null>;
+  lastResponse: GeminiResponse | null;
+}

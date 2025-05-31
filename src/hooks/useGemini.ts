@@ -1,24 +1,5 @@
 import { useState, useCallback } from 'react';
-
-export interface GeminiRequest {
-  prompt: string;
-  model?: string;
-  temperature?: number;
-}
-
-export interface GeminiResponse {
-  text: string;
-  model: string;
-  temperature: number;
-  prompt: string;
-}
-
-export interface UseGeminiReturn {
-  loading: boolean;
-  error: string | null;
-  generate: (request: GeminiRequest) => Promise<GeminiResponse | null>;
-  lastResponse: GeminiResponse | null;
-}
+import { GeminiRequest, GeminiResponse, UseGeminiReturn } from '@/types';
 
 export function useGemini(): UseGeminiReturn {
   const [loading, setLoading] = useState(false);
