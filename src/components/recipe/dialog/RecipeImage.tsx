@@ -6,7 +6,7 @@ interface RecipeImageProps {
 
 export default function RecipeImage({ recipe }: RecipeImageProps) {
   return (
-    <div className="mb-4">
+    <div className="m-4">
       <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
         {recipe.image ? (
           <img

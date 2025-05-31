@@ -16,14 +16,6 @@ export default function StepList({ recipe }: StepListProps) {
             </div>
             <p className="text-gray-700 flex-1">{step}</p>
           </div>
-          <div className="flex space-x-2 ml-9">
-            <div className="w-20 h-20 bg-gray-200 rounded flex items-center justify-center">
-              <span className="text-xs text-gray-500">写真</span>
-            </div>
-            <div className="w-20 h-20 bg-gray-200 rounded flex items-center justify-center">
-              <span className="text-xs text-gray-500">写真</span>
-            </div>
-          </div>
         </div>
       ))}
     </div>

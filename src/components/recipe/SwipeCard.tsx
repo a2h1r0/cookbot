@@ -73,79 +73,81 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   const opacity = Math.max(0.5, 1 - Math.abs(dragOffset.x) / 200);
 
   return (
-    <div
-      className={`absolute inset-0 select-none cursor-grab ${
-        isDragging ? 'cursor-grabbing' : ''
-      } ${isTop ? 'z-20' : 'z-10'}`}
-      style={{
-        transform: `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${rotation}deg)`,
-        opacity: isDragging ? opacity : 1,
-        transition: isDragging
-          ? 'none'
-          : 'transform 0.3s ease-out, opacity 0.3s ease-out',
-      }}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full max-w-sm mx-auto">
-        {/* レシピ画像 */}
-        <div className="h-64 bg-gray-200 relative overflow-hidden">
-          <img
-            src={recipe.image}
-            alt={recipe.title}
-            className="w-full h-full object-cover"
-            draggable={false}
-          />
+    <div className="absolute inset-0 overflow-hidden">
+      <div
+        className={`w-full h-full select-none cursor-grab ${
+          isDragging ? 'cursor-grabbing' : ''
+        } ${isTop ? 'z-20' : 'z-10'}`}
+        style={{
+          transform: `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${rotation}deg)`,
+          opacity: isDragging ? opacity : 1,
+          transition: isDragging
+            ? 'none'
+            : 'transform 0.3s ease-out, opacity 0.3s ease-out',
+        }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full max-w-sm mx-auto">
+          {' '}
+          {/* レシピ画像 */}
+          <div className="h-64 bg-gray-200 relative overflow-hidden">
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-full object-cover"
+              draggable={false}
+            />
+          </div>
+          {/* レシピ情報 */}
+          <div className="p-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
+              {recipe.title}
+            </h3>
+            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+              {recipe.description}
+            </p>
+
+            {/* メタ情報 */}
+            <div className="flex items-center space-x-4 text-gray-500 text-sm">
+              <div className="flex items-center space-x-1">
+                <Clock size={16} />
+                <span>{recipe.cookTime}</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Users size={16} />
+                <span>{recipe.servings}人分</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <ChefHat size={16} />
+                <span>レシピ</span>
+              </div>
+            </div>
+          </div>{' '}
         </div>
 
-        {/* レシピ情報 */}
-        <div className="p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            {recipe.title}
-          </h3>
-          <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-            {recipe.description}
-          </p>
-
-          {/* メタ情報 */}
-          <div className="flex items-center space-x-4 text-gray-500 text-sm">
-            <div className="flex items-center space-x-1">
-              <Clock size={16} />
-              <span>{recipe.cookTime}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Users size={16} />
-              <span>{recipe.servings}人分</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <ChefHat size={16} />
-              <span>レシピ</span>
+        {/* スワイプヒント */}
+        {isDragging && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div
+              className={`text-4xl font-bold px-6 py-3 rounded-lg border-4 transform rotate-12 ${
+                dragOffset.x > 50
+                  ? 'text-green-500 border-green-500 bg-green-50'
+                  : dragOffset.x < -50
+                  ? 'text-red-500 border-red-500 bg-red-50'
+                  : 'text-gray-400 border-gray-400 bg-gray-50'
+              }`}
+            >
+              {dragOffset.x > 50 ? 'LIKE' : dragOffset.x < -50 ? 'PASS' : ''}
             </div>
           </div>
-        </div>
+        )}
       </div>
-
-      {/* スワイプヒント */}
-      {isDragging && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div
-            className={`text-4xl font-bold px-6 py-3 rounded-lg border-4 transform rotate-12 ${
-              dragOffset.x > 50
-                ? 'text-green-500 border-green-500 bg-green-50'
-                : dragOffset.x < -50
-                ? 'text-red-500 border-red-500 bg-red-50'
-                : 'text-gray-400 border-gray-400 bg-gray-50'
-            }`}
-          >
-            {dragOffset.x > 50 ? 'LIKE' : dragOffset.x < -50 ? 'PASS' : ''}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
