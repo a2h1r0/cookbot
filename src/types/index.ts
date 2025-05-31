@@ -31,6 +31,9 @@ export interface UseSwipeReturn {
   currentIndex: number;
   swipe: (direction: 'left' | 'right') => void;
   reset: () => void;
+  selectedRecipe: Recipe | null;
+  isDialogOpen: boolean;
+  closeDialog: () => void;
 }
 
 // Gemini API関連の型定義
