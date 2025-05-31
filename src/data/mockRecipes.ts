@@ -5,7 +5,6 @@ export const mockRecipes: Recipe[] = [
     title: 'ふわふわパンケーキ',
     description:
       'バターと卵の香りが豊かな、カフェ級のふわふわパンケーキ。朝食やおやつに最適です。メープルシロップをたっぷりかけてお楽しみください。',
-    image: 'https://picsum.photos/400/300?random=1',
     cookTime: '15',
     servings: 2,
     ingredients: [
@@ -29,7 +28,6 @@ export const mockRecipes: Recipe[] = [
     title: '本格カルボナーラ',
     description:
       '生クリームを使わない本場イタリアの味を再現したカルボナーラ。卵とチーズだけで作る濃厚なソースが絶品です。',
-    image: 'https://picsum.photos/400/300?random=2',
     cookTime: '20',
     servings: 2,
     ingredients: [
@@ -53,7 +51,6 @@ export const mockRecipes: Recipe[] = [
     title: '和風ハンバーグ',
     description:
       'ふっくらジューシーな和風ハンバーグ。大根おろしとポン酢でさっぱりといただきます。家族みんなが喜ぶ定番料理です。',
-    image: 'https://picsum.photos/400/300?random=3',
     cookTime: '30',
     servings: 4,
     ingredients: [
@@ -77,7 +74,6 @@ export const mockRecipes: Recipe[] = [
     title: 'チョコレートケーキ',
     description:
       'しっとり濃厚なチョコレートケーキ。特別な日のデザートにぴったり。生クリームとベリーを添えて華やかな仕上がりに。',
-    image: 'https://picsum.photos/400/300?random=4',
     cookTime: '60',
     servings: 8,
     ingredients: [
@@ -101,7 +97,6 @@ export const mockRecipes: Recipe[] = [
     title: 'エビチリ',
     description:
       'プリプリのエビと辛みのあるソースが絶妙なエビチリ。中華料理店の味をお家で再現できます。ご飯との相性も抜群です。',
-    image: 'https://picsum.photos/400/300?random=5',
     cookTime: '25',
     servings: 3,
     ingredients: [
@@ -125,7 +120,6 @@ export const mockRecipes: Recipe[] = [
     title: 'カプレーゼサラダ',
     description:
       'フレッシュなトマトとモッツァレラチーズ、バジルのシンプルなサラダ。オリーブオイルとバルサミコ酢で仕上げます。',
-    image: 'https://picsum.photos/400/300?random=6',
     cookTime: '10',
     servings: 2,
     ingredients: [
@@ -149,7 +143,6 @@ export const mockRecipes: Recipe[] = [
     title: '親子丼',
     description:
       'ふわふわ卵と鶏肉の優しい味わいの親子丼。だしが効いたつゆでご飯が進みます。忙しい日のランチにもおすすめです。',
-    image: 'https://picsum.photos/400/300?random=7',
     cookTime: '15',
     servings: 2,
     ingredients: [
@@ -173,7 +166,6 @@ export const mockRecipes: Recipe[] = [
     title: 'ガパオライス',
     description:
       'タイ料理の定番ガパオライス。ひき肉とバジルの香りが食欲をそそります。目玉焼きをのせて本格的な味を楽しめます。',
-    image: 'https://picsum.photos/400/300?random=8',
     cookTime: '20',
     servings: 2,
     ingredients: [
@@ -197,7 +189,6 @@ export const mockRecipes: Recipe[] = [
     title: 'フルーツタルト',
     description:
       'サクサクのタルト生地に季節のフルーツをたっぷりのせた華やかなデザート。見た目も美しくパーティーにぴったりです。',
-    image: 'https://picsum.photos/400/300?random=9',
     cookTime: '90',
     servings: 6,
     ingredients: [
@@ -221,7 +212,6 @@ export const mockRecipes: Recipe[] = [
     title: 'ミネストローネ',
     description:
       '野菜たっぷりでヘルシーなミネストローネ。トマトベースのスープで体も温まります。パンと一緒に食べるのがおすすめです。',
-    image: 'https://picsum.photos/400/300?random=10',
     cookTime: '45',
     servings: 4,
     ingredients: [
@@ -245,7 +235,6 @@ export const mockRecipes: Recipe[] = [
     title: '唐揚げ',
     description:
       'サクサクジューシーな絶品唐揚げ。下味をしっかりつけることで、冷めても美味しい仕上がりに。お弁当にも最適です。',
-    image: 'https://picsum.photos/400/300?random=11',
     cookTime: '25',
     servings: 3,
     ingredients: [

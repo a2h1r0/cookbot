@@ -2,7 +2,7 @@
 
 import { Recipe } from '@/types';
 import { X } from 'lucide-react';
-import RecipeImage from './RecipeImage';
+import RecipeImage from '../RecipeImage';
 import RecipeTitle from './RecipeTitle';
 import IngredientsList from './IngredientsList';
 import StepList from './StepList';
@@ -30,11 +30,10 @@ export default function RecipeDialog({
         >
           <X className="w-6 h-6 text-gray-500" />
         </button>
-      </div>
-
+      </div>{' '}
       {/* コンテンツ */}
       <div className="flex-1 overflow-y-auto">
-        <RecipeImage recipe={recipe} />
+        <RecipeImage recipe={recipe} variant="full" />
         <div className="p-4">
           <RecipeTitle recipe={recipe} />
           <IngredientsList recipe={recipe} />

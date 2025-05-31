@@ -16,7 +16,6 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
   const recipeTemplate: Partial<Recipe> = {
     title: 'レシピ名',
     description: 'レシピの説明',
-    image: 'https://example.com/image.jpg',
     cookTime: '30分',
     servings: 2,
     ingredients: [{ name: '材料名', amount: '分量' }],

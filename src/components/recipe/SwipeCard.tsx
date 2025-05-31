@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ChefHat, Clock, Users } from 'lucide-react';
 import { Recipe } from '@/types';
+import RecipeImage, { getCategoryGradient } from './RecipeImage';
 
 interface SwipeCardProps {
   recipe: Recipe;
@@ -93,16 +94,32 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
+        {' '}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full max-w-sm mx-auto">
-          {' '}
-          {/* レシピ画像 */}
-          <div className="h-64 bg-gray-200 relative overflow-hidden">
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className="w-full h-full object-cover"
-              draggable={false}
-            />
+          {/* レシピ画像（カテゴリアイコン） */}{' '}
+          <div
+            className={`h-64 bg-gradient-to-br ${getCategoryGradient(
+              recipe.title,
+              recipe.description || ''
+            )} relative overflow-hidden flex flex-col items-center justify-center text-white`}
+          >
+            {/* 背景パターン */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-full"></div>
+              <div className="absolute top-8 right-8 w-4 h-4 border-2 border-white rounded-full"></div>
+              <div className="absolute bottom-8 left-8 w-6 h-6 border-2 border-white rounded-full"></div>
+              <div className="absolute bottom-4 right-4 w-10 h-10 border-2 border-white rounded-full"></div>
+            </div>{' '}
+            {/* メインアイコン */}
+            <div className="z-10 flex flex-col items-center">
+              <RecipeImage recipe={recipe} size="md" variant="icon" />
+              <h3 className="mt-3 text-lg font-bold text-center px-4 leading-tight">
+                {recipe.title}
+              </h3>
+              {recipe.cookTime && (
+                <p className="mt-1 text-sm opacity-90">⏱ {recipe.cookTime}</p>
+              )}
+            </div>
           </div>
           {/* レシピ情報 */}
           <div className="p-6">
@@ -130,7 +147,6 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
             </div>
           </div>{' '}
         </div>
-
         {/* スワイプヒント */}
         {isDragging && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
