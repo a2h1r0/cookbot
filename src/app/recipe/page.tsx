@@ -27,16 +27,18 @@ export default function RecipePage() {
     <AppLayout>
       <div className="h-full flex flex-col pb-4 md:pb-8">
         {/* 検索フィルター */}
-        <div className="flex-shrink-0 px-3 md:px-4 pt-1 md:pt-2 pb-2 md:pb-4">
+        <div className="flex-shrink-0 px-3 mt-3">
           <Search {...filtersHook} />
         </div>
 
         {/* ステータス表示 */}
         <div className="flex-shrink-0 px-3 md:px-4">
+          {' '}
           {loading && (
             <div className="text-center mb-2 md:mb-3">
+              {' '}
               <div className="inline-flex items-center space-x-1 md:space-x-2 text-xs md:text-sm text-gray-600">
-                <div className="w-3 h-3 md:w-4 md:h-4 border-2 border-orange-400 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-3 h-3 md:w-4 md:h-4 border-2 border-[#8fdeb1] border-t-transparent rounded-full animate-spin"></div>
                 <span>レシピを読み込み中...</span>
               </div>
             </div>

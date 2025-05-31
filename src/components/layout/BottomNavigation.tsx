@@ -31,13 +31,14 @@ export default function BottomNavigation() {
               className="flex flex-col items-center space-y-1"
               onClick={() => handleNavigation(item.path)}
             >
+              {' '}
               <IconComponent
                 size={20}
-                className={isActive ? 'text-blue-500' : 'text-gray-400'}
+                className={isActive ? 'text-[#8fdeb1]' : 'text-gray-400'}
               />
               <span
                 className={`text-xs ${
-                  isActive ? 'text-blue-500' : 'text-gray-400'
+                  isActive ? 'text-[#8fdeb1]' : 'text-gray-400'
                 }`}
               >
                 {item.name}

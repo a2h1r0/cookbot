@@ -14,7 +14,7 @@ export default function AppLayout({
   showBottomNav = false,
 }: AppLayoutProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 overflow-x-hidden">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Header />
       <main className={`max-w-md mx-auto ${showBottomNav ? 'pb-20' : ''}`}>
         {children}
