@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 import IngredientsFilter from './IngredientsFilter';
 import BasicFilter from './BasicFilter';
 import { useFilters } from '@/hooks/useFilters';
-import { SearchFilter } from '@/types';
+import { SearchFilters } from '@/types';
 
 interface SearchProps {
-  onChangeFilters: (filters: SearchFilter) => void;
+  onChangeFilters: (filters: SearchFilters) => void;
 }
 
 export default function Search({ onChangeFilters }: SearchProps) {

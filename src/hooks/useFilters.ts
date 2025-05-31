@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { SearchFilter, UseFiltersReturn } from '@/types';
+import { SearchFilters, UseFiltersReturn } from '@/types';
 
 export function useFilters(): UseFiltersReturn {
-  const [filters, setFilters] = useState<SearchFilter>({
+  const [filters, setFilters] = useState<SearchFilters>({
     cookTime: '30分以内',
     serving: '2人分',
     ingredients: [],

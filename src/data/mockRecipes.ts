@@ -2,7 +2,6 @@ import { Recipe } from '@/types';
 
 export const mockRecipes: Recipe[] = [
   {
-    id: '1',
     title: 'ふわふわパンケーキ',
     description:
       'バターと卵の香りが豊かな、カフェ級のふわふわパンケーキ。朝食やおやつに最適です。メープルシロップをたっぷりかけてお楽しみください。',
@@ -27,7 +26,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '2',
     title: '本格カルボナーラ',
     description:
       '生クリームを使わない本場イタリアの味を再現したカルボナーラ。卵とチーズだけで作る濃厚なソースが絶品です。',
@@ -52,7 +50,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '3',
     title: '和風ハンバーグ',
     description:
       'ふっくらジューシーな和風ハンバーグ。大根おろしとポン酢でさっぱりといただきます。家族みんなが喜ぶ定番料理です。',
@@ -77,7 +74,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '4',
     title: 'チョコレートケーキ',
     description:
       'しっとり濃厚なチョコレートケーキ。特別な日のデザートにぴったり。生クリームとベリーを添えて華やかな仕上がりに。',
@@ -102,7 +98,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '5',
     title: 'エビチリ',
     description:
       'プリプリのエビと辛みのあるソースが絶妙なエビチリ。中華料理店の味をお家で再現できます。ご飯との相性も抜群です。',
@@ -127,7 +122,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '6',
     title: 'カプレーゼサラダ',
     description:
       'フレッシュなトマトとモッツァレラチーズ、バジルのシンプルなサラダ。オリーブオイルとバルサミコ酢で仕上げます。',
@@ -152,7 +146,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '7',
     title: '親子丼',
     description:
       'ふわふわ卵と鶏肉の優しい味わいの親子丼。だしが効いたつゆでご飯が進みます。忙しい日のランチにもおすすめです。',
@@ -177,7 +170,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '8',
     title: 'ガパオライス',
     description:
       'タイ料理の定番ガパオライス。ひき肉とバジルの香りが食欲をそそります。目玉焼きをのせて本格的な味を楽しめます。',
@@ -202,7 +194,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '9',
     title: 'フルーツタルト',
     description:
       'サクサクのタルト生地に季節のフルーツをたっぷりのせた華やかなデザート。見た目も美しくパーティーにぴったりです。',
@@ -227,7 +218,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '10',
     title: 'ミネストローネ',
     description:
       '野菜たっぷりでヘルシーなミネストローネ。トマトベースのスープで体も温まります。パンと一緒に食べるのがおすすめです。',
@@ -252,7 +242,6 @@ export const mockRecipes: Recipe[] = [
     ],
   },
   {
-    id: '11',
     title: '唐揚げ',
     description:
       'サクサクジューシーな絶品唐揚げ。下味をしっかりつけることで、冷めても美味しい仕上がりに。お弁当にも最適です。',

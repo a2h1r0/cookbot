@@ -4,7 +4,6 @@ export interface Ingredient {
 }
 
 export interface Recipe {
-  id: string;
   title: string;
   description: string;
   image: string;
@@ -14,29 +13,14 @@ export interface Recipe {
   steps: string[];
 }
 
-// API レスポンスの型定義
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  total?: number;
-  query?: string;
-}
-
-export interface Category {
-  id: string;
-  name: string;
-  count: number;
-}
-
-export interface SearchFilter {
-  cookTime: string; // 単一選択に変更
-  serving: string; // 単一選択に変更（stringに統一）
-  ingredients: string[]; // 入力された食材のリスト
+export interface SearchFilters {
+  cookTime: string;
+  serving: string;
+  ingredients: string[];
 }
 
 export interface UseFiltersReturn {
-  filters: SearchFilter;
+  filters: SearchFilters;
   updateCookTime: (cookTime: string) => void;
   updateServing: (serving: string) => void;
   addIngredient: (ingredient: string) => void;
@@ -47,11 +31,6 @@ export interface UseSwipeReturn {
   currentIndex: number;
   swipe: (direction: 'left' | 'right') => void;
   reset: () => void;
-}
-
-export interface FilterOptions {
-  difficulties: Category[];
-  cookTimes: Category[];
 }
 
 // Gemini API関連の型定義
