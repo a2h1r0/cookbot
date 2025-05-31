@@ -1,10 +1,10 @@
 'use client';
 
 import AppLayout from '@/components/layout/AppLayout';
-import SwipeStack from '@/components/search/SwipeStack';
-import SwipeActions from '@/components/search/SwipeActions';
-import Search from '@/components/search/Search';
-import RecipeDialog from '@/components/recipe/RecipeDialog';
+import SwipeStack from '@/components/recipe/SwipeStack';
+import SwipeActions from '@/components/recipe/SwipeActions';
+import Search from '@/components/recipe/Search';
+import RecipeDialog from '@/components/recipe/dialog/RecipeDialog';
 import { useRecipes } from '@/hooks/useRecipes';
 import { useSwipe } from '@/hooks/useSwipe';
 import { useFilters } from '@/hooks/useFilters';
