@@ -22,7 +22,8 @@ export default function HomePage() {
           </div>
           {/* メインヘッドライン */}
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            AI が作る
+            AIが作る
+            <br />
             <span className="text-orange-500">あなただけの</span>
             <br />
             レシピ提案
