@@ -7,26 +7,12 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function POST(request: NextRequest) {
   try {
-    // 環境変数の状態をログ出力（デバッグ用）
-    console.log('Environment check:', {
-      NODE_ENV: process.env.NODE_ENV,
-      hasGeminiKey: !!process.env.GEMINI_API_KEY,
-      keyLength: process.env.GEMINI_API_KEY?.length || 0,
-      timestamp: new Date().toISOString(),
-    });
-
     // リクエストボディを解析
     const {
       prompt,
       model = 'gemini-2.0-flash-exp',
       temperature = 0.7,
     } = await request.json();
-
-    console.log('Request received:', {
-      promptLength: prompt?.length || 0,
-      model,
-      temperature,
-    });
 
     // promptが必須パラメータかチェック
     if (!prompt) {
@@ -83,15 +69,9 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         error:
-          'サーバーエラーが発生しました。しばらくしてからもう一度お試しください。',
-        details:
-          process.env.NODE_ENV === 'development'
-            ? error instanceof Error
-              ? error.message
-              : '予期しないエラーが発生しました'
-            : undefined,
-        environment: process.env.NODE_ENV,
-        hasApiKey: !!process.env.GEMINI_API_KEY,
+          error instanceof Error
+            ? error.message
+            : '予期しないエラーが発生しました',
       },
       { status: 500 }
     );
