@@ -40,7 +40,7 @@ export default function RecipePage() {
               {' '}
               <div className="inline-flex items-center space-x-1 md:space-x-2 text-xs md:text-sm text-gray-600">
                 <div className="w-3 h-3 md:w-4 md:h-4 border-2 border-[#8fdeb1] border-t-transparent rounded-full animate-spin"></div>
-                <span>レシピを読み込み中...</span>
+                <span>AIがレシピを考えています...🤔</span>
               </div>
             </div>
           )}
@@ -55,7 +55,7 @@ export default function RecipePage() {
           {!loading && !error && recipes.length === 0 && (
             <div className="text-center mb-2 md:mb-3">
               <div className="inline-flex items-center space-x-1 md:space-x-2 text-xs md:text-sm text-gray-600 bg-gray-50 px-2 py-1 md:px-3 md:py-2 rounded-lg">
-                <span>🤔</span>
+                <span>😢</span>
                 <span>条件に合うレシピが見つかりませんでした</span>
               </div>
             </div>
