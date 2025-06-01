@@ -15,22 +15,18 @@ export default function RecipePage() {
   const { recipes, loading, error, fetchRecipes } = useRecipes();
   const filtersHook = useFilters();
   const swipeHook = useSwipe(recipes);
-
   const search = () => {
     fetchRecipes(filtersHook.filters);
     swipeHook.reset();
   };
 
-  useEffect(() => {
-    search();
-  }, [filtersHook.filters]);
-
   return (
     <AppLayout>
       <div className="h-full flex flex-col pb-4 md:pb-8">
+        {' '}
         {/* 検索フィルター */}
         <div className="flex-shrink-0 px-3 mt-3">
-          <Search {...filtersHook} />
+          <Search {...filtersHook} onSearch={search} isLoading={loading} />
         </div>{' '}
         {/* ステータス表示 */}
         <div className="flex-shrink-0 px-3 md:px-4">

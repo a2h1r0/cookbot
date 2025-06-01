@@ -29,7 +29,7 @@ export default function SwipeCompletion({ onSearch }: SwipeCompletionProps) {
           className="w-full bg-[#5fbd84] text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
         >
           <RefreshCw className="w-5 h-5" />
-          <span>もう一度探す</span>
+          <span>もっと探す</span>
         </button>
       </div>
     </div>

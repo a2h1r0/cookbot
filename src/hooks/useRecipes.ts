@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Recipe } from '@/types';
 import { useGemini } from './useGemini';
 import {
@@ -42,6 +42,14 @@ export function useRecipes() {
   const fetchRecipes = async (filters: SearchFilters) => {
     await searchRecipes(filters);
   };
+
+  useEffect(() => {
+    fetchRecipes({
+      cookTime: '30分以内',
+      serving: '2人分',
+      ingredients: [],
+    });
+  }, []);
 
   return {
     recipes,
