@@ -5,12 +5,10 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Next.js API Routes用の設定
 [[functions]]
   pattern = "api/*"
   node_bundler = "esbuild"
-
-[functions]
-  directory = ".netlify/functions"
 
 [[headers]]
   for = "/api/*"
@@ -19,7 +17,7 @@
     Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type, Authorization"
 
-# リダイレクト設定
+# Next.jsのルーティング用のリダイレクト
 [[redirects]]
   from = "/*"
   to = "/index.html"
