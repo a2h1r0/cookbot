@@ -5,10 +5,10 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Next.js API Routes用の設定
+# Next.js Functions用の設定
 [[functions]]
-  pattern = "api/*"
-  node_bundler = "esbuild"
+  name = "next-js"
+  external_node_modules = ["@google/generative-ai"]
 
 [[headers]]
   for = "/api/*"
@@ -20,5 +20,5 @@
 # Next.jsのルーティング用のリダイレクト
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/___netlify-handler"
   status = 200
