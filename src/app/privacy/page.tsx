@@ -3,8 +3,22 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'CookBot - プライバシーポリシー',
-  description: 'CookBotサービスのプライバシーポリシーをご確認ください。',
+  title: 'プライバシーポリシー',
+  description:
+    'CookBotサービスのプライバシーポリシーをご確認ください。お客様の個人情報の取り扱いについて詳しく説明しています。',
+  keywords: ['プライバシーポリシー', '個人情報保護', 'CookBot'],
+  robots: 'noindex, nofollow',
+  openGraph: {
+    title: 'CookBot - プライバシーポリシー',
+    description: 'CookBotサービスのプライバシーポリシーをご確認ください。',
+    type: 'article',
+    locale: 'ja_JP',
+    siteName: 'CookBot',
+    url: 'https://cookbot.jp/privacy',
+  },
+  alternates: {
+    canonical: 'https://cookbot.jp/privacy',
+  },
 };
 
 export default function PrivacyPage() {

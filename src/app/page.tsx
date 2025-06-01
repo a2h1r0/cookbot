@@ -1,5 +1,34 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'CookBot - AIが作るあなただけのレシピ提案',
+  description:
+    'AIが調理時間、人数、食材から最適なレシピを提案。スワイプ操作で簡単にレシピを選択できる新しい料理体験をお楽しみください。',
+  keywords: ['レシピ', 'AI', '料理', 'レシピ提案', 'スワイプ', 'CookBot'],
+  authors: [{ name: 'CookBot Team' }],
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow',
+  openGraph: {
+    title: 'CookBot - AIが作るあなただけのレシピ提案',
+    description:
+      'AIが調理時間、人数、食材から最適なレシピを提案。スワイプ操作で簡単にレシピを選択できる新しい料理体験をお楽しみください。',
+    type: 'website',
+    locale: 'ja_JP',
+    siteName: 'CookBot',
+    url: 'https://cookbot.jp',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CookBot - AIが作るあなただけのレシピ提案',
+    description:
+      'AIが調理時間、人数、食材から最適なレシピを提案。スワイプ操作で簡単にレシピを選択できる新しい料理体験をお楽しみください。',
+  },
+  alternates: {
+    canonical: 'https://cookbot.jp',
+  },
+};
 
 export default function HomePage() {
   return (

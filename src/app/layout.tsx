@@ -14,9 +14,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'ダミーレシピタイトル',
+  title: {
+    default: 'CookBot - AIが作るあなただけのレシピ提案',
+    template: '%s | CookBot',
+  },
   description:
-    'これはダミーのレシピ説明文です。実際のレシピ内容をここに記載します。美味しく簡単に作れる料理のポイントを説明しています。',
+    'AIが調理時間、人数、食材から最適なレシピを提案。スワイプ操作で簡単にレシピを選択できる新しい料理体験をお楽しみください。',
+  keywords: ['レシピ', 'AI', '料理', 'レシピ提案', 'スワイプ', 'CookBot'],
+  authors: [{ name: 'CookBot Team' }],
+  creator: 'CookBot Team',
+  publisher: 'CookBot',
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow',
+  manifest: '/manifest.json',
+  alternates: {
+    canonical: 'https://cookbot.jp',
+  },
+  openGraph: {
+    title: 'CookBot - AIが作るあなただけのレシピ提案',
+    description:
+      'AIが調理時間、人数、食材から最適なレシピを提案。スワイプ操作で簡単にレシピを選択できる新しい料理体験をお楽しみください。',
+    type: 'website',
+    locale: 'ja_JP',
+    siteName: 'CookBot',
+    url: 'https://cookbot.jp',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CookBot - AIが作るあなただけのレシピ提案',
+    description:
+      'AIが調理時間、人数、食材から最適なレシピを提案。スワイプ操作で簡単にレシピを選択できる新しい料理体験をお楽しみください。',
+    creator: '@cookbot_jp',
+  },
+  metadataBase: new URL('https://cookbot.jp'),
 };
 
 const gaId = process.env.GOOGLE_ANALYTICS_ID;

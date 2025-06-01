@@ -3,8 +3,22 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'CookBot - 利用規約',
-  description: 'CookBotサービスの利用規約をご確認ください。',
+  title: '利用規約',
+  description:
+    'CookBotサービスの利用規約をご確認ください。ユーザーの皆様に安心してサービスをご利用いただくための重要な情報です。',
+  keywords: ['利用規約', 'CookBot', '規約'],
+  robots: 'noindex, nofollow',
+  openGraph: {
+    title: 'CookBot - 利用規約',
+    description: 'CookBotサービスの利用規約をご確認ください。',
+    type: 'article',
+    locale: 'ja_JP',
+    siteName: 'CookBot',
+    url: 'https://cookbot.jp/terms',
+  },
+  alternates: {
+    canonical: 'https://cookbot.jp/terms',
+  },
 };
 
 export default function TermsPage() {

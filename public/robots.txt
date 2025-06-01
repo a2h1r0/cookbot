@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /recipe
+Disallow: /terms
+Disallow: /privacy
+
+Sitemap: https://cookbot.jp/sitemap.xml
