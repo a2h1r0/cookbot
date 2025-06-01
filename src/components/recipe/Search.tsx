@@ -4,7 +4,10 @@ import IngredientsFilter from './IngredientsFilter';
 import BasicFilter from './BasicFilter';
 import { UseFiltersReturn } from '@/types';
 
-type SearchProps = UseFiltersReturn;
+type SearchProps = UseFiltersReturn & {
+  onSearch: () => void;
+  isLoading?: boolean;
+};
 
 export default function Search({
   filters,
@@ -12,30 +15,55 @@ export default function Search({
   updateServing,
   addIngredient,
   removeIngredient,
+  onSearch,
+  isLoading = false,
 }: SearchProps) {
   return (
-    <div className="p-3 border-y border-gray-300 mb-4">
-      <div className="space-y-2">
-        {/* 基本フィルター（調理時間・人数） */}
-        <BasicFilter
-          filters={filters}
-          updateCookTime={updateCookTime}
-          updateServing={updateServing}
-          addIngredient={addIngredient}
-          removeIngredient={removeIngredient}
-        />
+    <div>
+      <div className="p-3 border-y border-gray-300 mb-4">
+        <div className="space-y-3">
+          {/* 基本フィルター（調理時間・人数） */}
+          <BasicFilter
+            filters={filters}
+            updateCookTime={updateCookTime}
+            updateServing={updateServing}
+            addIngredient={addIngredient}
+            removeIngredient={removeIngredient}
+          />
 
-        {/* 区切り線 */}
-        <div className="-mx-3 border-t border-gray-300"></div>
+          {/* 区切り線 */}
+          <div className="-mx-3 border-t border-gray-300"></div>
 
-        {/* 食材フィルター */}
-        <IngredientsFilter
-          filters={filters}
-          updateCookTime={updateCookTime}
-          updateServing={updateServing}
-          addIngredient={addIngredient}
-          removeIngredient={removeIngredient}
-        />
+          {/* 食材フィルター */}
+          <IngredientsFilter
+            filters={filters}
+            updateCookTime={updateCookTime}
+            updateServing={updateServing}
+            addIngredient={addIngredient}
+            removeIngredient={removeIngredient}
+          />
+        </div>
+      </div>
+
+      {/* 検索ボタン */}
+      <div className="pb-4">
+        <button
+          onClick={onSearch}
+          disabled={isLoading}
+          className="w-full bg-[#5fbd84] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+        >
+          {isLoading ? (
+            <>
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <span>検索中...</span>
+            </>
+          ) : (
+            <>
+              <span>🔍</span>
+              <span>レシピを検索</span>
+            </>
+          )}
+        </button>
       </div>
     </div>
   );

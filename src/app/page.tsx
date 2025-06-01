@@ -40,12 +40,13 @@ export default function HomePage() {
           {/* ロゴ/アイコン */}
           <div className="mb-8 flex justify-center">
             <div className="flex items-center justify-center">
+              {' '}
               <Image
                 src="/images/icon.svg"
                 alt="CookBot"
                 width={60}
                 height={60}
-                className="h-16 w-auto"
+                style={{ objectFit: 'contain' }}
               />
             </div>
           </div>
@@ -285,12 +286,13 @@ export default function HomePage() {
             {' '}
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
+                {' '}
                 <Image
                   src="/images/logo.svg"
                   alt="CookBot"
                   width={120}
                   height={30}
-                  className="h-8 w-auto"
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
               <p className="text-gray-400 mb-6">

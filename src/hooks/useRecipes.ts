@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Recipe } from '@/types';
 import { useGemini } from './useGemini';
 import {
@@ -40,21 +40,18 @@ export function useRecipes() {
     },
     [generate]
   );
-
   const fetchRecipes = useCallback(
     async (filters: SearchFilters) => {
       await searchRecipes(filters);
     },
     [searchRecipes]
   );
-
   useEffect(() => {
-    const defaultFilters: SearchFilters = {
+    fetchRecipes({
       cookTime: '30分以内',
-      serving: '2',
+      serving: '2人分',
       ingredients: [],
-    };
-    fetchRecipes(defaultFilters);
+    });
   }, [fetchRecipes]);
 
   return {
