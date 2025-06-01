@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, Clock, Users } from 'lucide-react';
 import { UseFiltersReturn } from '@/types';
 
-interface BasicFilterProps extends UseFiltersReturn {}
+type BasicFilterProps = UseFiltersReturn;
 
 export default function BasicFilter({
   filters,

@@ -4,7 +4,7 @@ import IngredientsFilter from './IngredientsFilter';
 import BasicFilter from './BasicFilter';
 import { UseFiltersReturn } from '@/types';
 
-interface SearchProps extends UseFiltersReturn {}
+type SearchProps = UseFiltersReturn;
 
 export default function Search({
   filters,
