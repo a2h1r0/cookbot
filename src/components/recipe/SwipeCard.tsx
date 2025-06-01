@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Clock, Users } from 'lucide-react';
+import { ChefHat, Clock, Users } from 'lucide-react';
 import { Recipe } from '@/types';
 import RecipeImage, { getCategoryGradient } from './RecipeImage';
 

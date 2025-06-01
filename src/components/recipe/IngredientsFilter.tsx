@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, Carrot, Plus, X } from 'lucide-react';
 import { UseFiltersReturn } from '@/types';
 
-type IngredientsFilterProps = UseFiltersReturn;
+interface IngredientsFilterProps extends UseFiltersReturn {}
 
 export default function IngredientsFilter({
   filters,

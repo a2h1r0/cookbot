@@ -3,7 +3,7 @@
 import { UseSwipeReturn } from '@/types';
 import { Heart, X } from 'lucide-react';
 
-type SwipeActionsProps = UseSwipeReturn;
+interface SwipeActionsProps extends UseSwipeReturn {}
 
 export default function SwipeActions({ swipe }: SwipeActionsProps) {
   return (

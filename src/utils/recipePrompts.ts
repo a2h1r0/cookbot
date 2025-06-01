@@ -53,8 +53,9 @@ export function parseRecipesFromResponse(responseText: string): Recipe[] {
 
   const recipesData = JSON.parse(jsonMatch[0]);
   const recipes = recipesData.recipes || [];
+
   // 生成されたレシピにユニークなIDを追加
-  return recipes.map((recipe: Recipe, index: number) => ({
+  return recipes.map((recipe: any, index: number) => ({
     ...recipe,
     id: recipe.id || `generated-${Date.now()}-${index}`,
   }));
