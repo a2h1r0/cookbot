@@ -8,21 +8,20 @@ import RecipeDialog from '@/components/recipe/dialog/RecipeDialog';
 import { useRecipes } from '@/hooks/useRecipes';
 import { useSwipe } from '@/hooks/useSwipe';
 import { useFilters } from '@/hooks/useFilters';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 export default function RecipePage() {
   const { recipes, loading, error, fetchRecipes } = useRecipes();
   const filtersHook = useFilters();
   const swipeHook = useSwipe(recipes);
-
-  const search = () => {
+  const search = useCallback(() => {
     fetchRecipes(filtersHook.filters);
     swipeHook.reset();
-  };
+  }, [fetchRecipes, filtersHook.filters, swipeHook]);
 
   useEffect(() => {
     search();
-  }, [filtersHook.filters]);
+  }, [search]);
   return (
     <AppLayout>
       <div className="h-full flex flex-col pb-4 md:pb-8">

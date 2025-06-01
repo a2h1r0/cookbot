@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Recipe } from '@/types';
 import { useGemini } from './useGemini';
 import {
@@ -12,8 +12,7 @@ export function useRecipes() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { generate, loading: geminiLoading, error: geminiError } = useGemini();
-
-  const searchRecipes = async (filters: SearchFilters) => {
+  const searchRecipes = useCallback(async (filters: SearchFilters) => {
     try {
       setLoading(true);
       setError(null);
@@ -37,11 +36,11 @@ export function useRecipes() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [generate]);
 
-  const fetchRecipes = async (filters: SearchFilters) => {
+  const fetchRecipes = useCallback(async (filters: SearchFilters) => {
     await searchRecipes(filters);
-  };
+  }, [searchRecipes]);
 
   useEffect(() => {
     const defaultFilters: SearchFilters = {
@@ -50,7 +49,7 @@ export function useRecipes() {
       ingredients: [],
     };
     fetchRecipes(defaultFilters);
-  }, []);
+  }, [fetchRecipes]);
 
   return {
     recipes,
