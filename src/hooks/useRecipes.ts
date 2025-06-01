@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Recipe } from '@/types';
 import { useGemini } from './useGemini';
 import {
@@ -12,44 +12,47 @@ export function useRecipes() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { generate, loading: geminiLoading, error: geminiError } = useGemini();
-
-  const searchRecipes = async (filters: SearchFilters) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const prompt = createRecipeSearchPrompt(filters);
-      const response = await generate({ prompt, temperature: 0.8 });
-
-      if (!response) {
-        throw new Error('レシピの生成に失敗しました');
-      }
-
+  const searchRecipes = useCallback(
+    async (filters: SearchFilters) => {
       try {
-        const generatedRecipes = parseRecipesFromResponse(response.text);
-        setRecipes(generatedRecipes);
-      } catch (parseError) {
-        console.error('JSON解析エラー:', parseError);
-        throw new Error('レシピデータの解析に失敗しました');
+        setLoading(true);
+        setError(null);
+
+        const prompt = createRecipeSearchPrompt(filters);
+        const response = await generate({ prompt, temperature: 0.8 });
+
+        if (!response) {
+          throw new Error('レシピの生成に失敗しました');
+        }
+
+        try {
+          const generatedRecipes = parseRecipesFromResponse(response.text);
+          setRecipes(generatedRecipes);
+        } catch (parseError) {
+          console.error('JSON解析エラー:', parseError);
+          throw new Error('レシピデータの解析に失敗しました');
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'エラーが発生しました');
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'エラーが発生しました');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchRecipes = async (filters: SearchFilters) => {
-    await searchRecipes(filters);
-  };
-
+    },
+    [generate]
+  );
+  const fetchRecipes = useCallback(
+    async (filters: SearchFilters) => {
+      await searchRecipes(filters);
+    },
+    [searchRecipes]
+  );
   useEffect(() => {
     fetchRecipes({
       cookTime: '30分以内',
       serving: '2人分',
       ingredients: [],
     });
-  }, []);
+  }, [fetchRecipes]);
 
   return {
     recipes,

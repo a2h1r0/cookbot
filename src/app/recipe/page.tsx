@@ -9,7 +9,6 @@ import LoadingProgress from '@/components/recipe/LoadingProgress';
 import { useRecipes } from '@/hooks/useRecipes';
 import { useSwipe } from '@/hooks/useSwipe';
 import { useFilters } from '@/hooks/useFilters';
-import { useEffect } from 'react';
 
 export default function RecipePage() {
   const { recipes, loading, error, fetchRecipes } = useRecipes();
