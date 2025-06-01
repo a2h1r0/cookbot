@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     // リクエストボディを解析
     const {
       prompt,
-      model = 'gemini-1.5-flash',
+      model = 'gemini-2.0-flash-exp',
       temperature = 0.7,
     } = await request.json();
 
@@ -55,9 +55,10 @@ export async function POST(request: NextRequest) {
       model,
       generationConfig: {
         temperature,
-        topK: 40,
+        topK: 64,
         topP: 0.95,
         maxOutputTokens: 8192,
+        responseMimeType: 'text/plain',
       },
     });
 
