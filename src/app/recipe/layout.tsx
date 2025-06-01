@@ -6,7 +6,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'CookBot - レシピ検索',
+  title: 'レシピ検索',
   description:
     'AIが提案するレシピをスワイプで選択。調理時間、人数、食材を指定してあなたにぴったりのレシピを見つけましょう。',
   keywords: ['レシピ検索', 'AIレシピ', 'スワイプ', '料理', 'CookBot'],
