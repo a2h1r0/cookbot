@@ -9,12 +9,16 @@ export function useGemini(): UseGeminiReturn {
     async (request: GeminiRequest): Promise<GeminiResponse | null> => {
       const requestId = Math.random().toString(36).substr(2, 9);
       const startTime = Date.now();
-      
+
       console.log(`[CLIENT-${requestId}] === Gemini Request Started ===`);
-      console.log(`[CLIENT-${requestId}] Timestamp: ${new Date().toISOString()}`);
+      console.log(
+        `[CLIENT-${requestId}] Timestamp: ${new Date().toISOString()}`
+      );
       console.log(`[CLIENT-${requestId}] Request:`, {
         promptLength: request.prompt?.length || 0,
-        promptPreview: request.prompt?.substring(0, 100) + (request.prompt?.length > 100 ? '...' : ''),
+        promptPreview:
+          request.prompt?.substring(0, 100) +
+          (request.prompt?.length > 100 ? '...' : ''),
         model: request.model || 'default',
         temperature: request.temperature || 'default',
       });
@@ -23,7 +27,9 @@ export function useGemini(): UseGeminiReturn {
         setLoading(true);
         setError(null);
 
-        console.log(`[CLIENT-${requestId}] Sending fetch request to /api/generate...`);
+        console.log(
+          `[CLIENT-${requestId}] Sending fetch request to /api/generate...`
+        );
         const fetchStartTime = Date.now();
 
         const response = await fetch('/api/generate', {
@@ -45,7 +51,7 @@ export function useGemini(): UseGeminiReturn {
 
         const result = await response.json();
         const totalDuration = Date.now() - startTime;
-        
+
         console.log(`[CLIENT-${requestId}] Response received:`, {
           success: result.success,
           totalDuration: `${totalDuration}ms`,
@@ -66,29 +72,33 @@ export function useGemini(): UseGeminiReturn {
         const geminiResponse = result.data as GeminiResponse;
         console.log(`[CLIENT-${requestId}] Success:`, {
           textLength: geminiResponse.text?.length || 0,
-          textPreview: geminiResponse.text?.substring(0, 200) + (geminiResponse.text?.length > 200 ? '...' : ''),
+          textPreview:
+            geminiResponse.text?.substring(0, 200) +
+            (geminiResponse.text?.length > 200 ? '...' : ''),
           model: geminiResponse.model,
           temperature: geminiResponse.temperature,
         });
-        
+
         setLastResponse(geminiResponse);
         return geminiResponse;
       } catch (err) {
         const totalDuration = Date.now() - startTime;
         const errorMessage =
           err instanceof Error ? err.message : '予期しないエラーが発生しました';
-        
+
         console.error(`[CLIENT-${requestId}] Error after ${totalDuration}ms:`, {
           errorType: err?.constructor?.name || 'Unknown',
           errorMessage,
           stack: err instanceof Error ? err.stack : undefined,
         });
-        
+
         setError(errorMessage);
         return null;
       } finally {
         const finalDuration = Date.now() - startTime;
-        console.log(`[CLIENT-${requestId}] Request completed in ${finalDuration}ms`);
+        console.log(
+          `[CLIENT-${requestId}] Request completed in ${finalDuration}ms`
+        );
         setLoading(false);
       }
     },

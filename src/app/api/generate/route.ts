@@ -10,24 +10,27 @@ export async function POST(request: NextRequest) {
   const startTime = Date.now();
   let model = 'gemini-2.0-flash-exp';
   let temperature = 0.7;
-  let requestData: any;
-  
+  let requestData: { prompt?: string; model?: string; temperature?: number } = {};
+
   console.log(`[${requestId}] === Gemini API Request Started ===`);
   console.log(`[${requestId}] Timestamp: ${new Date().toISOString()}`);
   console.log(`[${requestId}] Environment: ${process.env.NODE_ENV}`);
   console.log(`[${requestId}] Has API Key: ${!!process.env.GEMINI_API_KEY}`);
-  console.log(`[${requestId}] API Key Length: ${process.env.GEMINI_API_KEY?.length || 0}`);
+  console.log(
+    `[${requestId}] API Key Length: ${process.env.GEMINI_API_KEY?.length || 0}`
+  );
 
   try {
     // リクエストボディを解析
     requestData = await request.json();
     const prompt = requestData.prompt;
     model = requestData.model || 'gemini-2.0-flash-exp';
-    temperature = requestData.temperature || 0.7;
-
-    console.log(`[${requestId}] Request Parameters:`, {
+    temperature = requestData.temperature || 0.7;    console.log(`[${requestId}] Request Parameters:`, {
       promptLength: prompt?.length || 0,
-      promptPreview: prompt?.substring(0, 150) + (prompt?.length > 150 ? '...' : ''),
+      promptPreview:
+        prompt && prompt.length > 150 
+          ? prompt.substring(0, 150) + '...' 
+          : prompt || '',
       model,
       temperature,
     });
@@ -39,7 +42,7 @@ export async function POST(request: NextRequest) {
         { success: false, error: 'プロンプトが指定されていません' },
         { status: 400 }
       );
-    }// 開発環境の場合はモックデータを返す
+    } // 開発環境の場合はモックデータを返す
     if (process.env.NODE_ENV === 'development') {
       console.log(`[${requestId}] Development mode: Returning mock data`);
       const mockResponse = createMockRecipeResponse(prompt, model, temperature);
@@ -55,7 +58,7 @@ export async function POST(request: NextRequest) {
         { success: false, error: 'Gemini APIキーが設定されていません' },
         { status: 500 }
       );
-    }    // Geminiモデルを取得
+    } // Geminiモデルを取得
     console.log(`[${requestId}] Creating Gemini model with config:`, {
       model,
       temperature,
@@ -63,7 +66,7 @@ export async function POST(request: NextRequest) {
       topP: 0.95,
       maxOutputTokens: 8192,
     });
-    
+
     const geminiModel = genAI.getGenerativeModel({
       model,
       generationConfig: {
@@ -78,20 +81,22 @@ export async function POST(request: NextRequest) {
     // Gemini APIにリクエストを送信
     console.log(`[${requestId}] Sending request to Gemini API...`);
     const apiStartTime = Date.now();
-    
+
     const result = await geminiModel.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
 
     const apiDuration = Date.now() - apiStartTime;
     const totalDuration = Date.now() - startTime;
-    
+
     console.log(`[${requestId}] Gemini API Response:`, {
       apiDuration: `${apiDuration}ms`,
       totalDuration: `${totalDuration}ms`,
       responseLength: text.length,
-      responsePreview: text.substring(0, 200) + (text.length > 200 ? '...' : ''),
-    });    return NextResponse.json({
+      responsePreview:
+        text.substring(0, 200) + (text.length > 200 ? '...' : ''),
+    });
+    return NextResponse.json({
       success: true,
       data: {
         text,
@@ -109,34 +114,47 @@ export async function POST(request: NextRequest) {
       model,
       temperature,
       promptLength: request.body ? 'Has body' : 'No body',
-    });    // Gemini API固有のエラーハンドリング
+    }); // Gemini API固有のエラーハンドリング
     let errorMessage = '予期しないエラーが発生しました';
     let statusCode = 500;
 
     if (error instanceof Error) {
       const message = error.message.toLowerCase();
-      
+
       if (message.includes('quota') || message.includes('limit')) {
-        errorMessage = 'API使用制限に達しました。しばらくしてからもう一度お試しください。';
+        errorMessage =
+          'API使用制限に達しました。しばらくしてからもう一度お試しください。';
         statusCode = 429;
-        console.log(`[${requestId}] API quota exceeded, falling back to mock data`);
-        
+        console.log(
+          `[${requestId}] API quota exceeded, falling back to mock data`
+        );
+
         // クォータ制限の場合はモックデータを返す
         try {
           const mockResponse = createMockRecipeResponse(
-            requestData.prompt || 'デフォルトプロンプト', 
-            model, 
+            requestData.prompt || 'デフォルトプロンプト',
+            model,
             temperature
           );
           console.log(`[${requestId}] Returning mock data due to quota limit`);
           return NextResponse.json(mockResponse);
         } catch (mockError) {
-          console.error(`[${requestId}] Failed to generate mock response:`, mockError);
+          console.error(
+            `[${requestId}] Failed to generate mock response:`,
+            mockError
+          );
         }
-      } else if (message.includes('network') || message.includes('connection')) {
-        errorMessage = 'ネットワークエラーが発生しました。接続を確認してもう一度お試しください。';
+      } else if (
+        message.includes('network') ||
+        message.includes('connection')
+      ) {
+        errorMessage =
+          'ネットワークエラーが発生しました。接続を確認してもう一度お試しください。';
         statusCode = 503;
-      } else if (message.includes('unauthorized') || message.includes('api key')) {
+      } else if (
+        message.includes('unauthorized') ||
+        message.includes('api key')
+      ) {
         errorMessage = 'API認証エラーです。設定を確認してください。';
         statusCode = 401;
       } else {
@@ -148,11 +166,15 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         error: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? {
-          originalError: error instanceof Error ? error.message : String(error),
-          duration: `${duration}ms`,
-          requestId,
-        } : undefined,
+        details:
+          process.env.NODE_ENV === 'development'
+            ? {
+                originalError:
+                  error instanceof Error ? error.message : String(error),
+                duration: `${duration}ms`,
+                requestId,
+              }
+            : undefined,
       },
       { status: statusCode }
     );
