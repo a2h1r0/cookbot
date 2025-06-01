@@ -5,9 +5,12 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Netlify Plugin for Next.js
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 # Next.js Functions用の設定
-[[functions]]
-  name = "next-js"
+[functions]
   external_node_modules = ["@google/generative-ai"]
 
 [[headers]]
@@ -20,5 +23,5 @@
 # Next.jsのルーティング用のリダイレクト
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/___netlify-handler"
+  to = "/index.html"
   status = 200
