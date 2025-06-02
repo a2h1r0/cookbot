@@ -1,5 +1,2 @@
 [functions]
-  node_bundler = "esbuild"
-
-[functions."api/generate"]
-  timeout = 26
+  "*" = { timeout = "26s" }
