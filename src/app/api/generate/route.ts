@@ -10,7 +10,8 @@ export async function POST(request: NextRequest) {
   const startTime = Date.now();
   let model = 'gemini-2.0-flash-exp';
   let temperature = 0.7;
-  let requestData: { prompt?: string; model?: string; temperature?: number } = {};
+  let requestData: { prompt?: string; model?: string; temperature?: number } =
+    {};
 
   console.log(`[${requestId}] === Gemini API Request Started ===`);
   console.log(`[${requestId}] Timestamp: ${new Date().toISOString()}`);
@@ -25,11 +26,12 @@ export async function POST(request: NextRequest) {
     requestData = await request.json();
     const prompt = requestData.prompt;
     model = requestData.model || 'gemini-2.0-flash-exp';
-    temperature = requestData.temperature || 0.7;    console.log(`[${requestId}] Request Parameters:`, {
+    temperature = requestData.temperature || 0.7;
+    console.log(`[${requestId}] Request Parameters:`, {
       promptLength: prompt?.length || 0,
       promptPreview:
-        prompt && prompt.length > 150 
-          ? prompt.substring(0, 150) + '...' 
+        prompt && prompt.length > 150
+          ? prompt.substring(0, 150) + '...'
           : prompt || '',
       model,
       temperature,

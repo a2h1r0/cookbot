@@ -175,45 +175,8 @@ export default function RecipeImage({
               調理時間: {recipe.cookTime}
             </p>
           )}
-        </div>{' '}
+        </div>
       </div>
     </div>
   );
 }
-
-export const getCategoryGradient = (category: Category): string => {
-  switch (category) {
-    case Category.FISH:
-      return 'from-blue-400 to-blue-600';
-    case Category.MEAT:
-      return 'from-red-400 to-red-600';
-    case Category.VEGETABLE:
-      return 'from-green-400 to-green-600';
-    case Category.SOUP:
-      return 'from-orange-400 to-orange-600';
-    case Category.DESSERT:
-      return 'from-pink-400 to-pink-600';
-    case Category.PIZZA:
-      return 'from-yellow-400 to-yellow-600';
-    case Category.BEVERAGE:
-      return 'from-amber-400 to-amber-600';
-    case Category.JAPANESE:
-      return 'from-red-500 to-pink-500';
-    case Category.ITALIAN:
-      return 'from-green-500 to-red-500';
-    case Category.CHINESE:
-      return 'from-yellow-500 to-red-600';
-    case Category.KOREAN:
-      return 'from-red-400 to-orange-500';
-    case Category.THAI:
-      return 'from-yellow-400 to-orange-500';
-    case Category.INDIAN:
-      return 'from-purple-400 to-orange-500';
-    case Category.FRENCH:
-      return 'from-indigo-400 to-purple-500';
-    case Category.AMERICAN:
-      return 'from-blue-500 to-red-500';
-    default:
-      return 'from-gray-400 to-gray-600';
-  }
-};
