@@ -33,7 +33,7 @@ export const mockRecipes: Recipe[] = [
       '生クリームを使わない本場イタリアの味を再現したカルボナーラ。卵とチーズだけで作る濃厚なソースが絶品です。',
     cookTime: '20分',
     servings: 2,
-    category: Category.OTHER,
+    category: Category.ITALIAN,
     ingredients: [
       { name: 'スパゲッティ', amount: '200g' },
       { name: 'ベーコン', amount: '100g' },
@@ -58,7 +58,7 @@ export const mockRecipes: Recipe[] = [
       'ふっくらジューシーな和風ハンバーグ。大根おろしとポン酢でさっぱりといただきます。家族みんなが喜ぶ定番料理です。',
     cookTime: '30分',
     servings: 4,
-    category: Category.MEAT,
+    category: Category.JAPANESE,
     ingredients: [
       { name: '合いびき肉', amount: '400g' },
       { name: '玉ねぎ', amount: '1個' },
@@ -108,7 +108,7 @@ export const mockRecipes: Recipe[] = [
       'プリプリのエビと辛みのあるソースが絶妙なエビチリ。中華料理店の味をお家で再現できます。ご飯との相性も抜群です。',
     cookTime: '25分',
     servings: 3,
-    category: Category.FISH,
+    category: Category.CHINESE,
     ingredients: [
       { name: 'エビ', amount: '200g' },
       { name: '長ねぎ', amount: '1本' },
@@ -133,7 +133,7 @@ export const mockRecipes: Recipe[] = [
       '野菜たっぷりのイタリアンスープ。トマトベースでさっぱりとした味わい。パンとの相性も良く、栄養バランスも抜群です。',
     cookTime: '40分',
     servings: 4,
-    category: Category.SOUP,
+    category: Category.ITALIAN,
     ingredients: [
       { name: '玉ねぎ', amount: '1個' },
       { name: 'にんじん', amount: '1本' },
@@ -158,7 +158,7 @@ export const mockRecipes: Recipe[] = [
       'シンプルな具材で作る本格ピザ。トマトソース、モッツァレラチーズ、バジルの組み合わせがクラシックで美味しい。',
     cookTime: '45分',
     servings: 2,
-    category: Category.PIZZA,
+    category: Category.ITALIAN,
     ingredients: [
       { name: 'ピザ生地', amount: '1枚' },
       { name: 'トマトソース', amount: '大さじ4' },
@@ -206,7 +206,7 @@ export const mockRecipes: Recipe[] = [
       'クリーミーなドレッシングとクルトンが美味しいシーザーサラダ。ロメインレタスのシャキシャキ食感とパルメザンチーズの風味が絶品。',
     cookTime: '15分',
     servings: 2,
-    category: Category.VEGETABLE,
+    category: Category.AMERICAN,
     ingredients: [
       { name: 'ロメインレタス', amount: '1株' },
       { name: 'パルメザンチーズ', amount: '30g' },
@@ -221,6 +221,79 @@ export const mockRecipes: Recipe[] = [
       'マヨネーズ、レモン汁、にんにくを混ぜてドレッシングを作る',
       'レタスにドレッシングを和える',
       'パルメザンチーズとクルトンを散らして完成',
+    ],
+  },
+  {
+    id: 'sushi-001',
+    title: '寿司',
+    description:
+      '新鮮な魚と酢飯で作る本格寿司。家庭でも楽しめる握り寿司です。わさびと醤油でお召し上がりください。',
+    cookTime: '30分',
+    servings: 4,
+    category: Category.JAPANESE,
+    ingredients: [
+      { name: '寿司ネタ', amount: '8貫分' },
+      { name: '寿司飯', amount: '2合分' },
+      { name: 'わさび', amount: '適量' },
+      { name: '醤油', amount: '適量' },
+    ],
+    steps: [
+      '寿司飯を人肌程度に冷ます',
+      'ネタを薄くスライスする',
+      '手に酢水をつけてシャリを握る',
+      'わさびを薄く塗る',
+      'ネタをのせて軽く握る',
+      '醤油をつけてお召し上がりください',
+    ],
+  },
+  {
+    id: 'kimchi-001',
+    title: 'キムチチゲ',
+    description:
+      'ピリ辛で体が温まる韓国の定番スープ。キムチの酸味と辛味が食欲をそそります。豚肉と豆腐でボリューム満点。',
+    cookTime: '35分',
+    servings: 3,
+    category: Category.KOREAN,
+    ingredients: [
+      { name: 'キムチ', amount: '200g' },
+      { name: '豚バラ肉', amount: '150g' },
+      { name: '豆腐', amount: '1丁' },
+      { name: '長ねぎ', amount: '1本' },
+      { name: 'だし汁', amount: '500ml' },
+      { name: 'コチュジャン', amount: '大さじ1' },
+    ],
+    steps: [
+      '豚肉を炒める',
+      'キムチを加えて炒める',
+      'だし汁とコチュジャンを加える',
+      '豆腐と長ねぎを加える',
+      '15分煮込む',
+      '味を調えて完成',
+    ],
+  },
+  {
+    id: 'curry-001',
+    title: 'インドカレー',
+    description:
+      'スパイスが効いた本格的なインドカレー。ガラムマサラとターメリックで深い味わいに。ナンやライスと一緒にどうぞ。',
+    cookTime: '50分',
+    servings: 4,
+    category: Category.INDIAN,
+    ingredients: [
+      { name: '鶏もも肉', amount: '400g' },
+      { name: '玉ねぎ', amount: '2個' },
+      { name: 'トマト缶', amount: '1缶' },
+      { name: 'ガラムマサラ', amount: '大さじ2' },
+      { name: 'ターメリック', amount: '小さじ1' },
+      { name: 'ココナッツミルク', amount: '200ml' },
+    ],
+    steps: [
+      '鶏肉を一口大に切る',
+      '玉ねぎを炒めて飴色にする',
+      'スパイスを加えて炒める',
+      'トマト缶を加えて煮込む',
+      '鶏肉とココナッツミルクを加える',
+      '30分煮込んで完成',
     ],
   },
 ];

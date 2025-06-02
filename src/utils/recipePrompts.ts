@@ -22,7 +22,7 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
     description: 'レシピの説明',
     cookTime: '30分',
     servings: 2,
-    category: Category.OTHER,
+    category: Category.JAPANESE,
     ingredients: [{ name: '材料名', amount: '分量' }],
     steps: ['手順1', '手順2', '手順3'],
   };

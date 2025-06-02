@@ -6,7 +6,14 @@ export enum Category {
   DESSERT = 'dessert',
   PIZZA = 'pizza',
   BEVERAGE = 'beverage',
-  OTHER = 'other',
+  JAPANESE = 'japanese',
+  ITALIAN = 'italian',
+  CHINESE = 'chinese',
+  KOREAN = 'korean',
+  THAI = 'thai',
+  INDIAN = 'indian',
+  FRENCH = 'french',
+  AMERICAN = 'american',
 }
 
 export interface Ingredient {

@@ -18,7 +18,14 @@ const categoryLabels: Record<Category, string> = {
   [Category.DESSERT]: 'デザート',
   [Category.PIZZA]: 'ピザ',
   [Category.BEVERAGE]: '飲み物',
-  [Category.OTHER]: 'その他',
+  [Category.JAPANESE]: '和食',
+  [Category.ITALIAN]: 'イタリアン',
+  [Category.CHINESE]: '中華',
+  [Category.KOREAN]: '韓国料理',
+  [Category.THAI]: 'タイ料理',
+  [Category.INDIAN]: 'インド料理',
+  [Category.FRENCH]: 'フレンチ',
+  [Category.AMERICAN]: 'アメリカン',
 };
 
 export function CategoryFilter({
@@ -75,15 +82,12 @@ export function CategoryFilter({
         <div className="mt-2 px-2 pb-2">
           {' '}
           <div className="flex flex-wrap gap-2">
-            {/* "すべて選択"オプション */}
-            {!isAllSelected && (
-              <button
-                onClick={onSelectAllCategories}
-                className="px-3 py-1.5 text-sm rounded-full border border-green-300 bg-green-50 text-green-700 hover:bg-green-100 transition-colors"
-              >
-                すべて選択
-              </button>
-            )}
+            <button
+              onClick={onSelectAllCategories}
+              className="px-3 py-1.5 text-sm rounded-full border border-green-300 bg-green-50 text-green-700 hover:bg-green-100 transition-colors"
+            >
+              すべて選択
+            </button>
             {/* カテゴリオプション */}
             {categories.map((category) => {
               const isSelected = selectedCategories.includes(category);

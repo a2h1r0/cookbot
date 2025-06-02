@@ -8,6 +8,14 @@ import {
   Cookie,
   Coffee,
   Pizza,
+  Cherry,
+  Utensils,
+  Globe,
+  Flame,
+  Heart,
+  Star,
+  Crown,
+  MapPin,
   LucideIcon,
 } from 'lucide-react';
 import { Recipe, Category } from '@/types';
@@ -73,7 +81,54 @@ export default function RecipeImage({
           color: 'text-amber-600',
           gradientColor: 'from-amber-400 to-amber-600',
         };
-      case Category.OTHER:
+      case Category.JAPANESE:
+        return {
+          icon: Cherry,
+          color: 'text-red-600',
+          gradientColor: 'from-red-500 to-pink-500',
+        };
+      case Category.ITALIAN:
+        return {
+          icon: Pizza,
+          color: 'text-green-600',
+          gradientColor: 'from-green-500 to-red-500',
+        };
+      case Category.CHINESE:
+        return {
+          icon: Flame,
+          color: 'text-orange-600',
+          gradientColor: 'from-yellow-500 to-red-600',
+        };
+      case Category.KOREAN:
+        return {
+          icon: Heart,
+          color: 'text-red-500',
+          gradientColor: 'from-red-400 to-orange-500',
+        };
+      case Category.THAI:
+        return {
+          icon: Star,
+          color: 'text-yellow-600',
+          gradientColor: 'from-yellow-400 to-orange-500',
+        };
+      case Category.INDIAN:
+        return {
+          icon: Crown,
+          color: 'text-purple-600',
+          gradientColor: 'from-purple-400 to-orange-500',
+        };
+      case Category.FRENCH:
+        return {
+          icon: Utensils,
+          color: 'text-indigo-600',
+          gradientColor: 'from-indigo-400 to-purple-500',
+        };
+      case Category.AMERICAN:
+        return {
+          icon: MapPin,
+          color: 'text-blue-600',
+          gradientColor: 'from-blue-500 to-red-500',
+        };
       default:
         return {
           icon: UtensilsCrossed,
@@ -110,7 +165,6 @@ export default function RecipeImage({
           <div className="absolute bottom-8 left-8 w-6 h-6 border-2 border-white rounded-full"></div>
           <div className="absolute bottom-4 right-4 w-10 h-10 border-2 border-white rounded-full"></div>
         </div>
-
         {/* メインアイコン */}
         <div className="z-10 flex flex-col items-center">
           <Icon className={`w-20 h-20 text-white`} />
@@ -122,13 +176,12 @@ export default function RecipeImage({
               調理時間: {recipe.cookTime}
             </p>
           )}
-        </div>
+        </div>{' '}
       </div>
     </div>
   );
 }
 
-// 後方互換性のためのヘルパー関数（Category enumベース）
 export const getCategoryGradient = (category: Category): string => {
   switch (category) {
     case Category.FISH:
@@ -145,7 +198,22 @@ export const getCategoryGradient = (category: Category): string => {
       return 'from-yellow-400 to-yellow-600';
     case Category.BEVERAGE:
       return 'from-amber-400 to-amber-600';
-    case Category.OTHER:
+    case Category.JAPANESE:
+      return 'from-red-500 to-pink-500';
+    case Category.ITALIAN:
+      return 'from-green-500 to-red-500';
+    case Category.CHINESE:
+      return 'from-yellow-500 to-red-600';
+    case Category.KOREAN:
+      return 'from-red-400 to-orange-500';
+    case Category.THAI:
+      return 'from-yellow-400 to-orange-500';
+    case Category.INDIAN:
+      return 'from-purple-400 to-orange-500';
+    case Category.FRENCH:
+      return 'from-indigo-400 to-purple-500';
+    case Category.AMERICAN:
+      return 'from-blue-500 to-red-500';
     default:
       return 'from-gray-400 to-gray-600';
   }

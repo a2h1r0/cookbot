@@ -41,7 +41,7 @@ export default function IngredientsFilter({
         <div className="flex items-center space-x-2">
           <Carrot className="w-4 h-4 text-green-500" />
           <span className="font-medium text-gray-800 text-sm">
-            食材フィルター
+            手持ちの食材
           </span>
           {filters.ingredients.length > 0 && (
             <div className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded-full font-medium">
@@ -62,11 +62,6 @@ export default function IngredientsFilter({
           <div className="space-y-3">
             {/* 食材入力フィールド */}
             <div>
-              <div className="flex items-center space-x-1.5 mb-1.5">
-                <h3 className="text-xs font-medium text-gray-700 uppercase tracking-wide">
-                  手持ちの食材
-                </h3>
-              </div>
               <div className="flex gap-2">
                 <input
                   type="text"
