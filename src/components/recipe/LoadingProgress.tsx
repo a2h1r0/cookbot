@@ -34,18 +34,30 @@ export default function LoadingProgress({
     return () => clearInterval(interval);
   }, [isLoading, estimatedTime]);
 
-  if (!isLoading) return null;
+  if (!isLoading) {
+    return null;
+  }
 
   const getLoadingMessage = () => {
-    if (elapsedTime < 10) return 'AIがレシピを考えています...🤔';
-    if (elapsedTime < 30) return 'まもなく完成です...✨';
+    if (elapsedTime < 10) {
+      return 'AIがレシピを考えています...🤔';
+    }
+    if (elapsedTime < 30) {
+      return 'まもなく完成です...✨';
+    }
     return 'もう少しお待ちください...⏰';
   };
 
   const getTimeMessage = () => {
-    if (elapsedTime < 5) return '（10〜30秒程度かかります）';
-    if (elapsedTime < 15) return `（${elapsedTime}秒経過）`;
-    if (elapsedTime < 30) return `（${elapsedTime}秒経過・あと少しです）`;
+    if (elapsedTime < 5) {
+      return '（10〜30秒程度かかります）';
+    }
+    if (elapsedTime < 15) {
+      return `（${elapsedTime}秒経過）`;
+    }
+    if (elapsedTime < 30) {
+      return `（${elapsedTime}秒経過・あと少しです）`;
+    }
     return `（${elapsedTime}秒経過・長時間お待たせしています）`;
   };
 

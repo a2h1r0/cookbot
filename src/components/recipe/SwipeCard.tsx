@@ -64,7 +64,9 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
 
     const deltaX = e.clientX - startPos.x;
     const deltaY = e.clientY - startPos.y;
@@ -72,7 +74,9 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   };
 
   const handleMouseUp = () => {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
 
     const threshold = 100;
     if (Math.abs(dragOffset.x) > threshold) {
@@ -91,7 +95,9 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
 
     const touch = e.touches[0];
     const deltaX = touch.clientX - startPos.x;
@@ -100,7 +106,9 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   };
 
   const handleTouchEnd = () => {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
 
     const threshold = 100;
     if (Math.abs(dragOffset.x) > threshold) {

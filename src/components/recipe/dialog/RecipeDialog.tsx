@@ -18,7 +18,9 @@ export default function RecipeDialog({
   isOpen,
   onClose,
 }: RecipeDialogProps) {
-  if (!isOpen || !recipe) return null;
+  if (!isOpen || !recipe) {
+    return null;
+  }
   return (
     <div className="fixed inset-0 bg-white z-50 flex flex-col">
       {' '}
