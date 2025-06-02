@@ -8,8 +8,9 @@
   status = 200
 
 [functions]
+  directory = ".netlify/functions"
   # Netlifyの最大timeout時間（26秒）に設定
-  "*" = { timeout = "26s" }
+  timeout = 26
 
 # Next.js specific settings
 [build.environment]
