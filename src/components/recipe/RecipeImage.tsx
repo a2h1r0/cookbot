@@ -10,7 +10,6 @@ import {
   Pizza,
   Cherry,
   Utensils,
-  Globe,
   Flame,
   Heart,
   Star,
