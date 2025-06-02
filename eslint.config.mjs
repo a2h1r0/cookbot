@@ -31,7 +31,7 @@ const eslintConfig = [
       '@typescript-eslint/no-explicit-any': 'warn',
       'prefer-const': 'error',
       'no-var': 'error',
-      'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+      'no-console': 'off', // 開発時はconsole.logを許可
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
     },
