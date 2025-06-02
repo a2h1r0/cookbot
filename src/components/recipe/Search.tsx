@@ -16,7 +16,8 @@ export default function Search({
   updateServing,
   addIngredient,
   removeIngredient,
-  updateCategory,
+  toggleCategory,
+  selectAllCategories,
   onSearch,
   isLoading = false,
 }: SearchProps) {
@@ -33,11 +34,12 @@ export default function Search({
             removeIngredient={removeIngredient}
           />
           {/* 区切り線 */}
-          <div className="-mx-3 border-t border-gray-300"></div>
+          <div className="-mx-3 border-t border-gray-300"></div>{' '}
           {/* カテゴリフィルター */}
           <CategoryFilter
-            selectedCategory={filters.category}
-            onCategoryChange={updateCategory}
+            selectedCategories={filters.categories}
+            onToggleCategory={toggleCategory}
+            onSelectAllCategories={selectAllCategories}
           />
           {/* 区切り線 */}
           <div className="-mx-3 border-t border-gray-300"></div>{' '}

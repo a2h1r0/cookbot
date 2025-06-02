@@ -29,7 +29,7 @@ export interface SearchFilters {
   cookTime: string;
   serving: string;
   ingredients: string[];
-  category?: Category;
+  categories: Category[];
 }
 
 export interface UseFiltersReturn {
@@ -38,7 +38,8 @@ export interface UseFiltersReturn {
   updateServing: (serving: string) => void;
   addIngredient: (ingredient: string) => void;
   removeIngredient: (ingredient: string) => void;
-  updateCategory: (category: Category | undefined) => void;
+  toggleCategory: (category: Category) => void;
+  selectAllCategories: () => void;
 }
 
 export interface UseSwipeReturn {

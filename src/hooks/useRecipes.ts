@@ -108,13 +108,12 @@ export function useRecipes() {
   );
   useEffect(() => {
     console.log('[RECIPES] Initial recipe fetch triggered');
-    const initialFilters = {
+    fetchRecipes({
       cookTime: '30分以内',
       serving: '2人分',
+      categories: [],
       ingredients: [],
-    };
-    console.log('[RECIPES] Initial filters:', initialFilters);
-    fetchRecipes(initialFilters);
+    });
   }, [fetchRecipes]);
 
   return {

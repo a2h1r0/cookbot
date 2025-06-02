@@ -6,6 +6,7 @@ export function useFilters(): UseFiltersReturn {
     cookTime: '30分以内',
     serving: '2人分',
     ingredients: [],
+    categories: Object.values(Category),
   });
 
   // 調理時間を更新
@@ -18,9 +19,33 @@ export function useFilters(): UseFiltersReturn {
     setFilters((prev) => ({ ...prev, serving }));
   };
 
-  // カテゴリを更新
-  const updateCategory = (category: Category | undefined) => {
-    setFilters((prev) => ({ ...prev, category }));
+  // 最後の1つのカテゴリは選択解除できない（空状態を防ぐ）
+  const toggleCategory = (category: Category) => {
+    setFilters((prev) => {
+      const isSelected = prev.categories.includes(category);
+
+      if (isSelected) {
+        // 最後の1つの場合は選択解除しない
+        if (prev.categories.length <= 1) {
+          return prev;
+        }
+        // 選択されているカテゴリを除外
+        return {
+          ...prev,
+          categories: prev.categories.filter((c) => c !== category),
+        };
+      } else {
+        // カテゴリを追加選択
+        const newCategories = [...prev.categories, category];
+        return { ...prev, categories: newCategories };
+      }
+    });
+  };
+
+  // すべてのカテゴリを選択
+  const selectAllCategories = () => {
+    const allCategories = Object.values(Category);
+    setFilters((prev) => ({ ...prev, categories: allCategories }));
   };
 
   // 食材を追加
@@ -32,6 +57,7 @@ export function useFilters(): UseFiltersReturn {
       }));
     }
   };
+
   // 食材を削除
   const removeIngredient = (ingredient: string) => {
     const newIngredients = filters.ingredients.filter(
@@ -42,12 +68,12 @@ export function useFilters(): UseFiltersReturn {
       ingredients: newIngredients,
     }));
   };
-
   return {
     filters,
     updateCookTime,
     updateServing,
-    updateCategory,
+    toggleCategory,
+    selectAllCategories,
     addIngredient,
     removeIngredient,
   };
