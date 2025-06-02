@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, Clock, Users } from 'lucide-react';
 import { UseFiltersReturn } from '@/types';
 
-type BasicFilterProps = UseFiltersReturn;
+type BasicFilterProps = Omit<UseFiltersReturn, 'updateCategory'>;
 
 export default function BasicFilter({
   filters,

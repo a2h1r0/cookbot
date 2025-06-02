@@ -29,6 +29,7 @@ export interface SearchFilters {
   cookTime: string;
   serving: string;
   ingredients: string[];
+  category?: Category;
 }
 
 export interface UseFiltersReturn {
@@ -37,6 +38,7 @@ export interface UseFiltersReturn {
   updateServing: (serving: string) => void;
   addIngredient: (ingredient: string) => void;
   removeIngredient: (ingredient: string) => void;
+  updateCategory: (category: Category | undefined) => void;
 }
 
 export interface UseSwipeReturn {

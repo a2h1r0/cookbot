@@ -2,6 +2,7 @@
 
 import IngredientsFilter from './IngredientsFilter';
 import BasicFilter from './BasicFilter';
+import { CategoryFilter } from './CategoryFilter';
 import { UseFiltersReturn } from '@/types';
 
 type SearchProps = UseFiltersReturn & {
@@ -15,6 +16,7 @@ export default function Search({
   updateServing,
   addIngredient,
   removeIngredient,
+  updateCategory,
   onSearch,
   isLoading = false,
 }: SearchProps) {
@@ -30,15 +32,18 @@ export default function Search({
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
           />
-
           {/* 区切り線 */}
           <div className="-mx-3 border-t border-gray-300"></div>
-
+          {/* カテゴリフィルター */}
+          <CategoryFilter
+            selectedCategory={filters.category}
+            onCategoryChange={updateCategory}
+          />
+          {/* 区切り線 */}
+          <div className="-mx-3 border-t border-gray-300"></div>{' '}
           {/* 食材フィルター */}
           <IngredientsFilter
             filters={filters}
-            updateCookTime={updateCookTime}
-            updateServing={updateServing}
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
           />

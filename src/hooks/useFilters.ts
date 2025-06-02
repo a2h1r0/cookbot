@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SearchFilters, UseFiltersReturn } from '@/types';
+import { SearchFilters, UseFiltersReturn, Category } from '@/types';
 
 export function useFilters(): UseFiltersReturn {
   const [filters, setFilters] = useState<SearchFilters>({
@@ -18,6 +18,11 @@ export function useFilters(): UseFiltersReturn {
     setFilters((prev) => ({ ...prev, serving }));
   };
 
+  // カテゴリを更新
+  const updateCategory = (category: Category | undefined) => {
+    setFilters((prev) => ({ ...prev, category }));
+  };
+
   // 食材を追加
   const addIngredient = (ingredient: string) => {
     if (ingredient.trim() && !filters.ingredients.includes(ingredient.trim())) {
@@ -27,7 +32,6 @@ export function useFilters(): UseFiltersReturn {
       }));
     }
   };
-
   // 食材を削除
   const removeIngredient = (ingredient: string) => {
     const newIngredients = filters.ingredients.filter(
@@ -43,6 +47,7 @@ export function useFilters(): UseFiltersReturn {
     filters,
     updateCookTime,
     updateServing,
+    updateCategory,
     addIngredient,
     removeIngredient,
   };

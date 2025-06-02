@@ -9,9 +9,24 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
     `人数: ${filters.serving}人分`,
   ];
 
+  if (filters.category) {
+    const categoryLabels: Record<Category, string> = {
+      [Category.FISH]: '魚料理',
+      [Category.MEAT]: '肉料理',
+      [Category.VEGETABLE]: '野菜料理',
+      [Category.SOUP]: 'スープ',
+      [Category.DESSERT]: 'デザート',
+      [Category.PIZZA]: 'ピザ',
+      [Category.BEVERAGE]: '飲み物',
+      [Category.OTHER]: 'その他',
+    };
+    conditions.push(`カテゴリ: ${categoryLabels[filters.category]}`);
+  }
+
   if (filters.ingredients.length > 0) {
     conditions.push(`使用したい食材: ${filters.ingredients.join(', ')}`);
   }
+
   const recipeTemplate: Partial<Recipe> = {
     title: 'レシピ名',
     description: 'レシピの説明',
@@ -33,6 +48,10 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
     `カテゴリは以下から適切なものを選んでください：${Object.values(
       Category
     ).join(', ')}`,
+    '',
+    filters.category
+      ? `指定されたカテゴリ「${filters.category}」に該当するレシピを優先的に提案してください。`
+      : '任意のカテゴリから適切なレシピを提案してください。',
     '',
     '以下のJSON形式で5つのレシピを提案してください：',
     JSON.stringify(jsonFormat, null, 2),
