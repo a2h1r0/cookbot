@@ -8,6 +8,7 @@ import { UseFiltersReturn } from '@/types';
 type SearchProps = UseFiltersReturn & {
   onSearch: () => void;
   isLoading?: boolean;
+  isOffline?: boolean;
 };
 
 export default function Search({
@@ -20,6 +21,7 @@ export default function Search({
   selectAllCategories,
   onSearch,
   isLoading = false,
+  isOffline = false,
 }: SearchProps) {
   return (
     <div>
@@ -56,13 +58,18 @@ export default function Search({
       <div className="pb-4">
         <button
           onClick={onSearch}
-          disabled={isLoading}
+          disabled={isLoading || isOffline}
           className="w-full bg-[#5fbd84] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
         >
           {isLoading ? (
             <>
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               <span>検索中...</span>
+            </>
+          ) : isOffline ? (
+            <>
+              <span>📶</span>
+              <span>オフライン - 検索できません</span>
             </>
           ) : (
             <>

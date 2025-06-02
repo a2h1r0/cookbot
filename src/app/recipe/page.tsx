@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import AppLayout from '@/components/layout/AppLayout';
 import SwipeStack from '@/components/recipe/SwipeStack';
 import SwipeActions from '@/components/recipe/SwipeActions';
@@ -11,10 +12,31 @@ import { useSwipe } from '@/hooks/useSwipe';
 import { useFilters } from '@/hooks/useFilters';
 
 export default function RecipePage() {
+  const [isOnline, setIsOnline] = useState(true);
   const { recipes, loading, error, fetchRecipes } = useRecipes();
   const filtersHook = useFilters();
   const swipeHook = useSwipe(recipes);
+
+  useEffect(() => {
+    // 初期状態の設定
+    setIsOnline(navigator.onLine);
+
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
   const search = () => {
+    if (!isOnline) {
+      return; // オフライン時は検索しない
+    }
     fetchRecipes(filtersHook.filters);
     swipeHook.reset();
   };
@@ -25,10 +47,25 @@ export default function RecipePage() {
         {' '}
         {/* 検索フィルター */}
         <div className="flex-shrink-0 px-3 mt-3">
-          <Search {...filtersHook} onSearch={search} isLoading={loading} />
+          <Search
+            {...filtersHook}
+            onSearch={search}
+            isLoading={loading}
+            isOffline={!isOnline}
+          />
         </div>{' '}
         {/* ステータス表示 */}
         <div className="flex-shrink-0 px-3 md:px-4">
+          {!isOnline && (
+            <div className="text-center mb-2 md:mb-3">
+              <div className="inline-flex items-center space-x-1 md:space-x-2 text-xs md:text-sm text-orange-600 bg-orange-50 px-2 py-1 md:px-3 md:py-2 rounded-lg">
+                <span>📶</span>
+                <span>
+                  オフライン - レシピ生成にはインターネット接続が必要です
+                </span>
+              </div>
+            </div>
+          )}
           {loading && (
             <LoadingProgress isLoading={loading} estimatedTime={30} />
           )}
@@ -40,7 +77,7 @@ export default function RecipePage() {
               </div>
             </div>
           )}
-          {!loading && !error && recipes.length === 0 && (
+          {!loading && !error && recipes.length === 0 && isOnline && (
             <div className="text-center mb-2 md:mb-3">
               <div className="inline-flex items-center space-x-1 md:space-x-2 text-xs md:text-sm text-gray-600 bg-gray-50 px-2 py-1 md:px-3 md:py-2 rounded-lg">
                 <span>😢</span>

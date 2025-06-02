@@ -136,7 +136,7 @@ export default function PWAInstallPrompt() {
               CookBotをインストール
             </h3>
             <p className="text-xs text-gray-600">
-              ホーム画面から簡単にアクセス
+              ホーム画面から簡単にアクセス（要ネット接続）
             </p>
           </div>
         </div>

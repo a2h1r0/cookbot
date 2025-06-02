@@ -57,12 +57,12 @@ export default function OfflineIndicator() {
           <span className="text-sm font-medium">
             {isOnline
               ? 'インターネットに再接続されました'
-              : 'オフライン - 一部機能が制限されます'}
+              : 'オフライン - レシピ生成ができません'}
           </span>
         </div>
         {!isOnline && (
           <p className="text-xs mt-1 opacity-90">
-            保存されたレシピは引き続き閲覧できます
+            AIレシピ生成にはインターネット接続が必要です
           </p>
         )}
       </div>
