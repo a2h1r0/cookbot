@@ -14,8 +14,9 @@
     "exactOptionalPropertyTypes": false,
     "experimentalDecorators": true,
     "skipLibCheck": true,
-    "typeRoots": ["../node_modules/@types"]
+    "typeRoots": ["../node_modules/@types"],
+    "outDir": "./dist"
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "../node_modules"]
+  "exclude": ["node_modules", "../node_modules", "dist"]
 }
