@@ -27,6 +27,12 @@ export const metadata: Metadata = {
   viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   manifest: '/manifest.json',
+  themeColor: '#8fdeb1',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'CookBot',
+  },
   alternates: {
     canonical: 'https://cookbot.jp',
   },
@@ -60,7 +66,11 @@ export default function RootLayout({
     <html lang="ja">
       <head>
         <link rel="icon" href="/images/icon.svg" />
-        <link rel="apple-touch-icon" href="/images/icon.svg" />
+        <link rel="icon" href="/images/icon.png" />
+        <link rel="apple-touch-icon" href="/images/icon.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
