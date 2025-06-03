@@ -18,7 +18,6 @@ export default function Search({
   addIngredient,
   removeIngredient,
   toggleCategory,
-  selectAllCategories,
   onSearch,
   isLoading = false,
   isOffline = false,
@@ -41,7 +40,6 @@ export default function Search({
           <CategoryFilter
             selectedCategories={filters.categories}
             onToggleCategory={toggleCategory}
-            onSelectAllCategories={selectAllCategories}
           />
           {/* 区切り線 */}
           <div className="-mx-3 border-t border-gray-300"></div>{' '}

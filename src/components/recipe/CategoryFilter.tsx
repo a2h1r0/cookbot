@@ -7,7 +7,6 @@ import { Category } from '@/types';
 interface CategoryFilterProps {
   selectedCategories: Category[];
   onToggleCategory: (category: Category) => void;
-  onSelectAllCategories: () => void;
 }
 
 const categoryLabels: Record<Category, string> = {
@@ -31,12 +30,14 @@ const categoryLabels: Record<Category, string> = {
 export function CategoryFilter({
   selectedCategories,
   onToggleCategory,
-  onSelectAllCategories,
 }: CategoryFilterProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const categories = Object.values(Category);
 
-  const isAllSelected = selectedCategories.length === categories.length;
+  // 空配列 = 全カテゴリ選択状態
+  const isAllSelected =
+    selectedCategories.length === 0 ||
+    selectedCategories.length === categories.length;
 
   return (
     <div>
@@ -82,32 +83,20 @@ export function CategoryFilter({
         <div className="mt-2 px-2 pb-2">
           {' '}
           <div className="flex flex-wrap gap-2">
-            <button
-              onClick={onSelectAllCategories}
-              className="px-3 py-1.5 text-sm rounded-full border border-green-300 bg-green-50 text-green-700 hover:bg-green-100 transition-colors"
-            >
-              すべて選択
-            </button>
             {/* カテゴリオプション */}
             {categories.map((category) => {
               const isSelected = selectedCategories.includes(category);
-              const isLastSelected =
-                selectedCategories.length === 1 && isSelected;
               return (
                 <button
                   key={category}
-                  onClick={() => !isLastSelected && onToggleCategory(category)}
-                  disabled={isLastSelected}
+                  onClick={() => onToggleCategory(category)}
                   className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
                     isSelected
                       ? 'bg-blue-100 border-blue-300 text-blue-700'
                       : 'bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200'
-                  } ${isLastSelected ? 'cursor-not-allowed opacity-75' : ''}`}
+                  }`}
                 >
                   {categoryLabels[category]}
-                  {isLastSelected && (
-                    <span className="ml-1 text-xs">（最低1つ必要）</span>
-                  )}
                 </button>
               );
             })}

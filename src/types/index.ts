@@ -46,7 +46,6 @@ export interface UseFiltersReturn {
   addIngredient: (ingredient: string) => void;
   removeIngredient: (ingredient: string) => void;
   toggleCategory: (category: Category) => void;
-  selectAllCategories: () => void;
 }
 
 export interface UseSwipeReturn {

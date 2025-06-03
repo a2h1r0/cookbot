@@ -6,7 +6,7 @@ import { UseFiltersReturn } from '@/types';
 
 type IngredientsFilterProps = Omit<
   UseFiltersReturn,
-  'toggleCategory' | 'selectAllCategories' | 'updateCookTime' | 'updateServing'
+  'toggleCategory' | 'updateCookTime' | 'updateServing'
 >;
 
 export default function IngredientsFilter({

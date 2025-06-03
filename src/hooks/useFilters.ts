@@ -6,7 +6,7 @@ export function useFilters(): UseFiltersReturn {
     cookTime: '30分以内',
     serving: '2人分',
     ingredients: [],
-    categories: Object.values(Category),
+    categories: [],
   });
 
   // 調理時間を更新
@@ -19,16 +19,12 @@ export function useFilters(): UseFiltersReturn {
     setFilters((prev) => ({ ...prev, serving }));
   };
 
-  // 最後の1つのカテゴリは選択解除できない（空状態を防ぐ）
+  // カテゴリの選択/選択解除を切り替え
+  // 空配列 = 全カテゴリ選択、配列に値 = 特定カテゴリのみ選択
   const toggleCategory = (category: Category) => {
     setFilters((prev) => {
       const isSelected = prev.categories.includes(category);
-
       if (isSelected) {
-        // 最後の1つの場合は選択解除しない
-        if (prev.categories.length <= 1) {
-          return prev;
-        }
         // 選択されているカテゴリを除外
         return {
           ...prev,
@@ -40,12 +36,6 @@ export function useFilters(): UseFiltersReturn {
         return { ...prev, categories: newCategories };
       }
     });
-  };
-
-  // すべてのカテゴリを選択
-  const selectAllCategories = () => {
-    const allCategories = Object.values(Category);
-    setFilters((prev) => ({ ...prev, categories: allCategories }));
   };
 
   // 食材を追加
@@ -73,7 +63,6 @@ export function useFilters(): UseFiltersReturn {
     updateCookTime,
     updateServing,
     toggleCategory,
-    selectAllCategories,
     addIngredient,
     removeIngredient,
   };

@@ -9,7 +9,10 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
     `人数: ${filters.serving}人分`,
   ];
 
-  if (filters.categories.length !== Object.values(Category).length) {
+  if (
+    filters.categories.length > 0 &&
+    filters.categories.length !== Object.values(Category).length
+  ) {
     conditions.push(`対象カテゴリ: ${filters.categories.join(', ')}`);
   }
 
