@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { headers } from 'next/headers';
+import { isGoogleAppsScriptRequest } from '@/utils/userAgent';
 import './globals.css';
 
 const geistSans = Geist({
@@ -57,11 +59,17 @@ export const metadata: Metadata = {
 
 const gaId = process.env.GOOGLE_ANALYTICS_ID;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // リクエストヘッダーを取得してGASからのアクセスを検出
+  const headersList = await headers();
+  const isGasRequest = isGoogleAppsScriptRequest(headersList);
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const shouldExcludeGA = isGasRequest || isDevelopment;
+
   return (
     <html lang="ja">
       <head>
@@ -76,7 +84,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        {gaId && <GoogleAnalytics gaId={gaId} />}
+        {gaId && !shouldExcludeGA && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );
