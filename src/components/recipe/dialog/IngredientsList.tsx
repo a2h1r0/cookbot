@@ -32,10 +32,11 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
               <span className="text-gray-600">{ingredient.amount}</span>
               <button
                 onClick={() => handleIngredientUpdate(index, ingredient.name)}
-                className="p-1 text-orange-500 hover:bg-orange-50 rounded-full transition-colors"
+                className="flex items-center space-x-1 px-2 py-1 text-orange-500 hover:bg-orange-50 rounded-md transition-colors text-sm"
                 title={`${ingredient.name}の代用を提案`}
               >
-                <RefreshCw className="w-4 h-4" />
+                <RefreshCw className="w-3 h-3" />
+                <span>更新</span>
               </button>
             </div>
           </div>
