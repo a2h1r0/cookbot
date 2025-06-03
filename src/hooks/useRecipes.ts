@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Category, Recipe } from '@/types';
+import { Recipe } from '@/types';
 import { useGemini } from './useGemini';
 import {
   createRecipeSearchPrompt,
@@ -112,7 +112,7 @@ export function useRecipes() {
       cookTime: '30分以内',
       serving: '2人分',
       categories: [],
-      ingredients: Object.values(Category),
+      ingredients: [],
     });
   }, [fetchRecipes]);
 

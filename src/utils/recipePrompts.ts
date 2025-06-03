@@ -47,7 +47,7 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
 
   const conditions = [
     `調理時間: ${filters.cookTime}`,
-    `人数: ${filters.serving}人分`,
+    `人数: ${filters.serving}`,
   ];
 
   if (
