@@ -87,14 +87,16 @@ export default function RecipePage() {
           )}
         </div>
         {/* メインコンテンツエリア - 残りのスペースを使用 */}
-        <div className="flex-1 flex flex-col justify-center px-2 sm:px-3 md:px-4 min-h-0">
-          <SwipeStack recipes={recipes} onSearch={search} {...swipeHook} />
-          {swipeHook.currentIndex < recipes.length && (
-            <div className="flex-shrink-0 mt-2 md:mt-4">
-              <SwipeActions {...swipeHook} />
-            </div>
-          )}
-        </div>
+        {!loading && (
+          <div className="flex-1 flex flex-col justify-center px-2 sm:px-3 md:px-4 min-h-0">
+            <SwipeStack recipes={recipes} onSearch={search} {...swipeHook} />
+            {swipeHook.currentIndex < recipes.length && (
+              <div className="flex-shrink-0 mt-2 md:mt-4">
+                <SwipeActions {...swipeHook} />
+              </div>
+            )}
+          </div>
+        )}
         {/* レシピ詳細ダイアログ */}
         <RecipeDialog
           recipe={swipeHook.selectedRecipe}
