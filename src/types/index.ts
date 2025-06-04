@@ -83,5 +83,7 @@ export interface UseGeminiReturn {
   loading: boolean;
   error: string | null;
   generateRecipe: (request: GeminiRequest) => Promise<GeminiResponse | null>;
-  lastResponse: GeminiResponse | null;
+  generateSubstitution: (
+    request: GeminiRequest & { ingredients: string[] }
+  ) => Promise<GeminiResponse | null>;
 }
