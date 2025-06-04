@@ -13,7 +13,7 @@ import { useFilters } from '@/hooks/useFilters';
 
 export default function RecipePage() {
   const [isOnline, setIsOnline] = useState(true);
-  const { recipes, loading, error, fetchRecipes } = useRecipes();
+  const { recipes, loading, error, searchRecipes } = useRecipes();
   const filtersHook = useFilters();
   const swipeHook = useSwipe(recipes);
 
@@ -37,7 +37,7 @@ export default function RecipePage() {
     if (!isOnline) {
       return; // オフライン時は検索しない
     }
-    fetchRecipes(filtersHook.filters);
+    searchRecipes(filtersHook.filters);
     swipeHook.reset();
   };
 

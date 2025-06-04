@@ -16,7 +16,7 @@ export function useSubstitutions() {
     error: geminiError,
   } = useGemini();
 
-  const searchSubstitutions = useCallback(
+  const fetchSubstitutions = useCallback(
     async (ingredients: string[]) => {
       const requestId = Math.random().toString(36).substr(2, 9);
       const startTime = Date.now();
@@ -132,18 +132,17 @@ export function useSubstitutions() {
     },
     [generateSubstitution]
   );
-  const fetchSubstitutions = useCallback(
+  const searchSubstitutions = useCallback(
     async (ingredients: string[]) => {
-      await searchSubstitutions(ingredients);
+      await fetchSubstitutions(ingredients);
     },
-    [searchSubstitutions]
+    [fetchSubstitutions]
   );
 
   return {
     substitutions,
     loading: loading || geminiLoading,
     error: error || geminiError,
-    fetchSubstitutions,
     searchSubstitutions,
   };
 }

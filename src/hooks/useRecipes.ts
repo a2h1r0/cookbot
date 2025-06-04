@@ -16,7 +16,7 @@ export function useRecipes() {
     loading: geminiLoading,
     error: geminiError,
   } = useGemini();
-  const searchRecipes = useCallback(
+  const fetchRecipes = useCallback(
     async (filters: SearchFilters) => {
       const requestId = Math.random().toString(36).substr(2, 9);
       const startTime = Date.now();
@@ -104,27 +104,26 @@ export function useRecipes() {
     },
     [generateRecipe]
   );
-  const fetchRecipes = useCallback(
+  const searchRecipes = useCallback(
     async (filters: SearchFilters) => {
-      await searchRecipes(filters);
+      await fetchRecipes(filters);
     },
-    [searchRecipes]
+    [fetchRecipes]
   );
   useEffect(() => {
     console.log('[RECIPES] Initial recipe fetch triggered');
-    fetchRecipes({
+    searchRecipes({
       cookTime: '30分以内',
       serving: '2人分',
       categories: [],
       ingredients: [],
     });
-  }, [fetchRecipes]);
+  }, [searchRecipes]);
 
   return {
     recipes,
     loading: loading || geminiLoading,
     error: error || geminiError,
-    fetchRecipes,
     searchRecipes,
   };
 }
