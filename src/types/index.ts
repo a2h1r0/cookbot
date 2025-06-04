@@ -19,6 +19,8 @@ export enum Category {
 export interface Ingredient {
   name: string;
   amount: string;
+  substitution?: Substitution;
+  isLoading?: boolean;
 }
 
 export interface Substitution {
