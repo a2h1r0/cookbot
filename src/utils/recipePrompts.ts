@@ -128,8 +128,8 @@ export function parseRecipesFromResponse(responseText: string): Recipe[] {
 /**
  * 材料代用提案用のプロンプトを生成する
  */
-export function createSubstitutionPrompt(ingredientNames: string[]): string {
-  const ingredientList = ingredientNames.map((name) => `- ${name}`).join('\n');
+export function createSubstitutionPrompt(ingredients: string[]): string {
+  const ingredientList = ingredients.map((name) => `- ${name}`).join('\n');
 
   return `以下の材料について、より手に入りやすい食材や一般的な代用品を提案してください。
 栄養価や味の特徴を考慮した代替案を提示し、使用方法や注意点も含めてください。

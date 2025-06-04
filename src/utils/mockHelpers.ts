@@ -1,5 +1,6 @@
-import { Recipe } from '@/types';
+import { Recipe, Substitution } from '@/types';
 import { mockRecipes } from '@/data/mockRecipes';
+import { mockSubstitutions } from '@/data/mockSubstitutions';
 
 /**
  * モックレシピからランダムに指定数選択する
@@ -34,6 +35,60 @@ export function createMockRecipeResponse(
 
   const mockResponse = {
     recipes: selectedRecipes,
+  };
+
+  return {
+    success: true,
+    data: {
+      text: JSON.stringify(mockResponse, null, 2),
+      model: `${model} (mock)`,
+      temperature,
+      prompt: prompt.substring(0, 100) + (prompt.length > 100 ? '...' : ''),
+    },
+  };
+}
+
+/**
+ * 材料代用提案のモックレスポンスを生成する
+ */
+export function createMockSubstitutionResponse(
+  ingredients: string[],
+  prompt: string,
+  model: string,
+  temperature: number
+) {
+  console.log('Development mode: Returning mock ingredient substitutions');
+
+  // 選択された材料に対応する代用提案を取得
+  const substitutions: Substitution[] = ingredients.map((name) => {
+    // 完全一致またはキーワード含有で検索
+    const exactMatch = mockSubstitutions[name];
+    if (exactMatch) return exactMatch;
+
+    // 部分一致で検索
+    const partialMatch = Object.keys(mockSubstitutions).find(
+      (key) => name.includes(key) || key.includes(name)
+    );
+    if (partialMatch) {
+      const substitution = mockSubstitutions[partialMatch];
+      return {
+        ...substitution,
+        original: name, // 元の名前を保持
+      };
+    }
+
+    // デフォルトの代用提案
+    return {
+      original: name,
+      substitute: `${name}の代用品`,
+      reason: '一般的な代用材料です',
+      ratio: '1:1',
+      notes: '味や食感に多少の違いが出る場合があります',
+    };
+  });
+
+  const mockResponse = {
+    substitutions,
   };
 
   return {
