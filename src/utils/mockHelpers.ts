@@ -81,9 +81,7 @@ export function createMockSubstitutionResponse(
     return {
       original: name,
       substitute: `${name}の代用品`,
-      reason: '一般的な代用材料です',
       amount: '100g',
-      notes: '味や食感に多少の違いが出る場合があります',
     };
   });
 

@@ -171,14 +171,6 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   <p>
                     <strong>分量:</strong> {ingredient.substitution.amount}
                   </p>
-                  <p>
-                    <strong>理由:</strong> {ingredient.substitution.reason}
-                  </p>
-                  {ingredient.substitution.notes && (
-                    <p className="text-amber-600">
-                      <strong>注意点:</strong> {ingredient.substitution.notes}
-                    </p>
-                  )}
                 </div>
               </div>
             )}

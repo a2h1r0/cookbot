@@ -26,9 +26,7 @@ export interface Ingredient {
 export interface Substitution {
   original: string;
   substitute: string;
-  reason: string;
   amount: string;
-  notes: string;
 }
 
 export interface Recipe {
