@@ -20,7 +20,7 @@ export interface Ingredient {
   name: string;
   amount: string;
   substitution?: Substitution | null;
-  isLoading?: boolean;
+  loading?: boolean;
 }
 
 export interface Substitution {

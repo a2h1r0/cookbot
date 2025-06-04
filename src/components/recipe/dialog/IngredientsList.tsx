@@ -39,13 +39,13 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
             return {
               ...ingredient,
               substitution: substitution, // Substitution | null
-              isLoading: false,
+              loading: false,
             };
           } else {
             // 検索対象でない材料は既存の状態を維持
             return {
               ...ingredient,
-              isLoading: false,
+              loading: false,
             };
           }
         })
@@ -72,13 +72,11 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
     );
 
     // 検索対象の材料を保存
-    setLastSearchedIngredients(selectedIngredientNames);
-
-    // 選択された材料をローディング状態に設定
+    setLastSearchedIngredients(selectedIngredientNames); // 選択された材料をローディング状態に設定
     setIngredients((prevIngredients) =>
       prevIngredients.map((ingredient, index) => ({
         ...ingredient,
-        isLoading: selectedIngredients.includes(index),
+        loading: selectedIngredients.includes(index),
       }))
     );
 
@@ -88,12 +86,11 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
       // 更新後は選択をリセット
       setSelectedIngredients([]);
     } catch (error) {
-      console.error('代用提案の取得に失敗しました:', error);
-      // エラー時はローディング状態をリセット
+      console.error('代用提案の取得に失敗しました:', error); // エラー時はローディング状態をリセット
       setIngredients((prevIngredients) =>
         prevIngredients.map((ingredient) => ({
           ...ingredient,
-          isLoading: false,
+          loading: false,
         }))
       );
     }
@@ -152,7 +149,7 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                 {ingredient.substitution === null && (
                   <XCircle className="w-4 h-4 text-red-500" />
                 )}{' '}
-                {ingredient.isLoading ? (
+                {ingredient.loading ? (
                   <div className="flex items-center space-x-2">
                     <RefreshCw className="w-4 h-4 text-blue-500 animate-spin" />
                     <span className="text-gray-600">代用品を検索中...</span>
@@ -170,8 +167,8 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                     {ingredient.name}
                   </span>
                 )}
-              </div>
-              {!ingredient.isLoading && (
+              </div>{' '}
+              {!ingredient.loading && (
                 <span
                   className={`font-medium ${
                     ingredient.substitution ? 'text-gray-400' : 'text-gray-600'
