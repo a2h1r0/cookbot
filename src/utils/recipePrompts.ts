@@ -124,3 +124,48 @@ export function parseRecipesFromResponse(responseText: string): Recipe[] {
 
   return processedRecipes;
 }
+
+/**
+ * 材料代用提案用のプロンプトを生成する
+ */
+export function createSubstitutionPrompt(ingredientNames: string[]): string {
+  const ingredientList = ingredientNames.map((name) => `- ${name}`).join('\n');
+
+  return `以下の材料について、より手に入りやすい食材や一般的な代用品を提案してください。
+栄養価や味の特徴を考慮した代替案を提示し、使用方法や注意点も含めてください。
+
+対象材料:
+${ingredientList}
+
+以下のJSON形式で回答してください:
+{
+  "substitutions": [
+    {
+      "original": "元の材料名",
+      "substitute": "代用材料名", 
+      "reason": "代用する理由（栄養価、味、入手しやすさなど）",
+      "ratio": "代用比率（例: 1:1、元の材料1に対して代用材料1.5など）",
+      "notes": "使用時の注意点やコツ"
+    }
+  ]
+}
+
+注意事項:
+- 代用材料は一般的なスーパーで入手しやすいものを提案する
+- 味や食感の変化について正直に説明する
+- アレルギーや健康上の注意点があれば明記する
+- 調理法の調整が必要な場合は具体的に説明する`;
+}
+
+/**
+ * 材料代用提案のレスポンスから代用情報を抽出する
+ */
+export function parseSubstitutionsFromResponse(responseText: string) {
+  const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) {
+    throw new Error('有効なJSONが見つかりませんでした');
+  }
+
+  const substitutionData = JSON.parse(jsonMatch[0]);
+  return substitutionData.substitutions || [];
+}
