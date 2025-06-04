@@ -131,8 +131,8 @@ export function parseRecipesFromResponse(responseText: string): Recipe[] {
 export function createSubstitutionPrompt(ingredients: string[]): string {
   const ingredientList = ingredients.map((name) => `- ${name}`).join('\n');
 
-  return `以下の材料について、より手に入りやすい食材や一般的な代用品を提案してください。
-栄養価や味の特徴を考慮した代替案を提示し、使用方法や注意点も含めてください。
+  return `以下の材料について、一般的なスーパーで入手しやすい代用品を提案してください。
+適切な代用品がない場合は無理に提案せず、nullを返してください。
 
 対象材料:
 ${ingredientList}
@@ -147,11 +147,10 @@ ${ingredientList}
   ]
 }
 
-注意事項:
-- 代用材料は一般的なスーパーで入手しやすいものを提案する
-- 味や食感の変化について正直に説明する
-- アレルギーや健康上の注意点があれば明記する
-- 調理法の調整が必要な場合は具体的に説明する`;
+重要な指示:
+- 適切な代用品がない材料については、配列の該当位置にnullを設定する
+- 代用材料は一般的なスーパーで入手しやすいもののみ提案する
+- 無理な代用や味が大きく変わる代用は提案しない`;
 }
 
 /**
