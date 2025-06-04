@@ -5,7 +5,7 @@ export function useGemini(): UseGeminiReturn {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastResponse, setLastResponse] = useState<GeminiResponse | null>(null);
-  const generate = useCallback(
+  const generateRecipe = useCallback(
     async (request: GeminiRequest): Promise<GeminiResponse | null> => {
       const requestId = Math.random().toString(36).substr(2, 9);
       const startTime = Date.now();
@@ -108,7 +108,7 @@ export function useGemini(): UseGeminiReturn {
   return {
     loading,
     error,
-    generate,
+    generateRecipe,
     lastResponse,
   };
 }

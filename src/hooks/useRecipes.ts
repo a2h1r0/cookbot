@@ -11,7 +11,11 @@ export function useRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { generate, loading: geminiLoading, error: geminiError } = useGemini();
+  const {
+    generateRecipe,
+    loading: geminiLoading,
+    error: geminiError,
+  } = useGemini();
   const searchRecipes = useCallback(
     async (filters: SearchFilters) => {
       const requestId = Math.random().toString(36).substr(2, 9);
@@ -37,7 +41,7 @@ export function useRecipes() {
 
         console.log(`[RECIPES-${requestId}] Calling Gemini generate...`);
         const geminiStartTime = Date.now();
-        const response = await generate({ prompt, temperature: 0.8 });
+        const response = await generateRecipe({ prompt, temperature: 0.8 });
         const geminiDuration = Date.now() - geminiStartTime;
 
         console.log(`[RECIPES-${requestId}] Gemini response received:`, {
@@ -98,7 +102,7 @@ export function useRecipes() {
         setLoading(false);
       }
     },
-    [generate]
+    [generateRecipe]
   );
   const fetchRecipes = useCallback(
     async (filters: SearchFilters) => {
