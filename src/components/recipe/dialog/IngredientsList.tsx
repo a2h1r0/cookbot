@@ -145,11 +145,6 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                     }`}
                   >
                     {ingredient.name}
-                    {ingredient.substitution && (
-                      <span className="text-xs text-gray-500 ml-2">
-                        (元の材料)
-                      </span>
-                    )}
                   </span>
                 )}
               </div>
@@ -166,18 +161,15 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
             {/* 代用品の表示 */}
             {ingredient.substitution && (
               <div className="px-2 pb-3">
-                <div className="flex items-center space-x-2 mb-2">
+                <div className="flex items-center space-x-2 my-2">
                   <ArrowRight className="w-4 h-4 text-green-600" />
                   <span className="font-medium text-green-800">
                     {ingredient.substitution.substitute}
                   </span>
-                  <span className="text-sm text-green-600 bg-green-100 px-2 py-1 rounded">
-                    代用品
-                  </span>
-                </div>
+                </div>{' '}
                 <div className="ml-6 text-sm text-gray-600 space-y-1">
                   <p>
-                    <strong>比率:</strong> {ingredient.substitution.ratio}
+                    <strong>分量:</strong> {ingredient.substitution.amount}
                   </p>
                   <p>
                     <strong>理由:</strong> {ingredient.substitution.reason}
@@ -187,10 +179,6 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                       <strong>注意点:</strong> {ingredient.substitution.notes}
                     </p>
                   )}
-                  <p className="text-xs text-blue-600 mt-2">
-                    💡
-                    チェックボックスを選択して再度更新すると、別の代用品を提案できます
-                  </p>
                 </div>
               </div>
             )}

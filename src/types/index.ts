@@ -27,7 +27,7 @@ export interface Substitution {
   original: string;
   substitute: string;
   reason: string;
-  ratio: string;
+  amount: string;
   notes: string;
 }
 
