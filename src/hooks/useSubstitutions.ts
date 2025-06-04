@@ -4,10 +4,12 @@ import { useGemini } from './useGemini';
 import {
   createSubstitutionPrompt,
   parseSubstitutionsFromResponse,
-} from '@/utils/recipePrompts';
+} from '@/utils/substitutionPrompts';
 
 export function useSubstitutions() {
-  const [substitutions, setSubstitutions] = useState<(Substitution | null)[]>([]);
+  const [substitutions, setSubstitutions] = useState<(Substitution | null)[]>(
+    []
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const {
@@ -74,7 +76,8 @@ export function useSubstitutions() {
         if (!response) {
           console.error(`[SUBSTITUTIONS-${requestId}] No response from Gemini`);
           throw new Error('代用提案の生成に失敗しました');
-        }        try {
+        }
+        try {
           console.log(
             `[SUBSTITUTIONS-${requestId}] Parsing substitutions from response...`
           );
