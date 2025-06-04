@@ -28,11 +28,11 @@ export function useGemini(): UseGeminiReturn {
         setError(null);
 
         console.log(
-          `[CLIENT-${requestId}] Sending fetch request to /api/generate...`
+          `[CLIENT-${requestId}] Sending fetch request to /api/recipe...`
         );
         const fetchStartTime = Date.now();
 
-        const response = await fetch('/api/generate', {
+        const response = await fetch('/api/recipe', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
