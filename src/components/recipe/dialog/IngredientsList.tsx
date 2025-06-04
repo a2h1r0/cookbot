@@ -157,8 +157,7 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   {ingredient.amount}
                 </span>
               )}
-            </div>{' '}
-            {/* 代用品の表示 */}
+            </div>{' '}            {/* 代用品の表示 */}
             {ingredient.substitution && (
               <div className="px-2 pb-3">
                 <div className="flex items-center space-x-2 my-2">
@@ -166,11 +165,9 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   <span className="font-medium text-green-800">
                     {ingredient.substitution.substitute}
                   </span>
-                </div>{' '}
-                <div className="ml-6 text-sm text-gray-600 space-y-1">
-                  <p>
-                    <strong>分量:</strong> {ingredient.substitution.amount}
-                  </p>
+                  <span className="text-sm text-gray-600">
+                    (<strong>分量:</strong> {ingredient.substitution.amount})
+                  </span>
                 </div>
               </div>
             )}
