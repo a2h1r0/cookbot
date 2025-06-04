@@ -135,12 +135,14 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
               }`}
               onClick={() => handleIngredientSelect(index)}
             >
+              {' '}
               <div className="flex items-center space-x-3 flex-1">
-                <div className="relative">
+                <div className="relative flex items-center">
                   {' '}
                   <input
                     type="checkbox"
                     checked={selectedIngredients.includes(index)}
+                    onClick={() => handleIngredientSelect(index)}
                     onChange={() => handleIngredientSelect(index)}
                     disabled={ingredient.substitution === null}
                     className={`w-4 h-4 text-orange-500 bg-white border-2 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 ${
