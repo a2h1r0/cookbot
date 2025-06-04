@@ -88,10 +88,11 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
 
   return (
     <div className="mb-6">
+      {' '}
       <div className="mb-3">
         <h3 className="text-lg font-bold text-gray-800">材料</h3>
         <p className="text-xs text-gray-500 mt-1">
-          調味料などを代用したい場合には材料をチェックして下部の更新ボタンを押してください
+          調味料などを代用したい場合には材料をチェックして下部の更新ボタンを押してください。
         </p>
       </div>{' '}
       <div className="space-y-2 mb-4">
@@ -106,34 +107,28 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   : 'bg-white hover:border-gray-300'
             }`}
           >
-            {/* オリジナル材料の表示 */}
+            {/* オリジナル材料の表示 */}{' '}
             <div
               className={`flex justify-between items-center py-3 px-2 cursor-pointer hover:bg-gray-50 ${
                 ingredient.substitution ? 'border-b border-green-200' : ''
               }`}
-              onClick={() =>
-                !ingredient.substitution && handleIngredientSelect(index)
-              }
+              onClick={() => handleIngredientSelect(index)}
             >
               <div className="flex items-center space-x-3 flex-1">
-                {!ingredient.substitution && (
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      checked={selectedIngredients.includes(index)}
-                      onChange={() => handleIngredientSelect(index)}
-                      className="w-4 h-4 text-orange-500 bg-white border-2 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 cursor-pointer"
-                    />
-                    {selectedIngredients.includes(index) && (
-                      <RefreshCw className="w-3 h-3 text-orange-600 absolute -top-1 -right-1 bg-white rounded-full" />
-                    )}
-                  </div>
-                )}
-
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    checked={selectedIngredients.includes(index)}
+                    onChange={() => handleIngredientSelect(index)}
+                    className="w-4 h-4 text-orange-500 bg-white border-2 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 cursor-pointer"
+                  />
+                  {selectedIngredients.includes(index) && (
+                    <RefreshCw className="w-3 h-3 text-orange-600 absolute -top-1 -right-1 bg-white rounded-full" />
+                  )}
+                </div>
                 {ingredient.substitution && (
                   <CheckCircle2 className="w-4 h-4 text-green-600" />
-                )}
-
+                )}{' '}
                 {ingredient.isLoading ? (
                   <div className="flex items-center space-x-2">
                     <RefreshCw className="w-4 h-4 text-blue-500 animate-spin" />
@@ -142,14 +137,19 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                 ) : (
                   <span
                     className={`transition-colors ${
-                      ingredient.substitution
-                        ? 'text-gray-500 line-through'
-                        : selectedIngredients.includes(index)
-                          ? 'text-orange-800 font-medium'
+                      selectedIngredients.includes(index)
+                        ? 'text-orange-800 font-medium'
+                        : ingredient.substitution
+                          ? 'text-gray-600'
                           : 'text-gray-700'
                     }`}
                   >
                     {ingredient.name}
+                    {ingredient.substitution && (
+                      <span className="text-xs text-gray-500 ml-2">
+                        (元の材料)
+                      </span>
+                    )}
                   </span>
                 )}
               </div>
@@ -162,8 +162,7 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   {ingredient.amount}
                 </span>
               )}
-            </div>
-
+            </div>{' '}
             {/* 代用品の表示 */}
             {ingredient.substitution && (
               <div className="px-2 pb-3">
@@ -188,6 +187,10 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                       <strong>注意点:</strong> {ingredient.substitution.notes}
                     </p>
                   )}
+                  <p className="text-xs text-blue-600 mt-2">
+                    💡
+                    チェックボックスを選択して再度更新すると、別の代用品を提案できます
+                  </p>
                 </div>
               </div>
             )}
