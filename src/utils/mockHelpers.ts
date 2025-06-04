@@ -60,7 +60,7 @@ export function createMockSubstitutionResponse(
   console.log('Development mode: Returning mock ingredient substitutions');
 
   // 選択された材料に対応する代用提案を取得
-  const substitutions: Substitution[] = ingredients.map((name) => {
+  const substitutions: (Substitution | null)[] = ingredients.map((name) => {
     // 完全一致またはキーワード含有で検索
     const exactMatch = mockSubstitutions[name];
     if (exactMatch) return exactMatch;
@@ -71,18 +71,11 @@ export function createMockSubstitutionResponse(
     );
     if (partialMatch) {
       const substitution = mockSubstitutions[partialMatch];
-      return {
-        ...substitution,
-        original: name, // 元の名前を保持
-      };
+      return substitution;
     }
 
-    // デフォルトの代用提案
-    return {
-      original: name,
-      substitute: `${name}の代用品`,
-      amount: '100g',
-    };
+    // 代用品が見つからない場合はnullを返す
+    return null;
   });
 
   const mockResponse = {

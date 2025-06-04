@@ -7,7 +7,7 @@ import {
 } from '@/utils/recipePrompts';
 
 export function useSubstitutions() {
-  const [substitutions, setSubstitutions] = useState<Substitution[]>([]);
+  const [substitutions, setSubstitutions] = useState<(Substitution | null)[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const {
@@ -74,9 +74,7 @@ export function useSubstitutions() {
         if (!response) {
           console.error(`[SUBSTITUTIONS-${requestId}] No response from Gemini`);
           throw new Error('代用提案の生成に失敗しました');
-        }
-
-        try {
+        }        try {
           console.log(
             `[SUBSTITUTIONS-${requestId}] Parsing substitutions from response...`
           );
@@ -84,15 +82,19 @@ export function useSubstitutions() {
           const parsedSubstitutions = parseSubstitutionsFromResponse(
             response.text
           );
+          const validSubstitutions = parsedSubstitutions.filter(
+            (s: Substitution | null): s is Substitution => s !== null
+          );
           const parseDuration = Date.now() - parseStartTime;
           console.log(
             `[SUBSTITUTIONS-${requestId}] Substitutions parsed successfully:`,
             {
               parseDuration: `${parseDuration}ms`,
-              substitutionCount: parsedSubstitutions.length,
-              substitutions: parsedSubstitutions.map((s: Substitution) => ({
-                original: s.original,
+              substitutionCount: validSubstitutions.length,
+              nullCount: parsedSubstitutions.length - validSubstitutions.length,
+              substitutions: validSubstitutions.map((s: Substitution) => ({
                 substitute: s.substitute,
+                amount: s.amount,
               })),
             }
           );

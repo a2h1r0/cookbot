@@ -19,12 +19,11 @@ export enum Category {
 export interface Ingredient {
   name: string;
   amount: string;
-  substitution?: Substitution;
+  substitution?: Substitution | null;
   isLoading?: boolean;
 }
 
 export interface Substitution {
-  original: string;
   substitute: string;
   amount: string;
 }

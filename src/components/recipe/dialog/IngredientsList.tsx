@@ -1,5 +1,5 @@
 import { Ingredient, Recipe } from '@/types';
-import { RefreshCw, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { RefreshCw, ArrowRight, CheckCircle2, XCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useSubstitutions } from '@/hooks/useSubstitutions';
 
@@ -10,6 +10,9 @@ interface IngredientsListProps {
 export default function IngredientsList({ recipe }: IngredientsListProps) {
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [lastSearchedIngredients, setLastSearchedIngredients] = useState<
+    string[]
+  >([]);
   const { substitutions, loading, error, searchSubstitutions } =
     useSubstitutions();
   // 初期化時と recipe が変わったときに ingredients を設定
@@ -20,28 +23,35 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
         amount: ingredient.amount,
       }))
     );
-  }, [recipe.ingredients]);
-  // 代用品提案が更新されたときに ingredients を更新
+  }, [recipe.ingredients]); // 代用品提案が更新されたときに ingredients を更新
   useEffect(() => {
     if (substitutions.length > 0) {
       setIngredients((prevIngredients) =>
         prevIngredients.map((ingredient) => {
-          const substitution = substitutions.find(
-            (sub) =>
-              sub.original
-                .toLowerCase()
-                .includes(ingredient.name.toLowerCase()) ||
-              ingredient.name.toLowerCase().includes(sub.original.toLowerCase())
+          // 検索した材料のインデックスに対応する代用品を取得
+          const searchedIndex = lastSearchedIngredients.indexOf(
+            ingredient.name
           );
-          return {
-            ...ingredient,
-            substitution,
-            isLoading: false,
-          };
+
+          if (searchedIndex >= 0) {
+            // 検索対象の材料の場合、結果に基づいて設定
+            const substitution = substitutions[searchedIndex];
+            return {
+              ...ingredient,
+              substitution: substitution, // Substitution | null
+              isLoading: false,
+            };
+          } else {
+            // 検索対象でない材料は既存の状態を維持
+            return {
+              ...ingredient,
+              isLoading: false,
+            };
+          }
         })
       );
     }
-  }, [substitutions]);
+  }, [substitutions, lastSearchedIngredients]);
 
   const handleIngredientSelect = (index: number) => {
     setSelectedIngredients((prev) => {
@@ -60,6 +70,9 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
     const selectedIngredientNames = selectedIngredients.map(
       (index) => ingredients[index].name
     );
+
+    // 検索対象の材料を保存
+    setLastSearchedIngredients(selectedIngredientNames);
 
     // 選択された材料をローディング状態に設定
     setIngredients((prevIngredients) =>
@@ -100,17 +113,23 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
           <div
             key={index}
             className={`border border-gray-200 rounded-lg transition-all ${
-              ingredient.substitution
+              ingredient.substitution && ingredient.substitution !== null
                 ? 'bg-green-50 border-green-200 shadow-sm'
-                : selectedIngredients.includes(index)
-                  ? 'bg-orange-50 border-orange-200 shadow-sm'
-                  : 'bg-white hover:border-gray-300'
+                : ingredient.substitution === null
+                  ? 'bg-red-50 border-red-200 shadow-sm'
+                  : selectedIngredients.includes(index)
+                    ? 'bg-orange-50 border-orange-200 shadow-sm'
+                    : 'bg-white hover:border-gray-300'
             }`}
           >
             {/* オリジナル材料の表示 */}{' '}
             <div
               className={`flex justify-between items-center py-3 px-2 cursor-pointer hover:bg-gray-50 ${
-                ingredient.substitution ? 'border-b border-green-200' : ''
+                ingredient.substitution && ingredient.substitution !== null
+                  ? 'border-b border-green-200'
+                  : ingredient.substitution === null
+                    ? 'border-b border-red-200'
+                    : ''
               }`}
               onClick={() => handleIngredientSelect(index)}
             >
@@ -125,9 +144,13 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   {selectedIngredients.includes(index) && (
                     <RefreshCw className="w-3 h-3 text-orange-600 absolute -top-1 -right-1 bg-white rounded-full" />
                   )}
-                </div>
-                {ingredient.substitution && (
-                  <CheckCircle2 className="w-4 h-4 text-green-600" />
+                </div>{' '}
+                {ingredient.substitution &&
+                  ingredient.substitution !== null && (
+                    <CheckCircle2 className="w-4 h-4 text-green-600" />
+                  )}
+                {ingredient.substitution === null && (
+                  <XCircle className="w-4 h-4 text-red-500" />
                 )}{' '}
                 {ingredient.isLoading ? (
                   <div className="flex items-center space-x-2">
@@ -157,8 +180,9 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   {ingredient.amount}
                 </span>
               )}
-            </div>{' '}            {/* 代用品の表示 */}
-            {ingredient.substitution && (
+            </div>{' '}
+            {/* 代用品の表示 */}
+            {ingredient.substitution && ingredient.substitution !== null && (
               <div className="px-2 pb-3">
                 <div className="flex items-center space-x-2 my-2">
                   <ArrowRight className="w-4 h-4 text-green-600" />
@@ -167,6 +191,17 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   </span>
                   <span className="text-sm text-gray-600">
                     (<strong>分量:</strong> {ingredient.substitution.amount})
+                  </span>
+                </div>
+              </div>
+            )}
+            {/* 代用品なしの表示 */}
+            {ingredient.substitution === null && (
+              <div className="px-2 pb-3">
+                <div className="flex items-center space-x-2 my-2">
+                  <XCircle className="w-4 h-4 text-red-500" />
+                  <span className="text-sm text-red-600">
+                    この材料の代用品は見つかりませんでした
                   </span>
                 </div>
               </div>

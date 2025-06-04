@@ -1,4 +1,4 @@
-import { Recipe, SearchFilters, Category } from '@/types';
+import { Recipe, SearchFilters, Category, Substitution } from '@/types';
 
 /**
  * セッション内で生成されたレシピタイトルを管理するクラス
@@ -141,7 +141,6 @@ ${ingredientList}
 {
   "substitutions": [
     {
-      "original": "元の材料名",
       "substitute": "代用材料名", 
       "amount": "具体的な分量（例: 大さじ2、100g、1個など）"
     }
@@ -158,7 +157,9 @@ ${ingredientList}
 /**
  * 材料代用提案のレスポンスから代用情報を抽出する
  */
-export function parseSubstitutionsFromResponse(responseText: string) {
+export function parseSubstitutionsFromResponse(
+  responseText: string
+): (Substitution | null)[] {
   const jsonMatch = responseText.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
     throw new Error('有効なJSONが見つかりませんでした');
