@@ -52,8 +52,13 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
       );
     }
   }, [substitutions, lastSearchedIngredients]);
-
   const handleIngredientSelect = (index: number) => {
+    const ingredient = ingredients[index];
+    // 代用品が見つからなかった材料は選択できない
+    if (ingredient.substitution === null) {
+      return;
+    }
+
     setSelectedIngredients((prev) => {
       if (prev.includes(index)) {
         return prev.filter((i) => i !== index);
@@ -132,11 +137,17 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
             >
               <div className="flex items-center space-x-3 flex-1">
                 <div className="relative">
+                  {' '}
                   <input
                     type="checkbox"
                     checked={selectedIngredients.includes(index)}
                     onChange={() => handleIngredientSelect(index)}
-                    className="w-4 h-4 text-orange-500 bg-white border-2 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 cursor-pointer"
+                    disabled={ingredient.substitution === null}
+                    className={`w-4 h-4 text-orange-500 bg-white border-2 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 ${
+                      ingredient.substitution === null
+                        ? 'cursor-not-allowed opacity-50'
+                        : 'cursor-pointer'
+                    }`}
                   />
                   {selectedIngredients.includes(index) && (
                     <RefreshCw className="w-3 h-3 text-orange-600 absolute -top-1 -right-1 bg-white rounded-full" />
@@ -196,7 +207,7 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
             {ingredient.substitution === null && (
               <div className="px-2 pb-3">
                 <div className="flex items-center space-x-2 my-2">
-                  <XCircle className="w-4 h-4 text-red-500" />
+                  <ArrowRight className="w-4 h-4 text-red-500" />
                   <span className="text-sm text-red-600">
                     この材料の代用品は見つかりませんでした
                   </span>
@@ -216,8 +227,8 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
             <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
             <span>
               {loading
-                ? '代用提案を取得中...'
-                : `選択した${selectedIngredients.length}件の代用を提案`}
+                ? '代用品の提案を取得中...'
+                : `選択した${selectedIngredients.length}件の代用品を提案`}
             </span>
           </button>
         </div>
