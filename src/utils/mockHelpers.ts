@@ -63,7 +63,9 @@ export function createMockSubstitutionResponse(
   const substitutions: (Substitution | null)[] = ingredients.map((name) => {
     // 完全一致またはキーワード含有で検索
     const exactMatch = mockSubstitutions[name];
-    if (exactMatch) return exactMatch;
+    if (exactMatch) {
+      return exactMatch;
+    }
 
     // 部分一致で検索
     const partialMatch = Object.keys(mockSubstitutions).find(
