@@ -80,15 +80,19 @@ export default function PWAInstallPrompt() {
       return;
     }
 
-    await deferredPrompt.prompt();
-    const choiceResult = await deferredPrompt.userChoice;
+    try {
+      await deferredPrompt.prompt();
+      const choiceResult = await deferredPrompt.userChoice;
 
-    if (choiceResult.outcome === 'dismissed') {
-      localStorage.setItem('pwa-install-prompt-dismissed', 'true');
+      if (choiceResult.outcome === 'dismissed') {
+        localStorage.setItem('pwa-install-prompt-dismissed', 'true');
+      }
+
+      setDeferredPrompt(null);
+      setShowInstallBanner(false);
+    } catch {
+      // エラーが発生した場合は何もしない
     }
-
-    setDeferredPrompt(null);
-    setShowInstallBanner(false);
   };
 
   const handleDismiss = () => {

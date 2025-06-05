@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { headers } from 'next/headers';
@@ -15,6 +15,12 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#8fdeb1',
+};
+
 export const metadata: Metadata = {
   title: {
     default: 'CookBot - AIが作るあなただけのレシピ提案',
@@ -26,10 +32,8 @@ export const metadata: Metadata = {
   authors: [{ name: 'CookBot Team' }],
   creator: 'CookBot Team',
   publisher: 'CookBot',
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   manifest: '/manifest.json',
-  themeColor: '#8fdeb1',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',

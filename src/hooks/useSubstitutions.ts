@@ -44,7 +44,7 @@ export function useSubstitutions() {
           );
 
           setSubstitutions(parsedSubstitutions);
-        } catch (_parseError) {
+        } catch {
           throw new Error('代用提案データの解析に失敗しました');
         }
       } catch (err) {

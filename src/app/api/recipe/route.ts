@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
             temperature
           );
           return NextResponse.json(mockResponse);
-        } catch (_mockError) {
+        } catch {
           // モック生成に失敗した場合はエラーを返す
         }
       } else if (

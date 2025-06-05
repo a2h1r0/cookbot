@@ -32,7 +32,7 @@ export function useRecipes() {
         try {
           const generatedRecipes = parseRecipesFromResponse(response.text);
           setRecipes(generatedRecipes);
-        } catch (_parseError) {
+        } catch {
           throw new Error('レシピデータの解析に失敗しました');
         }
       } catch (err) {
