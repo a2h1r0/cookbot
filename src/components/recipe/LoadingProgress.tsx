@@ -70,13 +70,11 @@ export default function LoadingProgress({
   return (
     <div className="text-center mb-2 md:mb-3">
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 md:p-4 max-w-sm mx-auto">
-        {/* メインメッセージ */}
         <div className="inline-flex items-center space-x-2 text-sm md:text-base text-gray-700 mb-3">
           <div className="w-4 h-4 md:w-5 md:h-5 border-2 border-[#8fdeb1] border-t-transparent rounded-full animate-spin"></div>
           <span className="font-medium">{getLoadingMessage()}</span>
         </div>
 
-        {/* プログレスバー */}
         <div className="mb-3">
           <div className="w-full bg-gray-200 rounded-full h-2 md:h-2.5">
             <div
@@ -86,12 +84,10 @@ export default function LoadingProgress({
           </div>
         </div>
 
-        {/* 時間情報 */}
         <div className="text-xs md:text-sm text-gray-500">
           {getTimeMessage()}
         </div>
 
-        {/* 楽しい要素 */}
         {elapsedTime > 0 && elapsedTime % 10 === 0 && (
           <div className="mt-2 text-xs text-gray-400 animate-pulse">
             {elapsedTime === 10 && '🍳 美味しいレシピを探しています...'}

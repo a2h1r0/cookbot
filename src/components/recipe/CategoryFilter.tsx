@@ -41,12 +41,10 @@ export function CategoryFilter({
 
   return (
     <div>
-      {/* フラットヘッダー */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2"
       >
-        {' '}
         <div className="flex items-center space-x-2">
           <Tag className="w-4 h-4 text-blue-500" />
           <span className="font-medium text-gray-800 text-sm">カテゴリ</span>
@@ -77,13 +75,10 @@ export function CategoryFilter({
         ) : (
           <ChevronDown className="w-4 h-4 text-gray-500" />
         )}
-      </button>{' '}
-      {/* 展開可能なコンテンツ */}
+      </button>
       {isExpanded && (
         <div className="mt-2 px-2 pb-2">
-          {' '}
           <div className="flex flex-wrap gap-2">
-            {/* カテゴリオプション */}
             {categories.map((category) => {
               const isSelected = selectedCategories.includes(category);
               return (

@@ -33,10 +33,8 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
-      {/* ヒーローセクション */}
       <section className="px-6 py-12 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* ロゴ/アイコン */}
           <div className="mb-8 flex justify-center">
             <div className="flex items-center justify-center">
               <Image
@@ -48,7 +46,6 @@ export default function HomePage() {
               />
             </div>
           </div>
-          {/* メインヘッドライン */}
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             AIが作る
             <br />
@@ -56,12 +53,10 @@ export default function HomePage() {
             <br />
             レシピ提案
           </h1>
-          {/* サブヘッドライン */}
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
             冷蔵庫の材料を教えるだけで、AIが美味しいレシピを瞬時に提案。
             調味料の代用提案機能で、手軽に料理の悩みを解決します。
           </p>
-          {/* 利用規約・プライバシーポリシーリンク */}
           <div className="mb-6 text-center">
             <p className="text-sm text-gray-500">
               ご利用前に
@@ -90,7 +85,6 @@ export default function HomePage() {
               今すぐレシピを作成（登録不要）
             </Link>
           </div>
-          {/* ヒーロー画像 */}
           <div className="relative mx-auto max-w-2xl">
             <div className="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
               <div className="bg-gray-50 rounded-lg p-4 mb-4">
@@ -116,11 +110,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 特徴セクション */}
       <section className="px-6 py-16 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
-            {/* 特徴1 */}
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
@@ -158,7 +150,6 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* 特徴3 */}
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
@@ -180,7 +171,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 使い方セクション */}
       <section className="px-6 py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
@@ -188,7 +178,6 @@ export default function HomePage() {
           </h2>
 
           <div className="space-y-8 md:space-y-12">
-            {/* ステップ1 */}
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 text-center md:text-left">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-500 text-white rounded-full font-bold text-xl mb-4">
@@ -218,7 +207,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ステップ2 */}
             <div className="flex flex-col md:flex-row-reverse items-center gap-8">
               <div className="flex-1 text-center md:text-left">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-500 text-white rounded-full font-bold text-xl mb-4">
@@ -249,7 +237,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ステップ3 */}
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 text-center md:text-left">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-500 text-white rounded-full font-bold text-xl mb-4">
@@ -282,7 +269,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* フッター */}
       <footer className="px-6 py-12 bg-gray-900 text-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8">

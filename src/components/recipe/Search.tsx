@@ -26,7 +26,6 @@ export default function Search({
     <div>
       <div className="p-3 border-y border-gray-300 mb-4">
         <div className="space-y-3">
-          {/* 基本フィルター（調理時間・人数） */}
           <BasicFilter
             filters={filters}
             updateCookTime={updateCookTime}
@@ -34,16 +33,12 @@ export default function Search({
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
           />
-          {/* 区切り線 */}
-          <div className="-mx-3 border-t border-gray-300"></div>{' '}
-          {/* カテゴリフィルター */}
+          <div className="-mx-3 border-t border-gray-300"></div>
           <CategoryFilter
             selectedCategories={filters.categories}
             onToggleCategory={toggleCategory}
           />
-          {/* 区切り線 */}
-          <div className="-mx-3 border-t border-gray-300"></div>{' '}
-          {/* 食材フィルター */}
+          <div className="-mx-3 border-t border-gray-300"></div>
           <IngredientsFilter
             filters={filters}
             addIngredient={addIngredient}
@@ -52,7 +47,6 @@ export default function Search({
         </div>
       </div>
 
-      {/* 検索ボタン */}
       <div className="pb-4">
         <button
           onClick={onSearch}

@@ -9,14 +9,11 @@ interface SwipeCompletionProps {
 export default function SwipeCompletion({ onSearch }: SwipeCompletionProps) {
   return (
     <div className="text-center mt-4">
-      {' '}
-      {/* アイコン */}{' '}
       <div className="mb-6">
         <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
           <Utensils className="w-10 h-10 text-orange-500" />
         </div>
       </div>
-      {/* メッセージ */}
       <h3 className="text-xl font-bold text-gray-900 mb-2">
         レシピは見つかりましたか？
       </h3>
@@ -25,9 +22,7 @@ export default function SwipeCompletion({ onSearch }: SwipeCompletionProps) {
         <br />
         まだまだたくさんのレシピがあります。
       </p>
-      {/* アクションボタン */}
       <div className="flex items-center justify-center">
-        {' '}
         <button
           onClick={onSearch}
           className="bg-[#5fbd84] text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center space-x-2"

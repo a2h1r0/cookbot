@@ -44,8 +44,6 @@ export default function RecipePage() {
   return (
     <AppLayout>
       <div className="h-full flex flex-col pb-4 md:pb-8">
-        {' '}
-        {/* 検索フィルター */}
         <div className="flex-shrink-0 px-3 mt-3">
           <Search
             {...filtersHook}
@@ -53,8 +51,7 @@ export default function RecipePage() {
             isLoading={loading}
             isOffline={!isOnline}
           />
-        </div>{' '}
-        {/* ステータス表示 */}
+        </div>
         <div className="flex-shrink-0 px-3 md:px-4">
           {!isOnline && (
             <div className="text-center mb-2 md:mb-3">
@@ -86,7 +83,6 @@ export default function RecipePage() {
             </div>
           )}
         </div>
-        {/* メインコンテンツエリア - 残りのスペースを使用 */}
         {!loading && (
           <div className="flex-1 flex flex-col justify-center px-2 sm:px-3 md:px-4 min-h-0">
             <SwipeStack recipes={recipes} onSearch={search} {...swipeHook} />
@@ -97,7 +93,6 @@ export default function RecipePage() {
             )}
           </div>
         )}
-        {/* レシピ詳細ダイアログ */}
         <RecipeDialog
           recipe={swipeHook.selectedRecipe}
           isOpen={swipeHook.isDialogOpen}

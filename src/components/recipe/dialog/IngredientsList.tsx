@@ -38,7 +38,7 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
             const substitution = substitutions[searchedIndex];
             return {
               ...ingredient,
-              substitution: substitution, // Substitution | null
+              substitution: substitution,
               loading: false,
             };
           } else {
@@ -124,7 +124,6 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                     : 'bg-white hover:border-gray-300'
             }`}
           >
-            {/* オリジナル材料の表示 */}{' '}
             <div
               className={`flex justify-between items-center py-3 px-2 cursor-pointer hover:bg-gray-50 ${
                 ingredient.substitution && ingredient.substitution !== null
@@ -135,10 +134,8 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
               }`}
               onClick={() => handleIngredientSelect(index)}
             >
-              {' '}
               <div className="flex items-center space-x-3 flex-1">
                 <div className="relative flex items-center">
-                  {' '}
                   <input
                     type="checkbox"
                     checked={selectedIngredients.includes(index)}
@@ -190,8 +187,7 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                   {ingredient.amount}
                 </span>
               )}
-            </div>{' '}
-            {/* 代用品の表示 */}
+            </div>
             {ingredient.substitution && ingredient.substitution !== null && (
               <div className="px-2 pb-3">
                 <div className="flex items-center space-x-2 my-2">
@@ -205,7 +201,6 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
                 </div>
               </div>
             )}
-            {/* 代用品なしの表示 */}
             {ingredient.substitution === null && (
               <div className="px-2 pb-3">
                 <div className="flex items-center space-x-2 my-2">
@@ -234,8 +229,7 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
             </span>
           </button>
         </div>
-      )}{' '}
-      {/* エラー表示 */}
+      )}
       {error && (
         <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-red-600 text-sm">{error}</p>

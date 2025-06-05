@@ -29,8 +29,6 @@ export function createMockRecipeResponse(
   model: string,
   temperature: number
 ) {
-  console.log('Development mode: Returning mock recipes');
-
   const selectedRecipes = selectRandomMockRecipes();
 
   const mockResponse = {
@@ -57,17 +55,12 @@ export function createMockSubstitutionResponse(
   model: string,
   temperature: number
 ) {
-  console.log('Development mode: Returning mock ingredient substitutions');
-
-  // 選択された材料に対応する代用提案を取得
   const substitutions: (Substitution | null)[] = ingredients.map((name) => {
-    // 完全一致またはキーワード含有で検索
     const exactMatch = mockSubstitutions[name];
     if (exactMatch) {
       return exactMatch;
     }
 
-    // 部分一致で検索
     const partialMatch = Object.keys(mockSubstitutions).find(
       (key) => name.includes(key) || key.includes(name)
     );
@@ -76,7 +69,6 @@ export function createMockSubstitutionResponse(
       return substitution;
     }
 
-    // 代用品が見つからない場合はnullを返す
     return null;
   });
 

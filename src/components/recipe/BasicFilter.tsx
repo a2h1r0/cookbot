@@ -32,7 +32,6 @@ export default function BasicFilter({
 
   return (
     <div>
-      {/* フラットヘッダー */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2"
@@ -41,7 +40,7 @@ export default function BasicFilter({
           <Clock className="w-4 h-4 text-orange-500" />
           <span className="font-medium text-gray-800 text-sm">
             調理時間・人数
-          </span>{' '}
+          </span>
           {hasActiveFilters && (
             <div className="flex items-center space-x-1">
               {selectedCookTime && (
@@ -64,18 +63,16 @@ export default function BasicFilter({
         )}
       </button>
 
-      {/* フラットなフィルター内容 */}
       {isExpanded && (
         <div className="mt-2 pt-2 border-t border-gray-200/30">
           <div className="py-2 space-y-3">
-            {/* 調理時間 */}
             <div>
               <div className="flex items-center space-x-1.5 mb-1.5">
                 <Clock className="w-3.5 h-3.5 text-gray-600" />
                 <h3 className="text-xs font-medium text-gray-700 uppercase tracking-wide">
                   調理時間
                 </h3>
-              </div>{' '}
+              </div>
               <div className="flex flex-wrap gap-1">
                 {cookTimes.map((time) => (
                   <button
@@ -93,17 +90,15 @@ export default function BasicFilter({
               </div>
             </div>
 
-            {/* セパレーター */}
             <div className="border-t border-gray-200/50"></div>
 
-            {/* 人数 */}
             <div>
               <div className="flex items-center space-x-1.5 mb-1.5">
                 <Users className="w-3.5 h-3.5 text-gray-600" />
                 <h3 className="text-xs font-medium text-gray-700 uppercase tracking-wide">
                   人数
                 </h3>
-              </div>{' '}
+              </div>
               <div className="flex flex-wrap gap-1">
                 {servings.map((serving) => (
                   <button

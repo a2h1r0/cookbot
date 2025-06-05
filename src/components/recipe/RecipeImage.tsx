@@ -146,25 +146,21 @@ export default function RecipeImage({
     lg: 'w-20 h-20',
   };
 
-  // アイコンのみの場合
   if (variant === 'icon') {
     return <Icon className={`${sizeClasses[size]} ${categoryInfo.color}`} />;
   }
 
-  // フルディスプレイの場合
   return (
     <div className="m-4">
       <div
         className={`w-full h-64 bg-gradient-to-br ${categoryInfo.gradientColor} rounded-lg flex flex-col items-center justify-center text-white relative overflow-hidden`}
       >
-        {/* 背景パターン */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-full"></div>
           <div className="absolute top-8 right-8 w-4 h-4 border-2 border-white rounded-full"></div>
           <div className="absolute bottom-8 left-8 w-6 h-6 border-2 border-white rounded-full"></div>
           <div className="absolute bottom-4 right-4 w-10 h-10 border-2 border-white rounded-full"></div>
         </div>
-        {/* メインアイコン */}
         <div className="z-10 flex flex-col items-center">
           <Icon className={`w-20 h-20 text-white`} />
           <h3 className="mt-4 text-xl font-bold text-center px-4 leading-tight">

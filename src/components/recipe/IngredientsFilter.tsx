@@ -33,7 +33,6 @@ export default function IngredientsFilter({
 
   return (
     <div>
-      {/* フラットヘッダー */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2"
@@ -56,11 +55,9 @@ export default function IngredientsFilter({
         )}
       </button>
 
-      {/* フラットなフィルター内容 */}
       {isExpanded && (
         <div className="border-gray-200/30">
           <div className="space-y-3">
-            {/* 食材入力フィールド */}
             <div>
               <div className="flex gap-2">
                 <input
@@ -81,7 +78,6 @@ export default function IngredientsFilter({
               </div>
             </div>
 
-            {/* 追加された食材のリスト */}
             {filters.ingredients.length > 0 && (
               <div>
                 <div className="flex flex-wrap gap-2">

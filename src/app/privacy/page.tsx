@@ -25,7 +25,6 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto p-6">
-        {/* ヘッダー */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <Link
             href="/"
@@ -40,7 +39,6 @@ export default function PrivacyPage() {
           <p className="text-gray-600 mt-2">最終更新日: 2025年6月1日</p>
         </div>
 
-        {/* プライバシーポリシー内容 */}
         <div className="bg-white rounded-lg shadow-sm p-8">
           <div className="prose max-w-none">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">
