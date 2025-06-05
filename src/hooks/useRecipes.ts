@@ -57,6 +57,7 @@ export function useRecipes() {
       serving: '2人分',
       categories: [],
       ingredients: [],
+      freeword: '',
     });
   }, [searchRecipes]);
 

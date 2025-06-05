@@ -6,7 +6,7 @@ import { UseFiltersReturn } from '@/types';
 
 type BasicFilterProps = Omit<
   UseFiltersReturn,
-  'toggleCategory' | 'selectAllCategories'
+  'toggleCategory' | 'updateFreeword' | 'addIngredient' | 'removeIngredient'
 >;
 
 export default function BasicFilter({

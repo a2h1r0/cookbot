@@ -44,6 +44,7 @@ export interface SearchFilters {
   serving: string;
   ingredients: string[];
   categories: Category[];
+  freeword: string;
 }
 
 export interface UseFiltersReturn {
@@ -53,6 +54,7 @@ export interface UseFiltersReturn {
   addIngredient: (ingredient: string) => void;
   removeIngredient: (ingredient: string) => void;
   toggleCategory: (category: Category) => void;
+  updateFreeword: (freeword: string) => void;
 }
 
 export interface UseSwipeReturn {

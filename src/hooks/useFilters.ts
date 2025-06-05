@@ -7,6 +7,7 @@ export function useFilters(): UseFiltersReturn {
     serving: '2人分',
     ingredients: [],
     categories: [],
+    freeword: '',
   });
 
   // 調理時間を更新
@@ -58,6 +59,12 @@ export function useFilters(): UseFiltersReturn {
       ingredients: newIngredients,
     }));
   };
+
+  // フリーワードを更新
+  const updateFreeword = (freeword: string) => {
+    setFilters((prev) => ({ ...prev, freeword }));
+  };
+
   return {
     filters,
     updateCookTime,
@@ -65,5 +72,6 @@ export function useFilters(): UseFiltersReturn {
     toggleCategory,
     addIngredient,
     removeIngredient,
+    updateFreeword,
   };
 }

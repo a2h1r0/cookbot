@@ -61,6 +61,10 @@ export function createRecipeSearchPrompt(filters: SearchFilters): string {
     conditions.push(`使用したい食材: ${filters.ingredients.join(', ')}`);
   }
 
+  if (filters.freeword.trim()) {
+    conditions.push(`検索キーワード: ${filters.freeword.trim()}`);
+  }
+
   if (generatedTitles.length > 0) {
     conditions.push(
       `※ 以下のレシピタイトルは既に提案済みのため、異なるレシピを提案してください: ${generatedTitles.join(', ')}`

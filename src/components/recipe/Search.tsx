@@ -3,6 +3,7 @@
 import IngredientsFilter from './IngredientsFilter';
 import BasicFilter from './BasicFilter';
 import { CategoryFilter } from './CategoryFilter';
+import FreewordFilter from './FreewordFilter';
 import { UseFiltersReturn } from '@/types';
 
 type SearchProps = UseFiltersReturn & {
@@ -18,6 +19,7 @@ export default function Search({
   addIngredient,
   removeIngredient,
   toggleCategory,
+  updateFreeword,
   onSearch,
   isLoading = false,
   isOffline = false,
@@ -30,8 +32,6 @@ export default function Search({
             filters={filters}
             updateCookTime={updateCookTime}
             updateServing={updateServing}
-            addIngredient={addIngredient}
-            removeIngredient={removeIngredient}
           />
           <div className="-mx-3 border-t border-gray-300"></div>
           <CategoryFilter
@@ -44,6 +44,8 @@ export default function Search({
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
           />
+          <div className="-mx-3 border-t border-gray-300"></div>
+          <FreewordFilter filters={filters} updateFreeword={updateFreeword} />
         </div>
       </div>
 
