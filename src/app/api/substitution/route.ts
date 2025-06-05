@@ -76,11 +76,14 @@ export async function POST(request: NextRequest) {
       const message = error.message.toLowerCase();
 
       if (message.includes('quota') || message.includes('limit')) {
-        errorMessage = 'API使用制限に達しました。しばらくしてからもう一度お試しください。';
+        errorMessage =
+          'API使用制限に達しました。しばらくしてからもう一度お試しください。';
         statusCode = 429;
 
         try {
-          const defaultIngredients = requestData.ingredients || ['一般的な材料'];
+          const defaultIngredients = requestData.ingredients || [
+            '一般的な材料',
+          ];
           const mockResponse = createMockSubstitutionResponse(
             defaultIngredients,
             requestData.prompt || 'デフォルトプロンプト',
@@ -88,13 +91,20 @@ export async function POST(request: NextRequest) {
             temperature
           );
           return NextResponse.json(mockResponse);
-        } catch (mockError) {
+        } catch (_mockError) {
           // モック生成に失敗した場合はエラーを返す
         }
-      } else if (message.includes('network') || message.includes('connection')) {
-        errorMessage = 'ネットワークエラーが発生しました。接続を確認してもう一度お試しください。';
+      } else if (
+        message.includes('network') ||
+        message.includes('connection')
+      ) {
+        errorMessage =
+          'ネットワークエラーが発生しました。接続を確認してもう一度お試しください。';
         statusCode = 503;
-      } else if (message.includes('unauthorized') || message.includes('api key')) {
+      } else if (
+        message.includes('unauthorized') ||
+        message.includes('api key')
+      ) {
         errorMessage = 'API認証エラーです。設定を確認してください。';
         statusCode = 401;
       } else {

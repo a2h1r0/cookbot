@@ -80,22 +80,15 @@ export default function PWAInstallPrompt() {
       return;
     }
 
-    try {
-      await deferredPrompt.prompt();
-      const choiceResult = await deferredPrompt.userChoice;
+    await deferredPrompt.prompt();
+    const choiceResult = await deferredPrompt.userChoice;
 
-      if (choiceResult.outcome === 'accepted') {
-        console.log('PWA installation accepted');
-      } else {
-        console.log('PWA installation dismissed');
-        localStorage.setItem('pwa-install-prompt-dismissed', 'true');
-      }
-
-      setDeferredPrompt(null);
-      setShowInstallBanner(false);
-    } catch (error) {
-      console.error('Error during PWA installation:', error);
+    if (choiceResult.outcome === 'dismissed') {
+      localStorage.setItem('pwa-install-prompt-dismissed', 'true');
     }
+
+    setDeferredPrompt(null);
+    setShowInstallBanner(false);
   };
 
   const handleDismiss = () => {

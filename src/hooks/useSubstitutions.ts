@@ -42,12 +42,9 @@ export function useSubstitutions() {
           const parsedSubstitutions = parseSubstitutionsFromResponse(
             response.text
           );
-          const validSubstitutions = parsedSubstitutions.filter(
-            (s: Substitution | null): s is Substitution => s !== null
-          );
 
           setSubstitutions(parsedSubstitutions);
-        } catch (parseError) {
+        } catch (_parseError) {
           throw new Error('代用提案データの解析に失敗しました');
         }
       } catch (err) {
