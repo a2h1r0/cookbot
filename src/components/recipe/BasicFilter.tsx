@@ -7,12 +7,15 @@ import { UseFiltersReturn } from '@/types';
 type BasicFilterProps = Omit<
   UseFiltersReturn,
   'toggleCategory' | 'updateFreeword' | 'addIngredient' | 'removeIngredient'
->;
+> & {
+  isLoading?: boolean;
+};
 
 export default function BasicFilter({
   filters,
   updateCookTime,
   updateServing,
+  isLoading = false,
 }: BasicFilterProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const cookTimes = [
@@ -34,7 +37,8 @@ export default function BasicFilter({
     <div>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2"
+        disabled={isLoading}
+        className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <div className="flex items-center space-x-2">
           <Clock className="w-4 h-4 text-orange-500" />
@@ -78,7 +82,8 @@ export default function BasicFilter({
                   <button
                     key={time}
                     onClick={() => updateCookTime(time)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+                    disabled={isLoading}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
                       filters.cookTime === time
                         ? 'bg-orange-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-orange-100 hover:text-orange-700'
@@ -104,7 +109,8 @@ export default function BasicFilter({
                   <button
                     key={serving}
                     onClick={() => updateServing(serving)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+                    disabled={isLoading}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
                       filters.serving === serving
                         ? 'bg-purple-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-700 hover:bg-purple-100 hover:text-purple-700'

@@ -7,6 +7,7 @@ import { Category } from '@/types';
 interface CategoryFilterProps {
   selectedCategories: Category[];
   onToggleCategory: (category: Category) => void;
+  isLoading?: boolean;
 }
 
 const categoryLabels: Record<Category, string> = {
@@ -30,6 +31,7 @@ const categoryLabels: Record<Category, string> = {
 export function CategoryFilter({
   selectedCategories,
   onToggleCategory,
+  isLoading = false,
 }: CategoryFilterProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const categories = Object.values(Category);
@@ -43,7 +45,8 @@ export function CategoryFilter({
     <div>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2"
+        disabled={isLoading}
+        className="w-full flex items-center justify-between py-2 hover:bg-white/30 transition-all duration-200 rounded-lg px-2 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <div className="flex items-center space-x-2">
           <Tag className="w-4 h-4 text-blue-500" />
@@ -85,7 +88,8 @@ export function CategoryFilter({
                 <button
                   key={category}
                   onClick={() => onToggleCategory(category)}
-                  className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
+                  disabled={isLoading}
+                  className={`px-3 py-1.5 text-sm rounded-full border transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                     isSelected
                       ? 'bg-blue-100 border-blue-300 text-blue-700'
                       : 'bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200'

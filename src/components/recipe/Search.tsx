@@ -32,20 +32,27 @@ export default function Search({
             filters={filters}
             updateCookTime={updateCookTime}
             updateServing={updateServing}
+            isLoading={isLoading}
           />
           <div className="-mx-3 border-t border-gray-300"></div>
           <CategoryFilter
             selectedCategories={filters.categories}
             onToggleCategory={toggleCategory}
+            isLoading={isLoading}
           />
           <div className="-mx-3 border-t border-gray-300"></div>
           <IngredientsFilter
             filters={filters}
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
+            isLoading={isLoading}
           />
           <div className="-mx-3 border-t border-gray-300"></div>
-          <FreewordFilter filters={filters} updateFreeword={updateFreeword} />
+          <FreewordFilter
+            filters={filters}
+            updateFreeword={updateFreeword}
+            isLoading={isLoading}
+          />
         </div>
       </div>
 
