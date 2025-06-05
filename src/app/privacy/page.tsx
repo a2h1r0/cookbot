@@ -15,6 +15,21 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     siteName: 'CookBot',
     url: 'https://cookbot.jp/privacy',
+    images: [
+      {
+        url: '/images/thumbnail.png',
+        width: 1200,
+        height: 630,
+        alt: 'CookBot - プライバシーポリシー',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CookBot - プライバシーポリシー',
+    description: 'CookBotサービスのプライバシーポリシーをご確認ください。',
+    creator: '@_a2h1r0',
+    images: ['/images/thumbnail.png'],
   },
   alternates: {
     canonical: 'https://cookbot.jp/privacy',

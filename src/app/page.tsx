@@ -18,12 +18,22 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     siteName: 'CookBot',
     url: 'https://cookbot.jp',
+    images: [
+      {
+        url: '/images/thumbnail.png',
+        width: 1200,
+        height: 630,
+        alt: 'CookBot - AIが作るあなただけのレシピ提案',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'CookBot - AIが作るあなただけのレシピ提案',
     description:
       'AIが調理時間、人数、食材から最適なレシピを提案。スワイプ操作で簡単にレシピを選択できる新しい料理体験をお楽しみください。',
+    creator: '@_a2h1r0',
+    images: ['/images/thumbnail.png'],
   },
   alternates: {
     canonical: 'https://cookbot.jp',
