@@ -32,11 +32,11 @@ export default function FreewordFilter({
         <div className="flex items-center space-x-2">
           <Search className="w-4 h-4 text-blue-500" />
           <span className="font-medium text-gray-800 text-sm">
-            フリーワード検索（任意）
+            フリーワード
           </span>
           {filters.freeword && (
             <div className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full font-medium">
-              検索中
+              {filters.freeword}
             </div>
           )}
         </div>
@@ -69,23 +69,6 @@ export default function FreewordFilter({
                 )}
               </div>
             </div>
-
-            {filters.freeword && (
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1 bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">
-                    <Search className="w-3 h-3" />
-                    <span>{filters.freeword}</span>
-                    <button
-                      onClick={handleClearFreeword}
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       )}
