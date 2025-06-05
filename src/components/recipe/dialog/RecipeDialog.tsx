@@ -18,11 +18,11 @@ export default function RecipeDialog({
   isOpen,
   onClose,
 }: RecipeDialogProps) {
-  if (!isOpen || !recipe) return null;
+  if (!isOpen || !recipe) {
+    return null;
+  }
   return (
     <div className="fixed inset-0 bg-white z-50 flex flex-col">
-      {' '}
-      {/* ヘッダー */}{' '}
       <div className="bg-[#316d27] p-4 flex items-center justify-between shadow-sm">
         <h2 className="text-lg font-semibold text-white">レシピ詳細</h2>
         <button
@@ -31,8 +31,7 @@ export default function RecipeDialog({
         >
           <X className="w-6 h-6 text-white" />
         </button>
-      </div>{' '}
-      {/* コンテンツ */}
+      </div>
       <div className="flex-1 overflow-y-auto">
         <RecipeImage recipe={recipe} variant="full" />
         <div className="p-4">

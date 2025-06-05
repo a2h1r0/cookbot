@@ -17,15 +17,10 @@ export default function SwipeStack({
   onSearch,
 }: SwipeStackProps) {
   if (currentIndex >= recipes.length) {
-    return (
-      <div className="h-96 flex items-center justify-center">
-        <SwipeCompletion onSearch={onSearch} />
-      </div>
-    );
+    return <SwipeCompletion onSearch={onSearch} />;
   }
   return (
     <div className="relative h-96 w-full max-w-sm mx-auto">
-      {/* カードスタック */}{' '}
       {recipes.slice(currentIndex).map((recipe, index) => {
         const isTop = index === 0;
 
@@ -40,7 +35,6 @@ export default function SwipeStack({
               zIndex: recipes.slice(currentIndex).length - index,
             }}
           >
-            {' '}
             {isTop ? (
               <SwipeCard recipe={recipe} onSwipe={swipe} isTop={true} />
             ) : (

@@ -6,11 +6,25 @@ export enum Category {
   DESSERT = 'dessert',
   PIZZA = 'pizza',
   BEVERAGE = 'beverage',
-  OTHER = 'other',
+  JAPANESE = 'japanese',
+  ITALIAN = 'italian',
+  CHINESE = 'chinese',
+  KOREAN = 'korean',
+  THAI = 'thai',
+  INDIAN = 'indian',
+  FRENCH = 'french',
+  AMERICAN = 'american',
 }
 
 export interface Ingredient {
   name: string;
+  amount: string;
+  substitution?: Substitution | null;
+  loading?: boolean;
+}
+
+export interface Substitution {
+  substitute: string;
   amount: string;
 }
 
@@ -29,6 +43,8 @@ export interface SearchFilters {
   cookTime: string;
   serving: string;
   ingredients: string[];
+  categories: Category[];
+  freeword: string;
 }
 
 export interface UseFiltersReturn {
@@ -37,6 +53,8 @@ export interface UseFiltersReturn {
   updateServing: (serving: string) => void;
   addIngredient: (ingredient: string) => void;
   removeIngredient: (ingredient: string) => void;
+  toggleCategory: (category: Category) => void;
+  updateFreeword: (freeword: string) => void;
 }
 
 export interface UseSwipeReturn {
@@ -65,6 +83,8 @@ export interface GeminiResponse {
 export interface UseGeminiReturn {
   loading: boolean;
   error: string | null;
-  generate: (request: GeminiRequest) => Promise<GeminiResponse | null>;
-  lastResponse: GeminiResponse | null;
+  generateRecipe: (request: GeminiRequest) => Promise<GeminiResponse | null>;
+  generateSubstitution: (
+    request: GeminiRequest & { ingredients: string[] }
+  ) => Promise<GeminiResponse | null>;
 }

@@ -1,23 +1,82 @@
 import { Recipe, SearchFilters, Category } from '@/types';
 
 /**
+ * セッション内で生成されたレシピタイトルを管理するクラス
+ * 重複回避のために使用
+ */
+class GeneratedRecipeManager {
+  private static instance: GeneratedRecipeManager;
+  private generatedTitles: string[] = [];
+  private readonly maxTitles = 50; // 最大保持件数
+
+  private constructor() {}
+
+  static getInstance(): GeneratedRecipeManager {
+    if (!GeneratedRecipeManager.instance) {
+      GeneratedRecipeManager.instance = new GeneratedRecipeManager();
+    }
+    return GeneratedRecipeManager.instance;
+  }
+
+  /**
+   * 新しく生成されたレシピタイトルを追加
+   */
+  addTitles(titles: string[]): void {
+    this.generatedTitles.push(...titles);
+
+    // 最大件数を超えた場合、古いものから削除
+    if (this.generatedTitles.length > this.maxTitles) {
+      this.generatedTitles = this.generatedTitles.slice(-this.maxTitles);
+    }
+  }
+
+  /**
+   * 現在保持している生成済みタイトル一覧を取得
+   */
+  getGeneratedTitles(): string[] {
+    return [...this.generatedTitles];
+  }
+}
+
+/**
  * レシピ検索用のプロンプトを生成する
  */
 export function createRecipeSearchPrompt(filters: SearchFilters): string {
+  const titleManager = GeneratedRecipeManager.getInstance();
+  const generatedTitles = titleManager.getGeneratedTitles();
+
   const conditions = [
     `調理時間: ${filters.cookTime}`,
-    `人数: ${filters.serving}人分`,
+    `人数: ${filters.serving}`,
   ];
+
+  if (
+    filters.categories.length > 0 &&
+    filters.categories.length !== Object.values(Category).length
+  ) {
+    conditions.push(`対象カテゴリ: ${filters.categories.join(', ')}`);
+  }
 
   if (filters.ingredients.length > 0) {
     conditions.push(`使用したい食材: ${filters.ingredients.join(', ')}`);
   }
+
+  if (filters.freeword.trim()) {
+    conditions.push(`検索キーワード: ${filters.freeword.trim()}`);
+  }
+
+  if (generatedTitles.length > 0) {
+    conditions.push(
+      `※ 以下のレシピタイトルは既に提案済みのため、異なるレシピを提案してください: ${generatedTitles.join(', ')}`
+    );
+  }
+
   const recipeTemplate: Partial<Recipe> = {
     title: 'レシピ名',
     description: 'レシピの説明',
     cookTime: '30分',
     servings: 2,
-    category: Category.OTHER,
+    category: Category.JAPANESE,
     ingredients: [{ name: '材料名', amount: '分量' }],
     steps: ['手順1', '手順2', '手順3'],
   };
@@ -53,9 +112,19 @@ export function parseRecipesFromResponse(responseText: string): Recipe[] {
 
   const recipesData = JSON.parse(jsonMatch[0]);
   const recipes = recipesData.recipes || [];
+
   // 生成されたレシピにユニークなIDを追加
-  return recipes.map((recipe: Recipe, index: number) => ({
+  const processedRecipes = recipes.map((recipe: Recipe, index: number) => ({
     ...recipe,
     id: recipe.id || `generated-${Date.now()}-${index}`,
   }));
+
+  // 新しく生成されたレシピタイトルを管理クラスに追加
+  const titleManager = GeneratedRecipeManager.getInstance();
+  const newTitles = processedRecipes
+    .map((recipe: Recipe) => recipe.title)
+    .filter(Boolean);
+  titleManager.addTitles(newTitles);
+
+  return processedRecipes;
 }

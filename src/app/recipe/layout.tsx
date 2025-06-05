@@ -3,6 +3,7 @@ import { Metadata, Viewport } from 'next';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  themeColor: '#8fdeb1',
 };
 
 export const metadata: Metadata = {
@@ -18,12 +19,22 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     siteName: 'CookBot',
     url: 'https://cookbot.jp/recipe',
+    images: [
+      {
+        url: '/images/thumbnail.png',
+        width: 1200,
+        height: 630,
+        alt: 'CookBot - レシピ検索',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'CookBot - レシピ検索',
     description:
       'AIが提案するレシピをスワイプで選択。調理時間、人数、食材を指定してあなたにぴったりのレシピを見つけましょう。',
+    creator: '@_a2h1r0',
+    images: ['/images/thumbnail.png'],
   },
   alternates: {
     canonical: 'https://cookbot.jp/recipe',

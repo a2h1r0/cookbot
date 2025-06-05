@@ -2,11 +2,14 @@
 
 import IngredientsFilter from './IngredientsFilter';
 import BasicFilter from './BasicFilter';
+import { CategoryFilter } from './CategoryFilter';
+import FreewordFilter from './FreewordFilter';
 import { UseFiltersReturn } from '@/types';
 
 type SearchProps = UseFiltersReturn & {
   onSearch: () => void;
   isLoading?: boolean;
+  isOffline?: boolean;
 };
 
 export default function Search({
@@ -15,47 +18,59 @@ export default function Search({
   updateServing,
   addIngredient,
   removeIngredient,
+  toggleCategory,
+  updateFreeword,
   onSearch,
   isLoading = false,
+  isOffline = false,
 }: SearchProps) {
   return (
     <div>
       <div className="p-3 border-y border-gray-300 mb-4">
         <div className="space-y-3">
-          {/* 基本フィルター（調理時間・人数） */}
           <BasicFilter
             filters={filters}
             updateCookTime={updateCookTime}
             updateServing={updateServing}
-            addIngredient={addIngredient}
-            removeIngredient={removeIngredient}
+            isLoading={isLoading}
           />
-
-          {/* 区切り線 */}
           <div className="-mx-3 border-t border-gray-300"></div>
-
-          {/* 食材フィルター */}
+          <CategoryFilter
+            selectedCategories={filters.categories}
+            onToggleCategory={toggleCategory}
+            isLoading={isLoading}
+          />
+          <div className="-mx-3 border-t border-gray-300"></div>
           <IngredientsFilter
             filters={filters}
-            updateCookTime={updateCookTime}
-            updateServing={updateServing}
             addIngredient={addIngredient}
             removeIngredient={removeIngredient}
+            isLoading={isLoading}
+          />
+          <div className="-mx-3 border-t border-gray-300"></div>
+          <FreewordFilter
+            filters={filters}
+            updateFreeword={updateFreeword}
+            isLoading={isLoading}
           />
         </div>
       </div>
 
-      {/* 検索ボタン */}
       <div className="pb-4">
         <button
           onClick={onSearch}
-          disabled={isLoading}
+          disabled={isLoading || isOffline}
           className="w-full bg-[#5fbd84] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
         >
           {isLoading ? (
             <>
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               <span>検索中...</span>
+            </>
+          ) : isOffline ? (
+            <>
+              <span>📶</span>
+              <span>オフライン - 検索できません</span>
             </>
           ) : (
             <>

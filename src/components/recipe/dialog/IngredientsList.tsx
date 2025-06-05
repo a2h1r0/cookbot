@@ -1,24 +1,238 @@
-import { Recipe } from '@/types';
+import { Ingredient, Recipe } from '@/types';
+import { RefreshCw, ArrowRight, CheckCircle2, XCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useSubstitutions } from '@/hooks/useSubstitutions';
 
 interface IngredientsListProps {
   recipe: Recipe;
 }
 
 export default function IngredientsList({ recipe }: IngredientsListProps) {
+  const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [lastSearchedIngredients, setLastSearchedIngredients] = useState<
+    string[]
+  >([]);
+  const { substitutions, loading, error, searchSubstitutions } =
+    useSubstitutions();
+  // 初期化時と recipe が変わったときに ingredients を設定
+  useEffect(() => {
+    setIngredients(
+      recipe.ingredients.map((ingredient) => ({
+        name: ingredient.name,
+        amount: ingredient.amount,
+      }))
+    );
+  }, [recipe.ingredients]); // 代用品提案が更新されたときに ingredients を更新
+  useEffect(() => {
+    if (substitutions.length > 0) {
+      setIngredients((prevIngredients) =>
+        prevIngredients.map((ingredient) => {
+          // 検索した材料のインデックスに対応する代用品を取得
+          const searchedIndex = lastSearchedIngredients.indexOf(
+            ingredient.name
+          );
+
+          if (searchedIndex >= 0) {
+            // 検索対象の材料の場合、結果に基づいて設定
+            const substitution = substitutions[searchedIndex];
+            return {
+              ...ingredient,
+              substitution: substitution,
+              loading: false,
+            };
+          } else {
+            // 検索対象でない材料は既存の状態を維持
+            return {
+              ...ingredient,
+              loading: false,
+            };
+          }
+        })
+      );
+    }
+  }, [substitutions, lastSearchedIngredients]);
+  const handleIngredientSelect = (index: number) => {
+    const ingredient = ingredients[index];
+    // 代用品が見つからなかった材料は選択できない
+    if (ingredient.substitution === null) {
+      return;
+    }
+
+    setSelectedIngredients((prev) => {
+      if (prev.includes(index)) {
+        return prev.filter((i) => i !== index);
+      } else {
+        return [...prev, index];
+      }
+    });
+  };
+
+  const handleUpdate = async () => {
+    if (selectedIngredients.length === 0) {
+      return;
+    }
+    const selectedIngredientNames = selectedIngredients.map(
+      (index) => ingredients[index].name
+    );
+
+    // 検索対象の材料を保存
+    setLastSearchedIngredients(selectedIngredientNames); // 選択された材料をローディング状態に設定
+    setIngredients((prevIngredients) =>
+      prevIngredients.map((ingredient, index) => ({
+        ...ingredient,
+        loading: selectedIngredients.includes(index),
+      }))
+    );
+
+    try {
+      await searchSubstitutions(selectedIngredientNames);
+      // 更新後は選択をリセット
+      setSelectedIngredients([]);
+    } catch {
+      setIngredients((prevIngredients) =>
+        prevIngredients.map((ingredient) => ({
+          ...ingredient,
+          loading: false,
+        }))
+      );
+    }
+  };
+
   return (
     <div className="mb-6">
-      <h3 className="text-lg font-bold text-gray-800 mb-3">材料</h3>
-      <div className="space-y-2">
-        {recipe.ingredients.map((ingredient, index) => (
+      {' '}
+      <div className="mb-3">
+        <h3 className="text-lg font-bold text-gray-800">材料</h3>
+        <p className="text-xs text-gray-500 mt-1">
+          調味料などを代用したい場合には材料をチェックして下部の更新ボタンを押してください。
+        </p>
+      </div>{' '}
+      <div className="space-y-2 mb-4">
+        {ingredients.map((ingredient, index) => (
           <div
             key={index}
-            className="flex justify-between items-center py-2 border-b border-gray-100"
+            className={`border border-gray-200 rounded-lg transition-all ${
+              ingredient.substitution && ingredient.substitution !== null
+                ? 'bg-green-50 border-green-200 shadow-sm'
+                : ingredient.substitution === null
+                  ? 'bg-red-50 border-red-200 shadow-sm'
+                  : selectedIngredients.includes(index)
+                    ? 'bg-orange-50 border-orange-200 shadow-sm'
+                    : 'bg-white hover:border-gray-300'
+            }`}
           >
-            <span className="text-gray-700">{ingredient.name}</span>
-            <span className="text-gray-600">{ingredient.amount}</span>
+            <div
+              className={`flex justify-between items-center py-3 px-2 cursor-pointer hover:bg-gray-50 ${
+                ingredient.substitution && ingredient.substitution !== null
+                  ? 'border-b border-green-200'
+                  : ingredient.substitution === null
+                    ? 'border-b border-red-200'
+                    : ''
+              }`}
+              onClick={() => handleIngredientSelect(index)}
+            >
+              <div className="flex items-center space-x-3 flex-1">
+                <div className="relative flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedIngredients.includes(index)}
+                    onClick={() => handleIngredientSelect(index)}
+                    onChange={() => handleIngredientSelect(index)}
+                    disabled={ingredient.substitution === null}
+                    className={`w-4 h-4 text-orange-500 bg-white border-2 border-gray-300 rounded focus:ring-orange-500 focus:ring-2 ${
+                      ingredient.substitution === null
+                        ? 'cursor-not-allowed opacity-50'
+                        : 'cursor-pointer'
+                    }`}
+                  />
+                  {selectedIngredients.includes(index) && (
+                    <RefreshCw className="w-3 h-3 text-orange-600 absolute -top-1 -right-1 bg-white rounded-full" />
+                  )}
+                </div>{' '}
+                {ingredient.substitution &&
+                  ingredient.substitution !== null && (
+                    <CheckCircle2 className="w-4 h-4 text-green-600" />
+                  )}
+                {ingredient.substitution === null && (
+                  <XCircle className="w-4 h-4 text-red-500" />
+                )}{' '}
+                {ingredient.loading ? (
+                  <div className="flex items-center space-x-2">
+                    <RefreshCw className="w-4 h-4 text-blue-500 animate-spin" />
+                    <span className="text-gray-600">代用品を検索中...</span>
+                  </div>
+                ) : (
+                  <span
+                    className={`transition-colors ${
+                      selectedIngredients.includes(index)
+                        ? 'text-orange-800 font-medium'
+                        : ingredient.substitution
+                          ? 'text-gray-600'
+                          : 'text-gray-700'
+                    }`}
+                  >
+                    {ingredient.name}
+                  </span>
+                )}
+              </div>{' '}
+              {!ingredient.loading && (
+                <span
+                  className={`font-medium ${
+                    ingredient.substitution ? 'text-gray-400' : 'text-gray-600'
+                  }`}
+                >
+                  {ingredient.amount}
+                </span>
+              )}
+            </div>
+            {ingredient.substitution && ingredient.substitution !== null && (
+              <div className="px-2 pb-3">
+                <div className="flex items-center space-x-2 my-2">
+                  <ArrowRight className="w-4 h-4 text-green-600" />
+                  <span className="font-medium text-green-800">
+                    {ingredient.substitution.substitute}
+                  </span>
+                  <span className="text-sm text-gray-600">
+                    (<strong>分量:</strong> {ingredient.substitution.amount})
+                  </span>
+                </div>
+              </div>
+            )}
+            {ingredient.substitution === null && (
+              <div className="px-2 pb-3">
+                <div className="flex items-center space-x-2 my-2">
+                  <ArrowRight className="w-4 h-4 text-red-500" />
+                  <span className="text-sm text-red-600">
+                    この材料の代用品は見つかりませんでした
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
+      {selectedIngredients.length > 0 && (
+        <div className="flex justify-center">
+          <button
+            onClick={handleUpdate}
+            disabled={loading}
+            className="flex items-center space-x-2 px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 disabled:bg-gray-400 disabled:cursor-not-allowed rounded-lg transition-colors font-medium shadow-md hover:shadow-lg"
+          >
+            <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
+            <span>
+              {loading
+                ? '代用品の提案を取得中...'
+                : `選択した${selectedIngredients.length}件の代用品を提案`}
+            </span>
+          </button>
+        </div>
+      )}
+      {error && (
+        <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-600 text-sm">{error}</p>
+        </div>
+      )}
     </div>
   );
 }

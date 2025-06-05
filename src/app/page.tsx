@@ -18,12 +18,22 @@ export const metadata: Metadata = {
     locale: 'ja_JP',
     siteName: 'CookBot',
     url: 'https://cookbot.jp',
+    images: [
+      {
+        url: '/images/thumbnail.png',
+        width: 1200,
+        height: 630,
+        alt: 'CookBot - AIが作るあなただけのレシピ提案',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'CookBot - AIが作るあなただけのレシピ提案',
     description:
       'AIが調理時間、人数、食材から最適なレシピを提案。スワイプ操作で簡単にレシピを選択できる新しい料理体験をお楽しみください。',
+    creator: '@_a2h1r0',
+    images: ['/images/thumbnail.png'],
   },
   alternates: {
     canonical: 'https://cookbot.jp',
@@ -33,14 +43,10 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
-      {/* ヒーローセクション */}
       <section className="px-6 py-12 text-center">
         <div className="max-w-4xl mx-auto">
-          {' '}
-          {/* ロゴ/アイコン */}
           <div className="mb-8 flex justify-center">
             <div className="flex items-center justify-center">
-              {' '}
               <Image
                 src="/images/icon.svg"
                 alt="CookBot"
@@ -50,20 +56,17 @@ export default function HomePage() {
               />
             </div>
           </div>
-          {/* メインヘッドライン */}
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             AIが作る
             <br />
             <span className="text-orange-500">あなただけの</span>
             <br />
             レシピ提案
-          </h1>{' '}
-          {/* サブヘッドライン */}
+          </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
             冷蔵庫の材料を教えるだけで、AIが美味しいレシピを瞬時に提案。
-            料理の悩みを解決し、毎日の食事を楽しくします。
+            調味料の代用提案機能で、手軽に料理の悩みを解決します。
           </p>
-          {/* 利用規約・プライバシーポリシーリンク */}
           <div className="mb-6 text-center">
             <p className="text-sm text-gray-500">
               ご利用前に
@@ -92,7 +95,6 @@ export default function HomePage() {
               今すぐレシピを作成（登録不要）
             </Link>
           </div>
-          {/* ヒーロー画像 */}
           <div className="relative mx-auto max-w-2xl">
             <div className="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100">
               <div className="bg-gray-50 rounded-lg p-4 mb-4">
@@ -100,7 +102,7 @@ export default function HomePage() {
                   🍅 トマト、🧅 玉ねぎ、🥚 卵があります
                 </p>
               </div>
-              <div className="bg-orange-50 rounded-lg p-4 border-l-4 border-orange-500">
+              <div className="bg-orange-50 rounded-lg p-4 border-l-4 border-orange-500 mb-3">
                 <p className="text-gray-800 text-left font-medium">
                   AI提案: 「トマトと玉ねぎの簡単オムレツ」
                 </p>
@@ -108,16 +110,19 @@ export default function HomePage() {
                   調理時間: 15分 | 2人分
                 </p>
               </div>
+              <div className="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
+                <p className="text-blue-800 text-left text-sm font-medium">
+                  💡 塩がない場合は醤油で代用できます
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 特徴セクション */}
       <section className="px-6 py-16 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
-            {/* 特徴1 */}
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
@@ -137,25 +142,24 @@ export default function HomePage() {
             </div>
 
             {/* 特徴2 */}
-            {/* <div className="text-center p-6">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg
-                className="w-8 h-8 text-green-500"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-              </svg>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-green-500"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 12h8v2H8zm0 4h8v2H8zm0-8h8v2H8zM6 4v16a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                調味料代用提案
+              </h3>
+              <p className="text-gray-600">
+                手元にない調味料も大丈夫。AIがワンタッチで代用できる調味料を提案し、柔軟な料理作りをサポートします。
+              </p>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              パーソナライズされた提案
-            </h3>
-            <p className="text-gray-600">
-              あなたの好み、アレルギー、食事制限を学習し、最適なレシピを提案。毎回新しい発見があります。
-            </p>
-          </div> */}
 
-            {/* 特徴3 */}
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
@@ -177,7 +181,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 使い方セクション */}
       <section className="px-6 py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
@@ -185,7 +188,6 @@ export default function HomePage() {
           </h2>
 
           <div className="space-y-8 md:space-y-12">
-            {/* ステップ1 */}
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 text-center md:text-left">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-500 text-white rounded-full font-bold text-xl mb-4">
@@ -195,7 +197,7 @@ export default function HomePage() {
                   材料を入力
                 </h3>
                 <p className="text-gray-600 text-lg">
-                  冷蔵庫にある材料や使いたい食材を簡単に入力。写真撮影でも材料を認識できます。
+                  冷蔵庫にある材料や使いたい食材を簡単に入力。調味料がなくても代用提案で安心です。
                 </p>
               </div>
               <div className="flex-1">
@@ -215,7 +217,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ステップ2 */}
             <div className="flex flex-col md:flex-row-reverse items-center gap-8">
               <div className="flex-1 text-center md:text-left">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-500 text-white rounded-full font-bold text-xl mb-4">
@@ -246,7 +247,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ステップ3 */}
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 text-center md:text-left">
                 <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-500 text-white rounded-full font-bold text-xl mb-4">
@@ -279,14 +279,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* フッター */}
       <footer className="px-6 py-12 bg-gray-900 text-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8">
-            {' '}
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                {' '}
                 <Image
                   src="/images/logo.svg"
                   alt="CookBot"

@@ -2,8 +2,50 @@
 
 import { useState } from 'react';
 import { Clock, Users } from 'lucide-react';
-import { Recipe } from '@/types';
-import RecipeImage, { getCategoryGradient } from './RecipeImage';
+import { Recipe, Category } from '@/types';
+import RecipeImage from './RecipeImage';
+
+/**
+ * カテゴリに対応するTailwind CSSグラデーションクラスを取得する
+ * @param category - レシピのカテゴリ
+ * @returns Tailwind CSSのグラデーションクラス文字列
+ */
+const getCategoryGradient = (category: Category): string => {
+  switch (category) {
+    case Category.FISH:
+      return 'from-blue-400 to-blue-600';
+    case Category.MEAT:
+      return 'from-red-400 to-red-600';
+    case Category.VEGETABLE:
+      return 'from-green-400 to-green-600';
+    case Category.SOUP:
+      return 'from-orange-400 to-orange-600';
+    case Category.DESSERT:
+      return 'from-pink-400 to-pink-600';
+    case Category.PIZZA:
+      return 'from-yellow-400 to-yellow-600';
+    case Category.BEVERAGE:
+      return 'from-amber-400 to-amber-600';
+    case Category.JAPANESE:
+      return 'from-red-500 to-pink-500';
+    case Category.ITALIAN:
+      return 'from-green-500 to-red-500';
+    case Category.CHINESE:
+      return 'from-yellow-500 to-red-600';
+    case Category.KOREAN:
+      return 'from-red-400 to-orange-500';
+    case Category.THAI:
+      return 'from-yellow-400 to-orange-500';
+    case Category.INDIAN:
+      return 'from-purple-400 to-orange-500';
+    case Category.FRENCH:
+      return 'from-indigo-400 to-purple-500';
+    case Category.AMERICAN:
+      return 'from-blue-500 to-red-500';
+    default:
+      return 'from-gray-400 to-gray-600';
+  }
+};
 
 interface SwipeCardProps {
   recipe: Recipe;
@@ -22,7 +64,9 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
 
     const deltaX = e.clientX - startPos.x;
     const deltaY = e.clientY - startPos.y;
@@ -30,7 +74,9 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   };
 
   const handleMouseUp = () => {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
 
     const threshold = 100;
     if (Math.abs(dragOffset.x) > threshold) {
@@ -49,7 +95,9 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
 
     const touch = e.touches[0];
     const deltaX = touch.clientX - startPos.x;
@@ -58,7 +106,9 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
   };
 
   const handleTouchEnd = () => {
-    if (!isDragging) return;
+    if (!isDragging) {
+      return;
+    }
 
     const threshold = 100;
     if (Math.abs(dragOffset.x) > threshold) {
@@ -94,22 +144,18 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {' '}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full max-w-sm mx-auto">
-          {/* レシピ画像（カテゴリアイコン） */}{' '}
           <div
             className={`h-64 bg-gradient-to-br ${getCategoryGradient(
               recipe.category
             )} relative overflow-hidden flex flex-col items-center justify-center text-white`}
           >
-            {/* 背景パターン */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-full"></div>
               <div className="absolute top-8 right-8 w-4 h-4 border-2 border-white rounded-full"></div>
               <div className="absolute bottom-8 left-8 w-6 h-6 border-2 border-white rounded-full"></div>
               <div className="absolute bottom-4 right-4 w-10 h-10 border-2 border-white rounded-full"></div>
-            </div>{' '}
-            {/* メインアイコン */}
+            </div>
             <div className="z-10 flex flex-col items-center">
               <RecipeImage recipe={recipe} size="md" variant="icon" />
               <h3 className="mt-3 text-lg font-bold text-center px-4 leading-tight">
@@ -127,14 +173,12 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
               </div>
             </div>
           </div>
-          {/* レシピ情報 */}
           <div className="p-6">
             <p className="text-gray-600 text-sm mb-4 line-clamp-3">
               {recipe.description}
             </p>
-          </div>{' '}
+          </div>
         </div>
-        {/* スワイプヒント */}
         {isDragging && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div
@@ -142,8 +186,8 @@ export default function SwipeCard({ recipe, onSwipe, isTop }: SwipeCardProps) {
                 dragOffset.x > 50
                   ? 'text-green-500 border-green-500 bg-green-50'
                   : dragOffset.x < -50
-                  ? 'text-red-500 border-red-500 bg-red-50'
-                  : 'text-gray-400 border-gray-400 bg-gray-50'
+                    ? 'text-red-500 border-red-500 bg-red-50'
+                    : 'text-gray-400 border-gray-400 bg-gray-50'
               }`}
             >
               {dragOffset.x > 50 ? 'LIKE' : dragOffset.x < -50 ? 'PASS' : ''}
