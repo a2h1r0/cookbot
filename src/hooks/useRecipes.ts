@@ -53,7 +53,7 @@ export function useRecipes() {
   );
   useEffect(() => {
     searchRecipes({
-      cookTime: '30分以内',
+      cookTime: '30分',
       serving: '2人分',
       categories: [],
       ingredients: [],

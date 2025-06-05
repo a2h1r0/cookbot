@@ -3,7 +3,7 @@ import { SearchFilters, UseFiltersReturn, Category } from '@/types';
 
 export function useFilters(): UseFiltersReturn {
   const [filters, setFilters] = useState<SearchFilters>({
-    cookTime: '30分以内',
+    cookTime: '30分',
     serving: '2人分',
     ingredients: [],
     categories: [],

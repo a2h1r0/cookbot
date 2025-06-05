@@ -18,14 +18,19 @@ export default function BasicFilter({
   isLoading = false,
 }: BasicFilterProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const cookTimes = [
-    '10分以内',
-    '20分以内',
-    '30分以内',
-    '1時間以内',
-    '1時間以上',
+  const cookTimes = ['15分', '30分', '45分', '1時間'];
+  const servings = [
+    '1人分',
+    '2人分',
+    '3人分',
+    '4人分',
+    '5人分',
+    '6人分',
+    '7人分',
+    '8人分',
+    '9人分',
+    '10人分',
   ];
-  const servings = ['1人分', '2人分', '3人分', '4人分以上'];
 
   // 選択中の項目を取得
   const selectedCookTime = filters.cookTime;
