@@ -85,13 +85,11 @@ export default function IngredientsList({ recipe }: IngredientsListProps) {
       }))
     );
 
-    console.log(`代用提案リクエスト開始:`, selectedIngredientNames);
     try {
       await searchSubstitutions(selectedIngredientNames);
       // 更新後は選択をリセット
       setSelectedIngredients([]);
-    } catch (error) {
-      console.error('代用提案の取得に失敗しました:', error); // エラー時はローディング状態をリセット
+    } catch {
       setIngredients((prevIngredients) =>
         prevIngredients.map((ingredient) => ({
           ...ingredient,
